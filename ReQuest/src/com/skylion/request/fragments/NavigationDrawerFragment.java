@@ -166,14 +166,14 @@ public class NavigationDrawerFragment extends Fragment {
 					return;
 				}
 
-//				if (!mUserLearnedDrawer) {
-//					// The user manually opened the drawer; store this flag to
-//					// prevent auto-showing
-//					// the navigation drawer automatically in the future.
-//					mUserLearnedDrawer = true;
-//					SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-//					sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).commit();
-//				}
+				if (!mUserLearnedDrawer) {
+					// The user manually opened the drawer; store this flag to
+					// prevent auto-showing
+					// the navigation drawer automatically in the future.
+					mUserLearnedDrawer = true;
+					SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+					sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).commit();
+				}
 
 				getActivity().supportInvalidateOptionsMenu(); // calls
 																// onPrepareOptionsMenu()
@@ -259,16 +259,9 @@ public class NavigationDrawerFragment extends Fragment {
 			return true;
 		}
 		switch (item.getItemId()) {
-		case R.id.action_example: {
-			Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
+		case R.id.action_request: {
+			Toast.makeText(getActivity(), "New request", Toast.LENGTH_SHORT).show();
 			return true;
-		}
-		default: {
-			if (mDrawerLayout.isDrawerOpen(mDrawerListView)) {
-				mDrawerLayout.closeDrawer(mDrawerListView);
-			} else {
-				mDrawerLayout.openDrawer(mDrawerListView);
-			}
 		}
 		}
 		return super.onOptionsItemSelected(item);

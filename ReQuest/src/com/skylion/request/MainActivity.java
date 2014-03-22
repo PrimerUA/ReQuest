@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.parse.ParseAnalytics;
 import com.skylion.request.fragments.NavigationDrawerFragment;
 import com.skylion.request.fragments.RespondsFragment;
 import com.skylion.request.fragments.VacancyFragment;
@@ -31,6 +32,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		ParseAnalytics.trackAppOpened(getIntent());
 
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 		mTitle = getTitle();

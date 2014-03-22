@@ -15,5 +15,7 @@
     <dimen name="d3p">3dp</dimen>
     <dimen name="d2p">2dp</dimen>
     <dimen name="d1p">1dp</dimen>
+    <dimen name="d10p">10dp</dimen>
+    <dimen name="d20p">20dp</dimen>
 
 </resources>

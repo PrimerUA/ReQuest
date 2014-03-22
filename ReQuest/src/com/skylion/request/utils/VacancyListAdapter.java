@@ -3,17 +3,19 @@ package com.skylion.request.utils;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.parse.FindCallback;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseRelation;
 import com.skylion.request.R;
 
 public class VacancyListAdapter extends BaseAdapter {
@@ -22,7 +24,7 @@ public class VacancyListAdapter extends BaseAdapter {
 
 	private List<ParseObject> requestList;
 
-	private LayoutInflater inflater = null;
+	private LayoutInflater inflater;
 
 	public VacancyListAdapter(Context context, List<ParseObject> requestList) {
 		this.requestList = requestList;
@@ -54,6 +56,8 @@ public class VacancyListAdapter extends BaseAdapter {
 		TextView title = (TextView) view.findViewById(R.id.vacancyItem_titleText);
 		TextView fund = (TextView) view.findViewById(R.id.vacancyItem_prizeText);
 		TextView company = (TextView) view.findViewById(R.id.vacancyItem_companyText);
+		TextView created = (TextView) view.findViewById(R.id.vacancyItem_createdText);
+		final ImageView image = (ImageView) view.findViewById(R.id.vacancyItem_imageView);
 		// TextView criteriaSize = (TextView)
 		// view.findViewById(R.id.CaseListItem_caseCriteriaSize);
 		// TextView expireDate = (TextView)
@@ -64,21 +68,36 @@ public class VacancyListAdapter extends BaseAdapter {
 		// LinearLayout mainLayout = (LinearLayout)
 		// view.findViewById(R.id.CaseListItem_mainLayout);
 
-		title.setText(request.getString("title"));
-		
-		ParseRelation<ParseObject> relation = request.getRelation("user");
-		ParseQuery<ParseObject> query = relation.getQuery();
-		query.findInBackground(new FindCallback<ParseObject>() {
-
-			@Override
-			public void done(List<ParseObject> authors, ParseException arg1) {
-				authorText.setText(authors.get(0).toString());
+		ParseFile applicantResume = (ParseFile) request.get("image");
+		applicantResume.getDataInBackground(new GetDataCallback() {
+			public void done(byte[] data, ParseException e) {
+				if (e == null) {
+					BitmapFactory.Options options = new BitmapFactory.Options();
+					options.inSampleSize = 1;
+					Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length, options);
+					image.setImageBitmap(bitmap);
+				} else {
+					image.setVisibility(View.GONE);
+				}
 			}
 		});
-		 
+
+		title.setText(request.getString("title"));
+		company.setText(request.getString("company"));
+		created.setText(request.getCreatedAt().toGMTString());
+
+		// ParseRelation<ParseObject> relation = request.getRelation("user");
+		// ParseQuery<ParseObject> query = relation.getQuery();
+		// query.findInBackground(new FindCallback<ParseObject>() {
+		//
+		// @Override
+		// public void done(List<ParseObject> authors, ParseException arg1) {
+		// authorText.setText(authors.get(0).toString());
+		// }
+		// });
+
 		// now execute the query
-		
-		
+
 		// expireDate.setText("[" +
 		// DateFormatter.getFormatDate(caseBean.getExpireDate()) + "]");
 		fund.setText("$" + request.getInt("reward"));

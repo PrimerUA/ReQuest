@@ -45,6 +45,7 @@ public class VacancyFragment extends Fragment {
 	    mTabHost.addTab(mTabHost.newTabSpec(getString(R.string.title_tabs_my)).setIndicator(getString(R.string.title_tabs_my)),
 	    		MyVacancyFragment.class, null);
 
+	    mTabHost.setCurrentTab(1);
 	    return mTabHost;
 	}
 
