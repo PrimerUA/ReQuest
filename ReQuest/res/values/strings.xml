@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">ReQuest</string>
-    <string name="title_section_requests">Vacancy Requests</string>
+    <string name="title_section_requests">Fill in the vacancy Requests</string>
     <string name="title_section_responds">My Responds</string>
     <string name="title_section_profile">My Profile</string>
     <string name="title_tabs_hot">Hot</string>
@@ -14,5 +14,18 @@
     <string name="action_settings">Settings</string>
     <string name="connection">Connecting</string>
     <string name="connection_requests">Loading requests...</string>
+    <string name="new_request">Vacancy name:</string>
+    <string name="description_text">Describe your company and the vacancy in detail:</string>
+    <string name="company_text">Enter the name of your company:</string>
+    <string name="post_request">Create request</string>
+    <string name="preview_request">Preview</string>
+    <string name="details_hint">Present your company and describe your ideal candidate</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="proceed_text">Next step</string>
+    <string name="request_first_step">Set up your request</string>
+    <string name="request_second_step">Complete your request</string>
+    <string name="back_text">Back</string>
+    <string name="reward_text">Enter reward for the candidate recommendation:</string>
+    <string name="logo_text">Add the logo of your company:</string>
 
 </resources>
