@@ -2,12 +2,12 @@
 <resources>
 
     <string name="app_name">ReQuest</string>
-    <string name="title_section_requests">Fill in the vacancy Requests</string>
+    <string name="title_section_requests">Requests</string>
     <string name="title_section_responds">My Responds</string>
     <string name="title_section_profile">My Profile</string>
     <string name="title_tabs_hot">Hot</string>
     <string name="title_tabs_general">General</string>
-    <string name="title_tabs_my">My</string>
+    <string name="title_tabs_my">Mine</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_request">New request</string>
