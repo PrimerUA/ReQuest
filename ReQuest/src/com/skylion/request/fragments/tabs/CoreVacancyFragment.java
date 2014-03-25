@@ -75,11 +75,11 @@ abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemCl
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		LinearLayout expandableLayout = (LinearLayout) view.findViewById(R.id.vacancyItem_expandableLayout);
 		if (expandableLayout.isShown()) {
-			ExpandableViewHelper.slideIntoDirection(view.getContext(), expandableLayout,R.anim.item_slide_up);
+			ExpandableViewHelper.slideIntoDirection(view.getContext(), expandableLayout, R.anim.item_slide_up);
 			expandableLayout.setVisibility(View.GONE);
 		} else {
 			expandableLayout.setVisibility(View.VISIBLE);
-			ExpandableViewHelper.slideIntoDirection(view.getContext(), expandableLayout,R.anim.item_slide_down);
+			ExpandableViewHelper.slideIntoDirection(view.getContext(), expandableLayout, R.anim.item_slide_down);
 		}
 	}
 }
