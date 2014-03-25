@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.skylion.request.R;
 
@@ -258,12 +257,12 @@ public class NavigationDrawerFragment extends Fragment {
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-		switch (item.getItemId()) {
-		case R.id.action_request: {
-			Toast.makeText(getActivity(), "New request", Toast.LENGTH_SHORT).show();
-			return true;
-		}
-		}
+//		switch (item.getItemId()) {
+//		case R.id.action_request: {
+//			Toast.makeText(getActivity(), "New request", Toast.LENGTH_SHORT).show();
+//			return true;
+//		}
+//		}
 		return super.onOptionsItemSelected(item);
 	}
 

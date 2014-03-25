@@ -25,7 +25,10 @@
     <string name="request_first_step">Set up your request</string>
     <string name="request_second_step">Complete your request</string>
     <string name="back_text">Back</string>
-    <string name="reward_text">Enter reward for the candidate recommendation:</string>
+    <string name="reward_text">Enter reward for the candidate recommendation (in USD):</string>
     <string name="logo_text">Add the logo of your company:</string>
+    <string name="recommend_text">Recommend</string>
+    <string name="buy_text">Buy out</string>
+    <string name="desc_item_text">Vacancy description:</string>
 
 </resources>

@@ -7,10 +7,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
@@ -18,7 +22,7 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.skylion.request.R;
 
-public class VacancyListAdapter extends BaseAdapter {
+public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 
 	private View view;
 
@@ -57,6 +61,7 @@ public class VacancyListAdapter extends BaseAdapter {
 		TextView fund = (TextView) view.findViewById(R.id.vacancyItem_prizeText);
 		TextView company = (TextView) view.findViewById(R.id.vacancyItem_companyText);
 		TextView created = (TextView) view.findViewById(R.id.vacancyItem_createdText);
+		TextView description= (TextView) view.findViewById(R.id.vacancyItem_desciptionText);
 		final ImageView image = (ImageView) view.findViewById(R.id.vacancyItem_imageView);
 		// TextView criteriaSize = (TextView)
 		// view.findViewById(R.id.CaseListItem_caseCriteriaSize);
@@ -81,11 +86,20 @@ public class VacancyListAdapter extends BaseAdapter {
 				}
 			}
 		});
-
+		
 		title.setText(request.getString("title"));
 		company.setText(request.getString("company"));
 		created.setText(request.getCreatedAt().toGMTString());
+		description.setText(request.getString("description"));
 
+		LinearLayout contentLayout = (LinearLayout) view.findViewById(R.id.vacancyItem_contentLayout);
+		contentLayout.setOnClickListener(this);
+		LinearLayout expandableLayout = (LinearLayout) view.findViewById(R.id.vacancyItem_expandableLayout);
+		expandableLayout.setVisibility(View.GONE);
+		Button buyButton = (Button) view.findViewById(R.id.vacancyItem_buyButton);
+		buyButton.setOnClickListener(this);
+		Button recommendButton = (Button) view.findViewById(R.id.vacancyItem_recommendButton);
+		recommendButton.setOnClickListener(this);
 		// ParseRelation<ParseObject> relation = request.getRelation("user");
 		// ParseQuery<ParseObject> query = relation.getQuery();
 		// query.findInBackground(new FindCallback<ParseObject>() {
@@ -107,4 +121,27 @@ public class VacancyListAdapter extends BaseAdapter {
 		return view;
 	}
 
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.vacancyItem_buyButton:
+			Toast.makeText(v.getContext(), "Buy answers!", Toast.LENGTH_SHORT).show();
+			break;
+		case R.id.vacancyItem_recommendButton:
+			Toast.makeText(v.getContext(), "Recommend friend!", Toast.LENGTH_SHORT).show();
+			break;
+		case R.id.vacancyItem_contentLayout:
+			LinearLayout expandableLayout = (LinearLayout) v.findViewById(R.id.vacancyItem_expandableLayout);
+			if (expandableLayout.isShown()) {
+				ExpandableViewHelper.slideIntoDirection(v.getContext(), expandableLayout,R.anim.item_slide_up);
+				expandableLayout.setVisibility(View.GONE);
+			} else {
+				expandableLayout.setVisibility(View.VISIBLE);
+				ExpandableViewHelper.slideIntoDirection(v.getContext(), expandableLayout,R.anim.item_slide_down);
+			}
+			break;
+		default:
+			break;
+		}
+	}
 }

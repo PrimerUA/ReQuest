@@ -17,13 +17,15 @@ public class SecondStepFragment extends Fragment {
 	
 	private View view;
 	
-	private EditText rewardEdit;
+	private EditText rewardEdit; //проверку на 0000 !!!
 	private Button backButton;
 	private Button createButton;
+	
+	private NewRequestHolder newRequestHolder;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.fragment_first_step, container, false);
+		view = inflater.inflate(R.layout.fragment_second_step, container, false);
 		
 		initScreen();
 		
@@ -31,16 +33,25 @@ public class SecondStepFragment extends Fragment {
 	}
 
 	private void initScreen() {
-		((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.request_second_step));
+		newRequestHolder = (NewRequestHolder) getActivity();
+		//((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.request_second_step));
 		rewardEdit = (EditText) view.findViewById(R.id.newRequest_rewardText);	
-		createButton = (Button) view.findViewById(R.id.newRequest_nextButton);
+		backButton = (Button) view.findViewById(R.id.newRequest_backButton);
+		createButton = (Button) view.findViewById(R.id.newRequest_createButton);
+		
+		backButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				newRequestHolder.showFragment(0, true);
+			}
+		});
 		
 		createButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				NewRequestHolder meetingStepsHolderScreen = (NewRequestHolder) getActivity();
-				meetingStepsHolderScreen.showFragment(1, true);
+				getActivity().finish();
 			}
 		});
 		
