@@ -133,8 +133,9 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		case R.id.vacancyItem_contentLayout:
 			LinearLayout expandableLayout = (LinearLayout) v.findViewById(R.id.vacancyItem_expandableLayout);
 			if (expandableLayout.isShown()) {
-				ExpandableViewHelper.slideIntoDirection(v.getContext(), expandableLayout,R.anim.item_slide_up);
 				expandableLayout.setVisibility(View.GONE);
+				ExpandableViewHelper.slideIntoDirection(v.getContext(), expandableLayout,R.anim.item_slide_up);
+				
 			} else {
 				expandableLayout.setVisibility(View.VISIBLE);
 				ExpandableViewHelper.slideIntoDirection(v.getContext(), expandableLayout,R.anim.item_slide_down);

@@ -73,7 +73,7 @@
             android:id="@+id/vacancyItem_expandableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/d2p"
+            android:layout_marginTop="@dimen/d20p"
             android:gravity="center"
             android:orientation="vertical" >
 
@@ -88,7 +88,7 @@
                 android:id="@+id/vacancyItem_desciptionText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/d1p"
+                android:layout_margin="@dimen/d5p"
                 android:text="- описание\n- описание\n- описание" />
 
             <LinearLayout
