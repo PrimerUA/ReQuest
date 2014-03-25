@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.parse.FindCallback;
@@ -18,6 +19,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.skylion.request.R;
+import com.skylion.request.utils.ExpandableViewHelper;
 import com.skylion.request.utils.RequestConstants;
 import com.skylion.request.utils.VacancyListAdapter;
 
@@ -62,7 +64,6 @@ abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemCl
 				}
 				myProgressDialog.dismiss();
 			}
-
 		});
 	}
 
@@ -72,6 +73,13 @@ abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemCl
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		// vacancy details screen
+		LinearLayout expandableLayout = (LinearLayout) view.findViewById(R.id.vacancyItem_expandableLayout);
+		if (expandableLayout.isShown()) {
+			ExpandableViewHelper.slideIntoDirection(view.getContext(), expandableLayout,R.anim.item_slide_up);
+			expandableLayout.setVisibility(View.GONE);
+		} else {
+			expandableLayout.setVisibility(View.VISIBLE);
+			ExpandableViewHelper.slideIntoDirection(view.getContext(), expandableLayout,R.anim.item_slide_down);
+		}
 	}
 }

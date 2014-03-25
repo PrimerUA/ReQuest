@@ -1,5 +1,6 @@
 package com.skylion.request;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import com.parse.ParseAnalytics;
 import com.skylion.request.fragments.NavigationDrawerFragment;
 import com.skylion.request.fragments.RespondsFragment;
 import com.skylion.request.fragments.VacancyFragment;
+import com.skylion.request.views.NewRequestHolder;
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -105,17 +107,9 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		switch (item.getItemId()) {
-		case R.id.action_settings:
-			return true;
+		case R.id.action_request:
+			startActivity(new Intent(this, NewRequestHolder.class));
 		}
-		// case R.id.home:
-		// if (mNavigationDrawerFragment.isDrawerOpen())) {
-		// mNavigationDrawerFragment.);
-		// } else {
-		// mDrawerLayout.openDrawer(mDrawerList);
-		// }
-		// break;
-		// }
 		return super.onOptionsItemSelected(item);
 	}
 

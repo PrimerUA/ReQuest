@@ -2,7 +2,6 @@ package com.skylion.request.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,7 +25,7 @@ public class FirstStepFragment extends Fragment {
 	private ImageView logoImageView;
 	private Button nextButton;
 	
-	private NewRequestHolder meetingStepsHolderScreen;
+	private NewRequestHolder newRequestHolder;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,9 +37,9 @@ public class FirstStepFragment extends Fragment {
 	}
 
 	private void initScreen() {
-		meetingStepsHolderScreen = (NewRequestHolder) getActivity();
+		newRequestHolder = (NewRequestHolder) getActivity();
 		
-		((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.request_first_step));
+		//((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.request_first_step));
 		
 		titleEdit = (EditText) view.findViewById(R.id.newRequest_rewardText);	
 		descEdit = (EditText) view.findViewById(R.id.newRequest_descriptionText);	
@@ -53,7 +52,7 @@ public class FirstStepFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				meetingStepsHolderScreen.showFragment(1, true);
+				newRequestHolder.showFragment(1, true);
 			}
 		});
 	}

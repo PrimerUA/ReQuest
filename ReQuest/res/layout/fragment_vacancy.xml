@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <android.widget.ListView
+    <ListView
         android:id="@+id/vacancyFragment_contentList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

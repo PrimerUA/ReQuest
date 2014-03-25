@@ -5,6 +5,7 @@
     android:layout_gravity="center" >
 
     <LinearLayout
+        android:id="@+id/vacancyItem_contentLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/d10p"
@@ -27,9 +28,14 @@
                 android:layout_margin="@dimen/d5p"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:shadowColor="#ffffff"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="3"
                 android:text="Svitla Systems Inc."
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#33b5e5"
+                android:textStyle="bold"
                 android:typeface="serif" />
 
             <TextView
@@ -42,7 +48,6 @@
                 android:text="$150"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/d30p" />
-
         </LinearLayout>
 
         <TextView
@@ -63,6 +68,50 @@
             android:layout_marginRight="@dimen/d1p"
             android:adjustViewBounds="true"
             android:src="@drawable/office_example" />
+
+        <LinearLayout
+            android:id="@+id/vacancyItem_expandableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d20p"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/desc_item_text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/vacancyItem_desciptionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/d5p"
+                android:text="- описание\n- описание\n- описание" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/vacancyItem_buyButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/buy_text" />
+
+                <Button
+                    android:id="@+id/vacancyItem_recommendButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/recommend_text" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
