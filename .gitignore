@@ -27,3 +27,7 @@ proguard/
 *.ipr
 *.iws
 .idea/
+
+#mine
+project.properties
+.settings
