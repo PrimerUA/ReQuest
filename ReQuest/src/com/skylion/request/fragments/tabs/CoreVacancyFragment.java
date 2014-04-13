@@ -21,7 +21,7 @@ import com.parse.ParseUser;
 import com.skylion.request.R;
 import com.skylion.request.utils.ExpandableViewHelper;
 import com.skylion.request.utils.RequestConstants;
-import com.skylion.request.utils.VacancyListAdapter;
+import com.skylion.request.utils.adapters.VacancyListAdapter;
 
 abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemClickListener {
 

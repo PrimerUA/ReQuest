@@ -1,14 +1,23 @@
-package com.skylion.request.utils;
+package com.skylion.request.utils.adapters;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
+
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.skylion.request.R;
+import com.skylion.request.utils.ExpandableViewHelper;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,21 +25,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.GetDataCallback;
-import com.parse.ParseException;
-import com.parse.ParseFile;
-import com.parse.ParseObject;
-import com.skylion.request.R;
-
-public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
-
+public class RequestListAdapter extends BaseAdapter implements OnClickListener {
 	private View view;
 
 	private List<ParseObject> requestList;
 
 	private LayoutInflater inflater;
 
-	public VacancyListAdapter(Context context, List<ParseObject> requestList) {
+	public RequestListAdapter(Context context, List<ParseObject> requestList) {
 		this.requestList = requestList;
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
@@ -61,13 +63,14 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		TextView fund = (TextView) view.findViewById(R.id.vacancyItem_prizeText);
 		TextView company = (TextView) view.findViewById(R.id.vacancyItem_companyText);
 		TextView created = (TextView) view.findViewById(R.id.vacancyItem_createdText);
-		TextView description= (TextView) view.findViewById(R.id.vacancyItem_desciptionText);
+		TextView description = (TextView) view.findViewById(R.id.vacancyItem_desciptionText);
 		final ImageView image = (ImageView) view.findViewById(R.id.vacancyItem_imageView);
 		// TextView criteriaSize = (TextView)
 		// view.findViewById(R.id.CaseListItem_caseCriteriaSize);
 		// TextView expireDate = (TextView)
 		// view.findViewById(R.id.CaseListItem_caseExpDate);
-		final TextView authorText = (TextView) view.findViewById(R.id.vacancyItem_authorText);
+		// final TextView authorText = (TextView)
+		// view.findViewById(R.id.vacancyItem_authorText);
 		// TextView rateText = (TextView)
 		// view.findViewById(R.id.CaseListItem_caseRate);
 		// LinearLayout mainLayout = (LinearLayout)
@@ -86,10 +89,14 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 				}
 			}
 		});
-		
+
 		title.setText(request.getString("title"));
 		company.setText(request.getString("company"));
-		created.setText(request.getCreatedAt().toGMTString());
+		
+		SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.US);
+		String asGmt = df.format(request.getCreatedAt().getTime()) + " GMT";
+		created.setText(asGmt);
+		
 		description.setText(request.getString("description"));
 
 		LinearLayout contentLayout = (LinearLayout) view.findViewById(R.id.vacancyItem_contentLayout);
@@ -134,15 +141,16 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 			LinearLayout expandableLayout = (LinearLayout) v.findViewById(R.id.vacancyItem_expandableLayout);
 			if (expandableLayout.isShown()) {
 				expandableLayout.setVisibility(View.GONE);
-				ExpandableViewHelper.slideIntoDirection(v.getContext(), expandableLayout,R.anim.item_slide_up);
-				
+				ExpandableViewHelper.slideIntoDirection(v.getContext(), expandableLayout, R.anim.item_slide_up);
+
 			} else {
 				expandableLayout.setVisibility(View.VISIBLE);
-				ExpandableViewHelper.slideIntoDirection(v.getContext(), expandableLayout,R.anim.item_slide_down);
+				ExpandableViewHelper.slideIntoDirection(v.getContext(), expandableLayout, R.anim.item_slide_down);
 			}
 			break;
 		default:
 			break;
 		}
 	}
+
 }

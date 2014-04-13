@@ -19,7 +19,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.skylion.request.R;
-import com.skylion.request.utils.RequestListAdapter;
+import com.skylion.request.utils.adapters.RequestListAdapter;
 
 public class RespondsFragment extends Fragment implements ListView.OnItemClickListener {
 
@@ -69,19 +69,22 @@ public class RespondsFragment extends Fragment implements ListView.OnItemClickLi
 		final ProgressDialog myProgressDialog = ProgressDialog.show(getActivity(), getString(R.string.connection),
 				getString(R.string.connection_requests), true);
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");
-		query.whereEqualTo("user", ParseUser.getCurrentUser());
-
+		// TODO: user query.whereEqualTo("user", ParseUser.getCurrentUser());
+		final List<ParseObject> res;
 		query.findInBackground(new FindCallback<ParseObject>() {
-
+			
 			@Override
 			public void done(List<ParseObject> list, ParseException e) {
 				if (e == null) {
-					contentList.setAdapter(new RequestListAdapter(getActivity(), list));
+//					res = list;
 				} else {
+//					res = null;
 					Log.d("requests", "Error: " + e.getMessage());
 				}
 				myProgressDialog.dismiss();
 			}
 		});
+		
+//		contentList.setAdapter(new RequestListAdapter(getActivity(), res));
 	}
 }
