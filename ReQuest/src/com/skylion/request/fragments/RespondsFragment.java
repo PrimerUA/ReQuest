@@ -17,9 +17,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 import com.skylion.request.R;
-import com.skylion.request.utils.adapters.RequestListAdapter;
 
 public class RespondsFragment extends Fragment implements ListView.OnItemClickListener {
 

@@ -1,6 +1,8 @@
 package com.skylion.request.utils.adapters;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -63,34 +65,28 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		TextView company = (TextView) view.findViewById(R.id.vacancyItem_companyText);
 		TextView created = (TextView) view.findViewById(R.id.vacancyItem_createdText);
 		TextView description= (TextView) view.findViewById(R.id.vacancyItem_desciptionText);
-		final ImageView image = (ImageView) view.findViewById(R.id.vacancyItem_imageView);
+		ImageView image = (ImageView) view.findViewById(R.id.vacancyItem_imageView);
 		// TextView criteriaSize = (TextView)
 		// view.findViewById(R.id.CaseListItem_caseCriteriaSize);
 		// TextView expireDate = (TextView)
 		// view.findViewById(R.id.CaseListItem_caseExpDate);
-		final TextView authorText = (TextView) view.findViewById(R.id.vacancyItem_authorText);
+		// final TextView authorText = (TextView) view.findViewById(R.id.vacancyItem_authorText);
 		// TextView rateText = (TextView)
 		// view.findViewById(R.id.CaseListItem_caseRate);
 		// LinearLayout mainLayout = (LinearLayout)
 		// view.findViewById(R.id.CaseListItem_mainLayout);
 
 		ParseFile applicantResume = (ParseFile) request.get("image");
-		applicantResume.getDataInBackground(new GetDataCallback() {
-			public void done(byte[] data, ParseException e) {
-				if (e == null) {
-					BitmapFactory.Options options = new BitmapFactory.Options();
-					options.inSampleSize = 1;
-					Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length, options);
-					image.setImageBitmap(bitmap);
-				} else {
-					image.setVisibility(View.GONE);
-				}
-			}
-		});
+		if(applicantResume != null)
+			loadImage(applicantResume, image);
 		
 		title.setText(request.getString("title"));
 		company.setText(request.getString("company"));
-		created.setText(request.getCreatedAt().toGMTString());
+		
+		SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", new Locale("UA"));
+		String asGmt = df.format(request.getCreatedAt().getTime()) + " GMT";
+		created.setText(asGmt);
+
 		description.setText(request.getString("description"));
 
 		LinearLayout contentLayout = (LinearLayout) view.findViewById(R.id.vacancyItem_contentLayout);
@@ -120,6 +116,23 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		// criteriaSize.setText("[" + context.getString(R.string.criteria_text)
 		// + " " + caseBean.getCriteriaNumber() + "]");
 		return view;
+	}
+
+	private void loadImage(ParseFile imgFile, final ImageView imgView) {
+		
+		imgFile.getDataInBackground(new GetDataCallback() {
+			public void done(byte[] data, ParseException e) {
+				if (e == null) {
+					BitmapFactory.Options options = new BitmapFactory.Options();
+					options.inSampleSize = 1;
+					Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length, options);
+					imgView.setImageBitmap(bitmap);
+				} else {
+					imgView.setVisibility(View.GONE);
+				}
+			}
+		});
+
 	}
 
 	@Override
