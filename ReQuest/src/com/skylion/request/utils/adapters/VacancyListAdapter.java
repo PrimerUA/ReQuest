@@ -23,17 +23,18 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.skylion.request.R;
+import com.skylion.request.entity.Vacancy;
 import com.skylion.request.utils.ExpandableViewHelper;
 
 public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 
 	private View view;
 
-	private List<ParseObject> requestList;
+	private List<Vacancy> requestList;
 
 	private LayoutInflater inflater;
 
-	public VacancyListAdapter(Context context, List<ParseObject> requestList) {
+	public VacancyListAdapter(Context context, List<Vacancy> requestList) {
 		this.requestList = requestList;
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}

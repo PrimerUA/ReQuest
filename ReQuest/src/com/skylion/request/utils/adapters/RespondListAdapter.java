@@ -9,6 +9,7 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.skylion.request.R;
+import com.skylion.request.entity.Respond;
 import com.skylion.request.utils.ExpandableViewHelper;
 
 import android.content.Context;
@@ -25,14 +26,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RequestListAdapter extends BaseAdapter implements OnClickListener {
+public class RespondListAdapter extends BaseAdapter implements OnClickListener {
 	private View view;
 
-	private List<ParseObject> requestList;
+	private List<Respond> requestList;
 
 	private LayoutInflater inflater;
 
-	public RequestListAdapter(Context context, List<ParseObject> requestList) {
+	public RespondListAdapter(Context context, List<Respond> requestList) {
 		this.requestList = requestList;
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}

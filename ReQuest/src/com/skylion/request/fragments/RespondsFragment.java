@@ -1,23 +1,18 @@
 package com.skylion.request.fragments;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.skylion.request.R;
+import com.skylion.request.parse.ParseApi;
+import com.skylion.request.utils.adapters.RespondListAdapter;
 
 public class RespondsFragment extends Fragment implements ListView.OnItemClickListener {
 
@@ -66,23 +61,7 @@ public class RespondsFragment extends Fragment implements ListView.OnItemClickLi
 	private void loadData() {
 		final ProgressDialog myProgressDialog = ProgressDialog.show(getActivity(), getString(R.string.connection),
 				getString(R.string.connection_requests), true);
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");
-		// TODO: user query.whereEqualTo("user", ParseUser.getCurrentUser());
-		final List<ParseObject> res;
-		query.findInBackground(new FindCallback<ParseObject>() {
-			
-			@Override
-			public void done(List<ParseObject> list, ParseException e) {
-				if (e == null) {
-//					res = list;
-				} else {
-//					res = null;
-					Log.d("requests", "Error: " + e.getMessage());
-				}
-				myProgressDialog.dismiss();
-			}
-		});
-		
-//		contentList.setAdapter(new RequestListAdapter(getActivity(), res));
+
+		contentList.setAdapter(new RespondListAdapter(getActivity(), new ParseApi().getAllResponds(myProgressDialog)));
 	}
 }

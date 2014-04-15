@@ -36,7 +36,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 		setContentView(R.layout.activity_main);
 		ParseAnalytics.trackAppOpened(getIntent());
 
-		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(
+				R.id.navigation_drawer);
 		mTitle = getTitle();
 
 		// Set up the drawer.
