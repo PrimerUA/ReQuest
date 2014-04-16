@@ -21,7 +21,6 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.skylion.request.R;
 import com.skylion.request.views.NewRequestHolder;
-import com.svitla.enlighters.views.SendActivity;
 
 public class SecondStepFragment extends Fragment {
 	
@@ -68,24 +67,24 @@ public class SecondStepFragment extends Fragment {
 		
 		
 	}
-	protected void sendTo(ParseUser parseUser) {
-		ParseFile parseVideoFile = new ParseFile("video.3gp", newRequestHolder.getImage());
-		ParseObject message = new ParseObject("Message");
-		message.put("text", descEdit.getText().toString());
-		message.put("videoFile", parseVideoFile);
-		message.put("author", ParseUser.getCurrentUser());
-		if (parseUser == null)
-			message.put("email", contactEdit.getText().toString());
-		else
-			message.put("targetUser", parseUser);
-		message.saveInBackground(new SaveCallback() {
-			@Override
-			public void done(ParseException e) {
-				progressDialog.dismiss();
-				Toast.makeText(SendActivity.this, "Video message send to " + contactEdit.getText().toString(), Toast.LENGTH_LONG).show();
-				finish();
-			}
-		});
-	}
+//	protected void sendTo(ParseUser parseUser) {
+//		ParseFile parseVideoFile = new ParseFile("video.3gp", newRequestHolder.getImage());
+//		ParseObject message = new ParseObject("Message");
+//		message.put("text", descEdit.getText().toString());
+//		message.put("videoFile", parseVideoFile);
+//		message.put("author", ParseUser.getCurrentUser());
+//		if (parseUser == null)
+//			message.put("email", contactEdit.getText().toString());
+//		else
+//			message.put("targetUser", parseUser);
+//		message.saveInBackground(new SaveCallback() {
+//			@Override
+//			public void done(ParseException e) {
+//				progressDialog.dismiss();
+//				Toast.makeText(SendActivity.this, "Video message send to " + contactEdit.getText().toString(), Toast.LENGTH_LONG).show();
+//				finish();
+//			}
+//		});
+//	}
 
 }

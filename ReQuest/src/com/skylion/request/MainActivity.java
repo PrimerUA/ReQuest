@@ -11,10 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.parse.ParseAnalytics;
+import com.parse.ParseUser;
 import com.skylion.request.fragments.NavigationDrawerFragment;
 import com.skylion.request.fragments.RespondsFragment;
 import com.skylion.request.fragments.VacancyFragment;
 import com.skylion.request.views.NewRequestHolder;
+import com.skylion.request.views.UserLoginActivity;
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -36,12 +38,16 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 		setContentView(R.layout.activity_main);
 		ParseAnalytics.trackAppOpened(getIntent());
 
-		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(
-				R.id.navigation_drawer);
+		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 		mTitle = getTitle();
 
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
+
+		if (ParseUser.getCurrentUser() == null) {
+			startActivity(new Intent(this, UserLoginActivity.class));
+		}
+
 	}
 
 	@Override
