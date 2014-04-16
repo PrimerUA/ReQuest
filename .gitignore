@@ -28,6 +28,6 @@ proguard/
 *.iws
 .idea/
 
-#mine
+# mine
 project.properties
 .settings
