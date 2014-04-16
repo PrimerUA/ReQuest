@@ -1,6 +1,9 @@
 package com.skylion.request.fragments;
 
+import java.io.File;
+
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -9,9 +12,16 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.skylion.request.R;
 import com.skylion.request.views.NewRequestHolder;
+import com.svitla.enlighters.views.SendActivity;
 
 public class SecondStepFragment extends Fragment {
 	
@@ -51,11 +61,31 @@ public class SecondStepFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
+				
 				getActivity().finish();
 			}
 		});
 		
 		
+	}
+	protected void sendTo(ParseUser parseUser) {
+		ParseFile parseVideoFile = new ParseFile("video.3gp", newRequestHolder.getImage());
+		ParseObject message = new ParseObject("Message");
+		message.put("text", descEdit.getText().toString());
+		message.put("videoFile", parseVideoFile);
+		message.put("author", ParseUser.getCurrentUser());
+		if (parseUser == null)
+			message.put("email", contactEdit.getText().toString());
+		else
+			message.put("targetUser", parseUser);
+		message.saveInBackground(new SaveCallback() {
+			@Override
+			public void done(ParseException e) {
+				progressDialog.dismiss();
+				Toast.makeText(SendActivity.this, "Video message send to " + contactEdit.getText().toString(), Toast.LENGTH_LONG).show();
+				finish();
+			}
+		});
 	}
 
 }

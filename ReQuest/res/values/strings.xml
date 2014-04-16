@@ -30,5 +30,6 @@
     <string name="recommend_text">Recommend</string>
     <string name="buy_text">Buy out</string>
     <string name="desc_item_text">Vacancy description:</string>
+    <string name="choose_logo_text">Select logo</string>
 
 </resources>

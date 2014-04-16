@@ -1,12 +1,20 @@
 package com.skylion.request.views;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.skylion.request.R;
@@ -14,16 +22,18 @@ import com.skylion.request.fragments.FirstStepFragment;
 import com.skylion.request.fragments.SecondStepFragment;
 
 public class NewRequestHolder extends FragmentActivity {
-	
+
 	private final int STEPS = 2;
 	private Fragment[] fragments = new Fragment[STEPS];
 
 	private int currentFragment;
-	
+
 	private String title;
 	private String description;
 	private String company;
-	private byte [] image;
+	private byte[] image;
+
+	public static int PICK_IMAGE = 1;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -96,10 +106,18 @@ public class NewRequestHolder extends FragmentActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		switch (resultCode) {
-		case 0:
+		if (resultCode == 0) {
 			setResult(0);
 			finish();
+		}
+		if (requestCode == PICK_IMAGE && data != null && data.getData() != null) {
+			Uri uri = data.getData();
+
+			Cursor cursor = getContentResolver().query(uri, new String[] { android.provider.MediaStore.Images.ImageColumns.DATA }, null,
+					null, null);
+			cursor.moveToFirst();
+
+			setImage(read(new File(cursor.getString(0))));
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
@@ -128,14 +146,28 @@ public class NewRequestHolder extends FragmentActivity {
 		this.company = company;
 	}
 
-	public byte [] getImage() {
+	public byte[] getImage() {
 		return image;
 	}
 
-	public void setImage(byte [] image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
-}
+	
+	public byte[] read(File file) {
+		ByteArrayOutputStream bos = null;
+		try {
+			@SuppressWarnings("resource")
+			FileInputStream fis = new FileInputStream(file);
+			bos = new ByteArrayOutputStream();
+			byte[] buf = new byte[(int) file.length()];
+			for (int readNum; (readNum = fis.read(buf)) != -1;) {
+				bos.write(buf, 0, readNum);
+			}
+		} catch (IOException ex) {
+			Log.d("message", "Error: " + ex.getMessage());
+		}
+		return bos.toByteArray();
+	}
 
-	
-	
+}
