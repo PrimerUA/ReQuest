@@ -19,9 +19,9 @@ public class ParseApi {
 
 	public List<Vacancy> getAllVacancy(int fragmentType, final ProgressDialog progressDialog) {
 		final List<Vacancy> res = new ArrayList<Vacancy>();
-		
+
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Requests");
-		
+
 		switch (fragmentType) {
 		case RequestConstants.FRAGMENT_GENERAL_VACANCY:
 			query.whereEqualTo("type", RequestConstants.REQUEST_GENERAL);
@@ -33,12 +33,16 @@ public class ParseApi {
 			query.whereEqualTo("user", ParseUser.getCurrentUser());
 			break;
 		}
-		
+
 		query.findInBackground(new FindCallback<ParseObject>() {
 			public void done(List<ParseObject> vacansyList, ParseException e) {
 				if (e == null) {
-					for (ParseObject vacancy : vacansyList) {
-						res.add((Vacancy) vacancy);
+					for (ParseObject obj : vacansyList) {
+						if (obj != null) {
+							Vacancy vacancy = new Vacancy();
+							vacancy.toObject(obj);
+							res.add(vacancy);
+						}
 					}
 				} else {
 					Log.d("requests", "Error: " + e.getMessage());
@@ -46,7 +50,7 @@ public class ParseApi {
 				progressDialog.dismiss();
 			}
 		});
-		
+
 		return res;
 	}
 

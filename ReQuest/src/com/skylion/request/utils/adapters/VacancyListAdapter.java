@@ -1,8 +1,6 @@
 package com.skylion.request.utils.adapters;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -21,7 +19,6 @@ import android.widget.Toast;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseObject;
 import com.skylion.request.R;
 import com.skylion.request.entity.Vacancy;
 import com.skylion.request.utils.ExpandableViewHelper;
@@ -56,7 +53,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		final ParseObject request = requestList.get(position);
+		final Vacancy vacancy = requestList.get(position);
 		view = convertView;
 		if (view == null)
 			view = inflater.inflate(R.layout.vacancy_list_item, null);
@@ -77,25 +74,26 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		// LinearLayout mainLayout = (LinearLayout)
 		// view.findViewById(R.id.CaseListItem_mainLayout);
 
-		ParseFile applicantResume = (ParseFile) request.get("image");
+		ParseFile applicantResume = (ParseFile) vacancy.getImage();
 		if(applicantResume != null)
 			loadImage(applicantResume, image);
 		
-		title.setText(request.getString("title"));
-		company.setText(request.getString("company"));
+		title.setText(vacancy.getTitle());
+		company.setText(vacancy.getCompany());
 		
-		SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", new Locale("UA"));
-		String asGmt = df.format(request.getCreatedAt().getTime()) + " GMT";
-		created.setText(asGmt);
+		created.setText(vacancy.getCreatedAtToString());
 
-		description.setText(request.getString("description"));
+		description.setText(vacancy.getDescription());
 
 		LinearLayout contentLayout = (LinearLayout) view.findViewById(R.id.vacancyItem_contentLayout);
 		contentLayout.setOnClickListener(this);
+		
 		LinearLayout expandableLayout = (LinearLayout) view.findViewById(R.id.vacancyItem_expandableLayout);
 		expandableLayout.setVisibility(View.GONE);
+		
 		Button buyButton = (Button) view.findViewById(R.id.vacancyItem_buyButton);
 		buyButton.setOnClickListener(this);
+		
 		Button recommendButton = (Button) view.findViewById(R.id.vacancyItem_recommendButton);
 		recommendButton.setOnClickListener(this);
 		// ParseRelation<ParseObject> relation = request.getRelation("user");
@@ -112,7 +110,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 
 		// expireDate.setText("[" +
 		// DateFormatter.getFormatDate(caseBean.getExpireDate()) + "]");
-		fund.setText("$" + request.getInt("reward"));
+		fund.setText("$" + vacancy.getReward());
 
 		// criteriaSize.setText("[" + context.getString(R.string.criteria_text)
 		// + " " + caseBean.getCriteriaNumber() + "]");
