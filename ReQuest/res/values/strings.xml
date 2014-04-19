@@ -35,5 +35,7 @@
     <string name="choose_logo_text">Select logo</string>
     <string name="subtitle">Automatization staff search for the reward</string>
     <string name="welcome">Welcome to ReQuest!</string>
+    <string name="company_salary">Enter salary:</string>
+    <string name="company_reward">Reward:</string>
 
 </resources>

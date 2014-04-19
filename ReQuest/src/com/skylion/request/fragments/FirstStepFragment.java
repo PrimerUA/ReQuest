@@ -40,7 +40,7 @@ public class FirstStepFragment extends Fragment {
 
 		titleEdit = (EditText) view.findViewById(R.id.newRequest_titleText);
 		descEdit = (EditText) view.findViewById(R.id.newRequest_descriptionText);
-		companyEdit = (EditText) view.findViewById(R.id.newRequest_companyText);
+		
 		nextButton = (Button) view.findViewById(R.id.newRequest_nextButton);
 		
 
