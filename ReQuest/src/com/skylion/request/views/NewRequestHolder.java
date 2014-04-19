@@ -40,7 +40,7 @@ public class NewRequestHolder extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.holder_new_request);
 
-		getSupportActionBar().setTitle(R.string.new_request);
+		getSupportActionBar().setTitle(R.string.action_request);
 		
 		FragmentManager fm = getSupportFragmentManager();
 		FirstStepFragment startFragment = (FirstStepFragment) fm.findFragmentById(R.id.firstFragment);
