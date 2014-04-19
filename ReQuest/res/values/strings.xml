@@ -34,11 +34,9 @@
     <string name="desc_item_text">Vacancy description:</string>
     <string name="choose_logo_text">Select logo</string>
     <string name="subtitle">Automatization staff search for the reward</string>
-
     <string name="welcome">Welcome to ReQuest!</string>
     <string name="company_salary">Enter salary:</string>
-    <string name="company_reward">Reward:</string>
-    
+    <string name="company_reward">Reward:</string>   
     <string name="error_loading_requests">Error loading requests</string>
     <string name="image_path_is_empty">Image path is empty</string>
     <string name="error_uploading_image">Error uploading image</string>

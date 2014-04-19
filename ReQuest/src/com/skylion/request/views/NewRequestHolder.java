@@ -10,10 +10,10 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -21,7 +21,7 @@ import com.skylion.request.R;
 import com.skylion.request.fragments.FirstStepFragment;
 import com.skylion.request.fragments.SecondStepFragment;
 
-public class NewRequestHolder extends FragmentActivity {
+public class NewRequestHolder extends ActionBarActivity {
 
 	private final int STEPS = 2;
 	private Fragment[] fragments = new Fragment[STEPS];
@@ -40,6 +40,10 @@ public class NewRequestHolder extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.holder_new_request);
 
+		getSupportActionBar().setTitle(R.string.action_request);
+		getSupportActionBar().setHomeButtonEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		FragmentManager fm = getSupportFragmentManager();
 		FirstStepFragment startFragment = (FirstStepFragment) fm.findFragmentById(R.id.firstFragment);
 		fragments[0] = startFragment;
