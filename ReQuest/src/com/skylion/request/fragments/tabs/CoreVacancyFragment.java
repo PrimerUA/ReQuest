@@ -1,5 +1,7 @@
 package com.skylion.request.fragments.tabs;
 
+import java.util.List;
+
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,19 +13,22 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.skylion.request.R;
+import com.skylion.request.entity.Vacancy;
 import com.skylion.request.parse.ParseApi;
+import com.skylion.request.utils.DialogsViewer;
 import com.skylion.request.utils.ExpandableViewHelper;
 import com.skylion.request.utils.adapters.VacancyListAdapter;
 
 abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemClickListener {
 
+	private View rootView;
 	private int fragment_type;
 	private ListView contentList;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		View rootView = inflater.inflate(R.layout.fragment_vacancy, container, false);
+		rootView = inflater.inflate(R.layout.fragment_vacancy, container, false);
 		contentList = (ListView) rootView.findViewById(R.id.vacancyFragment_contentList);
 		contentList.setOnItemClickListener(this);
 
@@ -33,11 +38,13 @@ abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemCl
 	}
 
 	private void loadData() {
-		
-		final ProgressDialog myProgressDialog = ProgressDialog.show(getActivity(), getString(R.string.connection),
+		ProgressDialog myProgressDialog = ProgressDialog.show(getActivity(), getString(R.string.connection),
 				getString(R.string.connection_requests), true);
-		
-		contentList.setAdapter(new VacancyListAdapter(getActivity(), new ParseApi().getAllVacancy(fragment_type, myProgressDialog)));
+		List<Vacancy> result = ParseApi.getAllVacancy(fragment_type, myProgressDialog);
+		if (result != null)
+			contentList.setAdapter(new VacancyListAdapter(getActivity(), result));
+		else
+			DialogsViewer.showErrorDialog(rootView.getContext(), getString(R.string.error_loading_requests));
 	}
 
 	protected void onCreateVacancyFragment(int fragment_type) {

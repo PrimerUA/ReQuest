@@ -40,12 +40,12 @@ public class VacancyFragment extends Fragment {
 
 	    mTabHost.addTab(mTabHost.newTabSpec(getString(R.string.title_tabs_general)).setIndicator(getString(R.string.title_tabs_general)),
 	    		GeneralVacancyFragment.class, null);
-	    mTabHost.addTab(mTabHost.newTabSpec(getString(R.string.title_tabs_hot)).setIndicator(getString(R.string.title_tabs_hot)),
-	    		HotVacancyFragment.class, null);
+//	    mTabHost.addTab(mTabHost.newTabSpec(getString(R.string.title_tabs_hot)).setIndicator(getString(R.string.title_tabs_hot)),
+//	    		HotVacancyFragment.class, null);
 	    mTabHost.addTab(mTabHost.newTabSpec(getString(R.string.title_tabs_my)).setIndicator(getString(R.string.title_tabs_my)),
 	    		MyVacancyFragment.class, null);
 
-	    mTabHost.setCurrentTab(1);
+	    //mTabHost.setCurrentTab(1);
 	    return mTabHost;
 	}
 

@@ -6,10 +6,13 @@ public class RequestConstants {
 	public static final int FRAGMENT_HOT_VACANCY = 1;
 	public static final int FRAGMENT_MY_VACANCY = 2;
 	
-	public static final int REQUEST_HOT = 0;
-	public static final int REQUEST_GENERAL = 1;
+	public static final int REQUEST_GENERAL = 0;
+	public static final int REQUEST_HOT = 1;
 	
 	public static final int RESPOND_DEFAULT = 0;
-	public static final int RESPOND_APPROVED = 1;
+	public static final int RESPOND_CANCELED = 1;
+	public static final int RESPOND_PENDING = 2;
+	public static final int RESPOND_OFFER = 3;
+	public static final int RESPOND_APPROVED = 4;
 	
 }

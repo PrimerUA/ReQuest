@@ -19,7 +19,7 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/profile_emailText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -98,7 +98,7 @@
                 android:layout_marginTop="@dimen/d10p"
                 android:layout_weight="0.09"
                 android:gravity="center"
-                android:text="@string/company_salary"
+                android:text="Enter company salary:"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:typeface="serif" />
 

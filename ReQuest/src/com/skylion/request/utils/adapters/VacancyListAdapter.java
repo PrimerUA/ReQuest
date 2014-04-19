@@ -62,38 +62,39 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		TextView fund = (TextView) view.findViewById(R.id.vacancyItem_prizeText);
 		TextView company = (TextView) view.findViewById(R.id.vacancyItem_companyText);
 		TextView created = (TextView) view.findViewById(R.id.vacancyItem_createdText);
-		TextView description= (TextView) view.findViewById(R.id.vacancyItem_desciptionText);
+		TextView description = (TextView) view.findViewById(R.id.vacancyItem_desciptionText);
 		ImageView image = (ImageView) view.findViewById(R.id.vacancyItem_imageView);
 		// TextView criteriaSize = (TextView)
 		// view.findViewById(R.id.CaseListItem_caseCriteriaSize);
 		// TextView expireDate = (TextView)
 		// view.findViewById(R.id.CaseListItem_caseExpDate);
-		// final TextView authorText = (TextView) view.findViewById(R.id.vacancyItem_authorText);
+		// final TextView authorText = (TextView)
+		// view.findViewById(R.id.vacancyItem_authorText);
 		// TextView rateText = (TextView)
 		// view.findViewById(R.id.CaseListItem_caseRate);
 		// LinearLayout mainLayout = (LinearLayout)
 		// view.findViewById(R.id.CaseListItem_mainLayout);
 
-		ParseFile applicantResume = (ParseFile) vacancy.getImage();
-		if(applicantResume != null)
-			loadImage(applicantResume, image);
-		
+		ParseFile companyLogo = (ParseFile) vacancy.getImage();
+		if (companyLogo != null)
+			loadImage(companyLogo, image);
+
 		title.setText(vacancy.getTitle());
 		company.setText(vacancy.getCompany());
-		
+
 		created.setText(vacancy.getCreatedAtToString());
 
 		description.setText(vacancy.getDescription());
 
 		LinearLayout contentLayout = (LinearLayout) view.findViewById(R.id.vacancyItem_contentLayout);
 		contentLayout.setOnClickListener(this);
-		
+
 		LinearLayout expandableLayout = (LinearLayout) view.findViewById(R.id.vacancyItem_expandableLayout);
 		expandableLayout.setVisibility(View.GONE);
-		
+
 		Button buyButton = (Button) view.findViewById(R.id.vacancyItem_buyButton);
 		buyButton.setOnClickListener(this);
-		
+
 		Button recommendButton = (Button) view.findViewById(R.id.vacancyItem_recommendButton);
 		recommendButton.setOnClickListener(this);
 		// ParseRelation<ParseObject> relation = request.getRelation("user");
@@ -118,7 +119,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 	}
 
 	private void loadImage(ParseFile imgFile, final ImageView imgView) {
-		
+
 		imgFile.getDataInBackground(new GetDataCallback() {
 			public void done(byte[] data, ParseException e) {
 				if (e == null) {
@@ -147,11 +148,11 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 			LinearLayout expandableLayout = (LinearLayout) v.findViewById(R.id.vacancyItem_expandableLayout);
 			if (expandableLayout.isShown()) {
 				expandableLayout.setVisibility(View.GONE);
-				ExpandableViewHelper.slideIntoDirection(v.getContext(), expandableLayout,R.anim.item_slide_up);
-				
+				ExpandableViewHelper.slideIntoDirection(v.getContext(), expandableLayout, R.anim.item_slide_up);
+
 			} else {
 				expandableLayout.setVisibility(View.VISIBLE);
-				ExpandableViewHelper.slideIntoDirection(v.getContext(), expandableLayout,R.anim.item_slide_down);
+				ExpandableViewHelper.slideIntoDirection(v.getContext(), expandableLayout, R.anim.item_slide_down);
 			}
 			break;
 		default:
