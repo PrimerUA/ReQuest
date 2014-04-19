@@ -1,4 +1,4 @@
 ReQuest
 =======
 
-make money by helping other people solve their issues
+Recruiters service to hire people and reward the referees
