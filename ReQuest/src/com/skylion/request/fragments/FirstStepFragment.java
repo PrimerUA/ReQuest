@@ -37,7 +37,6 @@ public class FirstStepFragment extends Fragment {
 
 		// ((ActionBarActivity)
 		// getActivity()).getSupportActionBar().setTitle(getString(R.string.request_first_step));
-
 		titleEdit = (EditText) view.findViewById(R.id.newRequest_titleText);
 		descEdit = (EditText) view.findViewById(R.id.newRequest_descriptionText);
 		companyEdit = (EditText) view.findViewById(R.id.newRequest_companyText);

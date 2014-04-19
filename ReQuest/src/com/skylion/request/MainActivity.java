@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.parse.ParseAnalytics;
 import com.parse.ParseUser;
+import com.skylion.request.fragments.MyProfileFragment;
 import com.skylion.request.fragments.NavigationDrawerFragment;
 import com.skylion.request.fragments.RespondsFragment;
 import com.skylion.request.fragments.VacancyFragment;
@@ -49,26 +50,23 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 		}
 
 	}
-
+	
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		Fragment fragment = null;
 		switch (position) {
 		case 0:
+			getSupportActionBar().setTitle(R.string.title_section_requests);
 			fragment = VacancyFragment.newInstance(position + 1);
 			break;
 		case 1:
+			getSupportActionBar().setTitle(R.string.title_section_responds);
 			fragment = RespondsFragment.newInstance(position + 1);
 			break;
 		case 2:
-			fragment = VacancyFragment.newInstance(position + 1);
-			break;
-		case 3:
-			fragment = VacancyFragment.newInstance(position + 1);
-			break;
-		case 4:
-			fragment = VacancyFragment.newInstance(position + 1);
+			getSupportActionBar().setTitle(ParseUser.getCurrentUser().getUsername());
+			fragment = MyProfileFragment.newInstance(position + 1);
 			break;
 		}
 		fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();

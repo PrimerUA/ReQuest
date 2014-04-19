@@ -34,6 +34,20 @@
     <string name="desc_item_text">Vacancy description:</string>
     <string name="choose_logo_text">Select logo</string>
     <string name="subtitle">Automatization staff search for the reward</string>
-    <string name="welcome">Welcome to ReQuest!</string>
+    <string name="welcome">Welcome to ReQuest</string>
+    <string name="error_loading_requests">Error loading requests</string>
+    <string name="image_path_is_empty">Image path is empty</string>
+    <string name="error_uploading_image">Error uploading image</string>
+    <string name="error_updating_profile">Error updating profile</string>
+    <string name="profile_save">Update photo</string>
+    <string name="profile_update_text">Tap the photo to change it</string>
+    <string name="profile_buy_five">5 USD</string>
+    <string name="profile_buy_ten">10 USD</string>
+    <string name="profile_buy_fiveteen">15 USD</string>
+    <string name="profile_buy_twenty">20 USD</string>
+    <string name="profile_withdraw">Witdraw money</string>
+    <string name="profile_withdraw_text">Amount of money to withdraw:</string>
+    <string name="select_picture">Select picture</string>
+    
 
 </resources>

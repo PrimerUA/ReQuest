@@ -17,7 +17,7 @@ import com.skylion.request.entity.Vacancy;
 
 public class ParseApi {
 
-	public List<Vacancy> getAllVacancy(int fragmentType, final ProgressDialog progressDialog) {
+	public static List<Vacancy> getAllVacancy(int fragmentType, final ProgressDialog progressDialog) {
 		final List<Vacancy> res = new ArrayList<Vacancy>();
 
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Requests");
@@ -26,9 +26,9 @@ public class ParseApi {
 		case RequestConstants.FRAGMENT_GENERAL_VACANCY:
 			query.whereEqualTo("type", RequestConstants.REQUEST_GENERAL);
 			break;
-		case RequestConstants.FRAGMENT_HOT_VACANCY:
-			query.whereEqualTo("type", RequestConstants.REQUEST_HOT);
-			break;
+//		case RequestConstants.FRAGMENT_HOT_VACANCY:
+//			query.whereEqualTo("type", RequestConstants.REQUEST_HOT);
+//			break;
 		case RequestConstants.FRAGMENT_MY_VACANCY:
 			query.whereEqualTo("user", ParseUser.getCurrentUser());
 			break;
@@ -54,7 +54,7 @@ public class ParseApi {
 		return res;
 	}
 
-	public List<Respond> getAllResponds(final ProgressDialog progressDialog) {
+	public static List<Respond> getAllResponds(final ProgressDialog progressDialog) {
 		final List<Respond> res = new ArrayList<Respond>();
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");
 		// TODO: user query.whereEqualTo("user", ParseUser.getCurrentUser());
