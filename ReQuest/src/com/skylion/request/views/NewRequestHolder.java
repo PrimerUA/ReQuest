@@ -41,6 +41,8 @@ public class NewRequestHolder extends ActionBarActivity {
 		setContentView(R.layout.holder_new_request);
 
 		getSupportActionBar().setTitle(R.string.action_request);
+		getSupportActionBar().setHomeButtonEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		FragmentManager fm = getSupportFragmentManager();
 		FirstStepFragment startFragment = (FirstStepFragment) fm.findFragmentById(R.id.firstFragment);
