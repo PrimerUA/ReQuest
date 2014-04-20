@@ -32,6 +32,19 @@ public class NewRequestHolder extends ActionBarActivity {
 	private String description;
 	private String company;
 	private byte[] image;
+	
+//	private String salary;
+	
+	private String vacancyName;
+	private String candidateDescription;
+	private String companyName;	
+	
+	private String companySalary;
+	private String city;
+	private String demands;
+	private String terms;
+	private String companyDescription;
+	private String companyAddress;
 
 	public static int PICK_IMAGE = 1;
 
@@ -47,8 +60,7 @@ public class NewRequestHolder extends ActionBarActivity {
 		FragmentManager fm = getSupportFragmentManager();
 		FirstStepFragment startFragment = (FirstStepFragment) fm.findFragmentById(R.id.firstFragment);
 		fragments[0] = startFragment;
-		fragments[1] = (SecondStepFragment) fm.findFragmentById(R.id.secondFragment);
-
+		fragments[1] = (SecondStepFragment) fm.findFragmentById(R.id.secondFragment);		
 		FragmentTransaction transaction = fm.beginTransaction();
 		for (int i = 0; i < fragments.length; i++) {
 			transaction.hide(fragments[i]);
@@ -70,7 +82,8 @@ public class NewRequestHolder extends ActionBarActivity {
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction transaction = fm.beginTransaction();
 		for (int i = 0; i < fragments.length; i++) {
-			if (i == fragmentIndex) {
+			if (i == fragmentIndex) 
+			{								
 				transaction.show(fragments[i]);
 			} else {
 				transaction.hide(fragments[i]);
@@ -172,6 +185,86 @@ public class NewRequestHolder extends ActionBarActivity {
 			Log.d("message", "Error: " + ex.getMessage());
 		}
 		return bos.toByteArray();
+	}
+
+/*	public String getSalary() {
+		return salary;
+	}
+
+	public void setSalary(String salary) {
+		this.salary = salary;
+	}*/
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public String getCandidateDescription() {
+		return candidateDescription;
+	}
+
+	public void setCandidateDescription(String candidateDescription) {
+		this.candidateDescription = candidateDescription;
+	}
+
+	public String getCompanySalary() {
+		return companySalary;
+	}
+
+	public void setCompanySalary(String companySalary) {
+		this.companySalary = companySalary;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getDemands() {
+		return demands;
+	}
+
+	public void setDemands(String demands) {
+		this.demands = demands;
+	}
+
+	public String getTerms() {
+		return terms;
+	}
+
+	public void setTerms(String terms) {
+		this.terms = terms;
+	}
+
+	public String getCompanyDescription() {
+		return companyDescription;
+	}
+
+	public void setCompanyDescription(String companyDescription) {
+		this.companyDescription = companyDescription;
+	}
+
+	public String getCompanyAddress() {
+		return companyAddress;
+	}
+
+	public void setCompanyAddress(String companyAddress) {
+		this.companyAddress = companyAddress;
+	}
+
+	public String getVacancyName() {
+		return vacancyName;
+	}
+
+	public void setVacancyName(String vacancyName) {
+		this.vacancyName = vacancyName;
 	}
 
 }

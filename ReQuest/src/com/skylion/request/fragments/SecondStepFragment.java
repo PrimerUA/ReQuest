@@ -1,8 +1,12 @@
 package com.skylion.request.fragments;
 
+import java.util.zip.Inflater;
+
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.appcompat.R.layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,8 +16,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.skylion.request.R;
 import com.skylion.request.views.NewRequestHolder;
+import com.skylion.request.fragments.*;;
 
 public class SecondStepFragment extends Fragment {
 
@@ -23,10 +30,10 @@ public class SecondStepFragment extends Fragment {
 	private Button backButton;
 	private Button createButton;
 	private ImageButton logoImageButton;
-	private ImageView logoImageView;
+	private ImageView logoImageView;	
 
-	private NewRequestHolder newRequestHolder;
-
+	private NewRequestHolder newRequestHolder;	
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_second_step, container, false);
@@ -35,7 +42,7 @@ public class SecondStepFragment extends Fragment {
 
 		return view;
 	}
-
+		
 	private void initScreen() {
 		newRequestHolder = (NewRequestHolder) getActivity();
 		// ((ActionBarActivity)
@@ -45,7 +52,7 @@ public class SecondStepFragment extends Fragment {
 		createButton = (Button) view.findViewById(R.id.newRequest_createButton);
 		logoImageButton = (ImageButton) view.findViewById(R.id.newRequest_logoButton);
 		logoImageView = (ImageView) view.findViewById(R.id.newRequest_logoImage);
-
+		
 		logoImageButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -63,14 +70,30 @@ public class SecondStepFragment extends Fragment {
 			public void onClick(View v) {
 				newRequestHolder.showFragment(0, true);
 			}
-		});
-
+		});				
+		
 		createButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// check for 0 and sent data to parse
-				getActivity().finish();
+				int reward = Integer.parseInt(((EditText)view.findViewById(R.id.newRequest_rewardText)).getText().toString());
+				ParseObject vacancyObject = new ParseObject("Requests");
+//				EditText requestTitle = (EditText)view.findViewById(R.id.newRequest_rewardText);				
+				vacancyObject.put("title", newRequestHolder.getVacancyName());
+				vacancyObject.put("description", newRequestHolder.getCandidateDescription());
+				vacancyObject.put("reward", reward);
+//				vacancyObject.put("image", newRequestHolder.);				
+				vacancyObject.put("user", ParseUser.getCurrentUser());
+				vacancyObject.put("company", newRequestHolder.getCompanyName());
+				vacancyObject.put("salary", newRequestHolder.getCompanySalary());
+				vacancyObject.put("city", newRequestHolder.getCity());
+				vacancyObject.put("demands", newRequestHolder.getDemands());
+				vacancyObject.put("terms", newRequestHolder.getTerms());
+				vacancyObject.put("company_description", newRequestHolder.getCompanyDescription());
+				vacancyObject.put("company_address", newRequestHolder.getCompanyAddress());
+				vacancyObject.saveInBackground();
+				getActivity().finish();															
 			}
 		});
 
