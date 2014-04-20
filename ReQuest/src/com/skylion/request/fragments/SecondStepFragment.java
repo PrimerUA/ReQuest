@@ -1,10 +1,16 @@
 package com.skylion.request.fragments;
 
+import java.io.File;
+import java.net.URI;
 import java.util.zip.Inflater;
 
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.appcompat.R.layout;
 import android.view.LayoutInflater;
@@ -16,11 +22,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.skylion.request.R;
 import com.skylion.request.views.NewRequestHolder;
-import com.skylion.request.fragments.*;;
+import com.skylion.request.fragments.*;
 
 public class SecondStepFragment extends Fragment {
 
@@ -30,9 +37,10 @@ public class SecondStepFragment extends Fragment {
 	private Button backButton;
 	private Button createButton;
 	private ImageButton logoImageButton;
-	private ImageView logoImageView;	
+	private ImageView logoImageView;		
 
-	private NewRequestHolder newRequestHolder;	
+	private NewRequestHolder newRequestHolder;		
+	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,8 +49,8 @@ public class SecondStepFragment extends Fragment {
 		initScreen();
 
 		return view;
-	}
-		
+	}		
+	
 	private void initScreen() {
 		newRequestHolder = (NewRequestHolder) getActivity();
 		// ((ActionBarActivity)
@@ -56,13 +64,16 @@ public class SecondStepFragment extends Fragment {
 		logoImageButton.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View v) {
+			public void onClick(View v) {				
 				Intent intent = new Intent();
 				intent.setType("image/*");
 				intent.setAction(Intent.ACTION_GET_CONTENT);
-				startActivityForResult(Intent.createChooser(intent, getString(R.string.choose_logo_text)), NewRequestHolder.PICK_IMAGE);
+				startActivityForResult(Intent.createChooser(intent, "Select Picture"), newRequestHolder.PICK_IMAGE);
+
 			}
 		});
+		
+		
 
 		backButton.setOnClickListener(new OnClickListener() {
 
@@ -77,13 +88,16 @@ public class SecondStepFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// check for 0 and sent data to parse
-				int reward = Integer.parseInt(((EditText)view.findViewById(R.id.newRequest_rewardText)).getText().toString());
+				
+				String candidateRecomendation = ((EditText)view.findViewById(R.id.newRequest_rewardText)).getText().toString();
+				int reward = 0;
+				if(!candidateRecomendation.isEmpty())
+					reward = Integer.parseInt(candidateRecomendation);				
 				ParseObject vacancyObject = new ParseObject("Requests");
 //				EditText requestTitle = (EditText)view.findViewById(R.id.newRequest_rewardText);				
 				vacancyObject.put("title", newRequestHolder.getVacancyName());
 				vacancyObject.put("description", newRequestHolder.getCandidateDescription());
 				vacancyObject.put("reward", reward);
-//				vacancyObject.put("image", newRequestHolder.);				
 				vacancyObject.put("user", ParseUser.getCurrentUser());
 				vacancyObject.put("company", newRequestHolder.getCompanyName());
 				vacancyObject.put("salary", newRequestHolder.getCompanySalary());
@@ -91,13 +105,39 @@ public class SecondStepFragment extends Fragment {
 				vacancyObject.put("demands", newRequestHolder.getDemands());
 				vacancyObject.put("terms", newRequestHolder.getTerms());
 				vacancyObject.put("company_description", newRequestHolder.getCompanyDescription());
-				vacancyObject.put("company_address", newRequestHolder.getCompanyAddress());
-				vacancyObject.saveInBackground();
-				getActivity().finish();															
+				vacancyObject.put("company_address", newRequestHolder.getCompanyAddress());								
+				
+				if(newRequestHolder.getImage() != null)
+				{
+					ParseFile file = new ParseFile("logo.png", newRequestHolder.getImage());
+					vacancyObject.put("image", file);		
+				}
+//				
+				vacancyObject.saveInBackground();												
+				getActivity().finish();												
 			}
 		});
 
 	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) 
+	{		
+		if (requestCode == newRequestHolder.PICK_IMAGE && data != null && data.getData() != null) {
+			Uri uri = data.getData();
+
+			Cursor cursor = newRequestHolder.getContentResolver().query(
+					uri, 
+					new String[] { android.provider.MediaStore.Images.ImageColumns.DATA }, 
+					null,
+					null, 
+					null);
+			
+			cursor.moveToFirst();			
+			newRequestHolder.setImage(newRequestHolder.read(new File(cursor.getString(0))));
+		}
+	}
+
 	// protected void sendTo(ParseUser parseUser) {
 	// ParseFile parseVideoFile = new ParseFile("video.3gp",
 	// newRequestHolder.getImage());

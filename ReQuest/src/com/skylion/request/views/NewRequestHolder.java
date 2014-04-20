@@ -1,12 +1,18 @@
 package com.skylion.request.views;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,7 +22,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.utils.IoUtils;
 import com.skylion.request.R;
 import com.skylion.request.fragments.FirstStepFragment;
 import com.skylion.request.fragments.SecondStepFragment;
@@ -31,7 +39,7 @@ public class NewRequestHolder extends ActionBarActivity {
 	private String title;
 	private String description;
 	private String company;
-	private byte[] image;
+	private byte[] image = null;
 	
 //	private String salary;
 	
@@ -44,8 +52,8 @@ public class NewRequestHolder extends ActionBarActivity {
 	private String demands;
 	private String terms;
 	private String companyDescription;
-	private String companyAddress;
-
+	private String companyAddress;			
+	
 	public static int PICK_IMAGE = 1;
 
 	@Override
@@ -121,23 +129,50 @@ public class NewRequestHolder extends ActionBarActivity {
 		backButton();
 	}
 
-	@Override
+	/*@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == 0) {
 			setResult(0);
 			finish();
+			
 		}
 		if (requestCode == PICK_IMAGE && data != null && data.getData() != null) {
 			Uri uri = data.getData();
 
-			Cursor cursor = getContentResolver().query(uri, new String[] { android.provider.MediaStore.Images.ImageColumns.DATA }, null,
-					null, null);
+			Cursor cursor = getContentResolver().query(
+					uri, 
+					new String[] { android.provider.MediaStore.Images.ImageColumns.DATA }, 
+					null,
+					null, 
+					null);
+			
 			cursor.moveToFirst();
 
 			setImage(read(new File(cursor.getString(0))));
+//			companyAddress = "opapop";//cursor.getString(0);
 		}
 		super.onActivityResult(requestCode, resultCode, data);
-	}
+*///		if(resultCode == PICK_IMAGE && requestCode == Activity.RESULT_OK)
+//			try
+//			{					
+//				companyAddress = data.getData().toString();
+				/*File file = new File(data.getData().toString());
+				int size = (int)file.length();
+				cImage = new byte[size];
+				BufferedInputStream buf = new BufferedInputStream(new FileInputStream(file));
+				buf.read(cImage, 0, cImage.length);
+				buf.close();						*/	
+//			}
+//			catch(FileNotFoundException e) 
+//			{
+//				e.printStackTrace();
+//			}
+//		catch(IOException e)
+//		{
+//			e.printStackTrace();
+//		}
+//		super.onActivityResult(requestCode, resultCode, data);
+//	}
 
 	public String getVacancyTitle() {
 		return title;
@@ -165,8 +200,8 @@ public class NewRequestHolder extends ActionBarActivity {
 
 	public byte[] getImage() {
 		return image;
-	}
-
+	}	
+	
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
@@ -186,14 +221,6 @@ public class NewRequestHolder extends ActionBarActivity {
 		}
 		return bos.toByteArray();
 	}
-
-/*	public String getSalary() {
-		return salary;
-	}
-
-	public void setSalary(String salary) {
-		this.salary = salary;
-	}*/
 
 	public String getCompanyName() {
 		return companyName;
