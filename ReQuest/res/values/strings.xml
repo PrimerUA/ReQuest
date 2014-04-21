@@ -53,6 +53,8 @@
     <string name="select_picture">Select picture</string>
     <string name="vacancy_created">Vacancy has been created!</string>
     <string name="vacancy_creation_error">Creation error! Details:</string>
+    <string name="fill_reward_not_zero">Reward field must be bigger than 0!</string>
     <string name="fill_reward_field">Reward field must not be empty!</string>
+    <string name="date_formate_error">Incorrect date/time, must be for ex: 12-30 20-12-2015!</string>	    
     
 </resources>

@@ -36,7 +36,7 @@
                 android:background="@drawable/fancy_title"
                 android:ems="10"
                 android:inputType="textCapSentences|textPersonName"
-                android:textColor="#ffffff" >
+                android:textColor="@android:color/white" >
 
                 <requestFocus />
             </EditText>
@@ -60,7 +60,7 @@
                 android:hint="@string/details_hint"
                 android:inputType="textCapSentences|textMultiLine"
                 android:minLines="@integer/i5"
-                android:textColor="#ffffff" />
+                android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/TextView01"
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textCapSentences|textPersonName"
-                android:textColor="#ffffff" />
+                android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/TextView02"
@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textCapSentences|textPersonName"
-                android:textColor="#ffffff" />
+                android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/TextView04"
@@ -120,7 +120,7 @@
                 android:layout_weight="0.09"
                 android:ems="10"
                 android:inputType="textCapSentences|textPersonName"
-                android:textColor="#ffffff" />
+                android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/TextView05"
@@ -141,7 +141,7 @@
                 android:layout_weight="0.09"
                 android:ems="10"
                 android:inputType="textCapSentences|textPersonName"
-                android:textColor="#ffffff" />
+                android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/TextView06"
@@ -162,7 +162,7 @@
                 android:layout_weight="0.09"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:textColor="#ffffff" />
+                android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/TextView07"
@@ -183,7 +183,7 @@
                 android:layout_weight="0.09"
                 android:ems="10"
                 android:inputType="textCapSentences|textPersonName"
-                android:textColor="#ffffff" />
+                android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/TextView08"
@@ -204,7 +204,7 @@
                 android:layout_weight="0.09"
                 android:ems="10"
                 android:inputType="textCapSentences|textPersonName"
-                android:textColor="#ffffff" />
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
 

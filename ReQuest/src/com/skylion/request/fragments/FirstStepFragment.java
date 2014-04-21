@@ -2,6 +2,8 @@ package com.skylion.request.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,15 +36,45 @@ public class FirstStepFragment extends Fragment {
 		return view;
 	}
 
+	private void nextButtonStatus()
+	{
+		if(!"".equals(titleEdit.getText().toString()))
+			nextButton.setEnabled(true);
+		else
+			nextButton.setEnabled(false);
+	}
+	
 	private void initScreen() {
 		newRequestHolder = (NewRequestHolder) getActivity();
 
 		// ((ActionBarActivity)
 		// getActivity()).getSupportActionBar().setTitle(getString(R.string.request_first_step));
 		titleEdit = (EditText) view.findViewById(R.id.newRequest_titleText);
-		descEdit = (EditText) view.findViewById(R.id.newRequest_descriptionText);
-		
+		descEdit = (EditText) view.findViewById(R.id.newRequest_descriptionText);		
 		nextButton = (Button) view.findViewById(R.id.newRequest_nextButton);
+		nextButtonStatus();
+		titleEdit.addTextChangedListener(new TextWatcher() {
+					
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				// TODO Auto-generated method stub
+				nextButtonStatus();
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
+				// TODO Auto-generated method stub
+				nextButtonStatus();
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				nextButtonStatus();
+			}
+		});
 		
 		
 		nextButton.setOnClickListener(new OnClickListener() {

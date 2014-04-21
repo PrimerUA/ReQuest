@@ -69,6 +69,29 @@
                 android:adjustViewBounds="true"
                 android:src="@drawable/office_example" />
 
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Preferable vacancy expiration date:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:typeface="serif" />
+
+            <EditText
+                android:id="@+id/newRequest_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="ex: 12-00 21-12-2015"
+                android:inputType="datetime"
+                android:textColor="@android:color/white" >
+
+                <requestFocus />
+            </EditText>
+
         </LinearLayout>
 
     </ScrollView>
