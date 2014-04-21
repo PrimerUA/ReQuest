@@ -23,7 +23,6 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseUser;
 import com.skylion.request.R;
 import com.skylion.request.entity.Vacancy;
 import com.skylion.request.utils.ExpandableViewHelper;

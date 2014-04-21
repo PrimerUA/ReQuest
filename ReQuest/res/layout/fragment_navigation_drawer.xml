@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:background="#cccc"
     android:choiceMode="singleChoice"
-    android:divider="@android:color/transparent"
-    android:dividerHeight="0dp"
+    android:divider="@drawable/fancy_title"
+    android:dividerHeight="2dp"
+    android:listSelector="@drawable/fancy_prize"
     tools:context="com.skylion.request.fragments.NavigationDrawerFragment" />
 

@@ -14,7 +14,9 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.plus.PlusClient;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 import com.skylion.request.R;
 
@@ -90,34 +92,53 @@ public class UserLoginActivity extends ActionBarActivity implements GooglePlaySe
 	@Override
 	public void onConnected(Bundle arg0) {
 		if (plusClient != null) {
-			ParseUser user = new ParseUser();
+			//ParseObject wallet = new ParseObject("Wallet");
+			//wallet.put("total", 0);
+			final ParseUser user = new ParseUser();
 			user.setUsername(plusClient.getCurrentPerson().getDisplayName());
-			user.setPassword("my pass");
+			user.setPassword("my-pass");
 			user.setEmail(plusClient.getAccountName());
-            user.put("avatar", plusClient.getCurrentPerson().getImage().getUrl());
-
-			user.signUpInBackground(new SignUpCallback() {
-				public void done(ParseException e) {
-					if (e == null) {
-						progressDialog.dismiss();
-						finish();
-					} else {
-						ParseUser.logInInBackground(plusClient.getCurrentPerson().getDisplayName(), "my pass", new LogInCallback() {
-                            public void done(ParseUser user, ParseException e) {
-                                if (user != null) {
-                                    progressDialog.dismiss();
-                                    Toast.makeText(UserLoginActivity.this, getString(R.string.welcome), Toast.LENGTH_SHORT).show();
-                                    finish();
-                                } else {
-                                    progressDialog.dismiss();
-                                    Toast.makeText(UserLoginActivity.this, "Error code: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-					}
-				}
-			});
+			//user.put("wallet", wallet);
+			user.put("avatar", plusClient.getCurrentPerson().getImage().getUrl());
+			//user.saveInBackground(new SaveCallback() {
+				
+				//@Override
+				//public void done(ParseException arg0) {
+					doAuth(user);
+				//}
+			//});
+		} else {
+			progressDialog.dismiss();
+			Toast.makeText(UserLoginActivity.this, "G+ is null", Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	protected void doAuth(ParseUser user) {
+		user.signUpInBackground(new SignUpCallback() {
+			public void done(ParseException e) {
+				if (e == null) {
+					progressDialog.dismiss();
+					finish();
+				} else {
+					signIn();
+				}
+			}
+		});		
+	}
+
+	protected void signIn() {
+		ParseUser.logInInBackground(plusClient.getCurrentPerson().getDisplayName(), "my-pass", new LogInCallback() {
+			public void done(ParseUser user, ParseException e) {
+				if (user != null) {
+					progressDialog.dismiss();
+					Toast.makeText(UserLoginActivity.this, getString(R.string.welcome), Toast.LENGTH_SHORT).show();
+					finish();
+				} else {
+					progressDialog.dismiss();
+					Toast.makeText(UserLoginActivity.this, "Error code: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+				}
+			}
+		});		
 	}
 
 	@Override
