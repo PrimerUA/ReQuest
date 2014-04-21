@@ -1,6 +1,7 @@
 package com.skylion.request.fragments;
 
 import java.io.File;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,6 +9,7 @@ import java.util.Date;
 import org.apache.http.impl.cookie.DateParseException;
 
 import android.app.DatePickerDialog;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -16,10 +18,12 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.text.method.DateTimeKeyListener;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -124,7 +128,6 @@ public class SecondStepFragment extends Fragment {
 				}				
 			}
 		});
-		   
 	}
 
 	protected void sendVacancy() {
@@ -133,7 +136,6 @@ public class SecondStepFragment extends Fragment {
 				getString(R.string.connecting_new_vacancy), true);
 		ParseObject vacancyObject = new ParseObject("Requests");
 		vacancyObject.put("title", newRequestHolder.getVacancyName());
-		vacancyObject.put("description", newRequestHolder.getCandidateDescription());
 		vacancyObject.put("reward", Integer.parseInt(rewardEdit.getText().toString()));
 		vacancyObject.put("user", ParseUser.getCurrentUser());
 		vacancyObject.put("company", newRequestHolder.getCompanyName());
@@ -145,6 +147,7 @@ public class SecondStepFragment extends Fragment {
 		vacancyObject.put("company_address", newRequestHolder.getCompanyAddress());
 		if(isSendDate)
 			vacancyObject.put("expire", expDateToParse);
+		vacancyObject.put("type", 0);
 		if (newRequestHolder.getImage() != null) {
 			ParseFile file = new ParseFile("logo.png", newRequestHolder.getImage());
 			vacancyObject.put("image", file);

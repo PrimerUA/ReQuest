@@ -33,7 +33,6 @@ public class NewRequestHolder extends ActionBarActivity {
 //	private String salary;
 	
 	private String vacancyName;
-	private String candidateDescription;
 	private String companyName;	
 	
 	private String companySalary;
@@ -217,14 +216,6 @@ public class NewRequestHolder extends ActionBarActivity {
 
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
-	}
-
-	public String getCandidateDescription() {
-		return candidateDescription;
-	}
-
-	public void setCandidateDescription(String candidateDescription) {
-		this.candidateDescription = candidateDescription;
 	}
 
 	public String getCompanySalary() {

@@ -45,20 +45,49 @@
                 android:layout_weight="1"
                 android:background="@drawable/fancy_prize"
                 android:gravity="center"
+                android:maxLines="@integer/i1"
                 android:text="$150"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/d30p" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/vacancyItem_titleText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/d3p"
             android:background="@drawable/fancy_title"
             android:gravity="center"
-            android:text="Ищу Андроид разработчика в Киевский офис"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/vacancyItem_titleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/d3p"
+                android:gravity="center"
+                android:text="Ищу Андроид разработчика в Киевский офис"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/preffer_time_text"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/vacancyItem_expireText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/d2p"
+                    android:text="15.05.2014 18:00"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/vacancyItem_imageView"
@@ -78,18 +107,84 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/profile_emailText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/desc_item_text"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" >
+
+                <TextView
+                    android:id="@+id/TextView04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/salary_item_text"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/vacancyItem_salaryText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/d2p"
+                    android:layout_marginRight="@dimen/d10p"
+                    android:text="N/A"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/TextView03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/d10p"
+                    android:text="@string/city_text"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/vacancyItem_cityText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/d2p"
+                    android:text="N/A"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
             <TextView
-                android:id="@+id/vacancyItem_desciptionText"
+                android:id="@+id/vacancyItem_demandsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/d5p"
-                android:text="- описание\n- описание\n- описание" />
+                android:layout_marginBottom="@dimen/d2p"
+                android:layout_marginTop="@dimen/d5p"
+                android:text="- требования" />
+
+            <TextView
+                android:id="@+id/vacancyItem_termsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/d5p"
+                android:text="- условия" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/company_item_text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/vacancyItem_companyDescriptionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/d2p"
+                android:layout_marginTop="@dimen/d5p"
+                android:text="описание компании" />
+
+            <TextView
+                android:id="@+id/vacancyItem_companyAddressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/d5p"
+                android:text="город" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -100,7 +195,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/fancy_listview"
+                    android:background="@drawable/create_button"
                     android:text="@string/buy_text" />
 
                 <Button
@@ -108,41 +203,50 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/fancy_listview"
+                    android:background="@drawable/create_button"
                     android:text="@string/recommend_text" />
+            </LinearLayout>
+        </LinearLayout>
 
+        <RelativeLayout
+            android:id="@+id/RelativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/vacancyItem_avatarText"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/ic_launcher" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/vacancyItem_authorText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Наталия Малецкая"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="italic"
+                    android:typeface="serif" />
+
+                <TextView
+                    android:id="@+id/vacancyItem_createdText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="22.03.2014 15:27"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:typeface="serif" />
             </LinearLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:id="@+id/vacancyItem_authorText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/d3p"
-                android:text="Наталия Малецкая"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="italic"
-                android:typeface="serif" />
-
-            <TextView
-                android:id="@+id/vacancyItem_createdText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/d3p"
-                android:layout_marginLeft="@dimen/d5p"
-                android:layout_marginRight="@dimen/d3p"
-                android:layout_marginTop="@dimen/d3p"
-                android:text="22.03.2014 15:27"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:typeface="serif" />
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
 </FrameLayout>

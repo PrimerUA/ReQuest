@@ -64,6 +64,8 @@
 
             <TextView
                 android:id="@+id/TextView01"
+
+                android:id="@+id/vacancyItem_termsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/d10p"
@@ -82,7 +84,7 @@
                 android:textColor="@android:color/white" />
 
             <TextView
-                android:id="@+id/TextView02"
+                android:id="@+id/vacancyItem_cityText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/d10p"

@@ -16,6 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -31,24 +35,9 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 
 	private LayoutInflater inflater;
 
-	public VacancyListAdapter(Context context, List<Vacancy> requestList) {
-		this.requestList = requestList;
+	public VacancyListAdapter(Context context, List<Vacancy> result) {
+		this.requestList = result;
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	}
-
-	@Override
-	public int getCount() {
-		return requestList.size();
-	}
-
-	@Override
-	public Object getItem(int position) {
-		return requestList.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return position;
 	}
 
 	@Override
@@ -58,33 +47,43 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		if (view == null)
 			view = inflater.inflate(R.layout.vacancy_list_item, null);
 
-		TextView title = (TextView) view.findViewById(R.id.vacancyItem_titleText);
-		TextView fund = (TextView) view.findViewById(R.id.vacancyItem_prizeText);
-		TextView company = (TextView) view.findViewById(R.id.vacancyItem_companyText);
-		TextView created = (TextView) view.findViewById(R.id.vacancyItem_createdText);
-		TextView description = (TextView) view.findViewById(R.id.vacancyItem_desciptionText);
-		ImageView image = (ImageView) view.findViewById(R.id.vacancyItem_imageView);
-		// TextView criteriaSize = (TextView)
-		// view.findViewById(R.id.CaseListItem_caseCriteriaSize);
-		// TextView expireDate = (TextView)
-		// view.findViewById(R.id.CaseListItem_caseExpDate);
-		// final TextView authorText = (TextView)
-		// view.findViewById(R.id.vacancyItem_authorText);
-		// TextView rateText = (TextView)
-		// view.findViewById(R.id.CaseListItem_caseRate);
-		// LinearLayout mainLayout = (LinearLayout)
-		// view.findViewById(R.id.CaseListItem_mainLayout);
+		// create holder
+		ViewHolder holder = new ViewHolder();
+		holder.title = (TextView) view.findViewById(R.id.vacancyItem_titleText);
+		holder.reward = (TextView) view.findViewById(R.id.vacancyItem_prizeText);
+		holder.companyName = (TextView) view.findViewById(R.id.vacancyItem_companyText);
+		holder.created = (TextView) view.findViewById(R.id.vacancyItem_createdText);
+		holder.expire = (TextView) view.findViewById(R.id.vacancyItem_expireText);
+		holder.demands = (TextView) view.findViewById(R.id.vacancyItem_demandsText);
+		holder.terms = (TextView) view.findViewById(R.id.vacancyItem_termsText);
+		holder.image = (ImageView) view.findViewById(R.id.vacancyItem_imageView);
+		holder.salary = (TextView) view.findViewById(R.id.vacancyItem_salaryText);
+		holder.city = (TextView) view.findViewById(R.id.vacancyItem_cityText);
+		holder.companyDescription = (TextView) view.findViewById(R.id.vacancyItem_companyDescriptionText);
+		holder.companyAddress = (TextView) view.findViewById(R.id.vacancyItem_companyAddressText);
+		holder.author = (TextView) view.findViewById(R.id.vacancyItem_authorText);
+		holder.avatar = (ImageView) view.findViewById(R.id.vacancyItem_avatarText);
 
 		ParseFile companyLogo = (ParseFile) vacancy.getImage();
 		if (companyLogo != null)
-			loadImage(companyLogo, image);
+			loadImage(companyLogo, holder.image);
 
-		title.setText(vacancy.getTitle());
-		company.setText(vacancy.getCompany());
-
-		created.setText(vacancy.getCreatedAtToString());
-
-		description.setText(vacancy.getDescription());
+		holder.title.setText(vacancy.getTitle());
+		holder.reward.setText("$" + vacancy.getReward());
+		holder.companyName.setText(vacancy.getCompany());
+		holder.created.setText(vacancy.getCreatedAtToString());
+		holder.expire.setText(vacancy.getExpireToString());
+		holder.demands.setText(vacancy.getDemands());
+		holder.terms.setText(vacancy.getTerms());
+		holder.salary.setText(vacancy.getSalary());
+		holder.city.setText(vacancy.getCity());
+		holder.companyDescription.setText(vacancy.getCompanyDescription());
+		holder.companyAddress.setText(vacancy.getCompanyAddress());
+		holder.author.setText(vacancy.getAuthor().getUsername());
+		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
+				.showImageForEmptyUri(R.drawable.ic_launcher).imageScaleType(ImageScaleType.EXACTLY_STRETCHED).resetViewBeforeLoading(true)
+				.cacheInMemory(true).cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(Integer.MAX_VALUE)).build();
+		ImageLoader.getInstance().displayImage(vacancy.getAuthor().getString("avatar"), holder.avatar, options);
 
 		LinearLayout contentLayout = (LinearLayout) view.findViewById(R.id.vacancyItem_contentLayout);
 		contentLayout.setOnClickListener(this);
@@ -94,28 +93,28 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 
 		Button buyButton = (Button) view.findViewById(R.id.vacancyItem_buyButton);
 		buyButton.setOnClickListener(this);
+		buyButton.setVisibility(View.GONE);
 
 		Button recommendButton = (Button) view.findViewById(R.id.vacancyItem_recommendButton);
 		recommendButton.setOnClickListener(this);
-		// ParseRelation<ParseObject> relation = request.getRelation("user");
-		// ParseQuery<ParseObject> query = relation.getQuery();
-		// query.findInBackground(new FindCallback<ParseObject>() {
-		//
-		// @Override
-		// public void done(List<ParseObject> authors, ParseException arg1) {
-		// authorText.setText(authors.get(0).toString());
-		// }
-		// });
-
-		// now execute the query
-
-		// expireDate.setText("[" +
-		// DateFormatter.getFormatDate(caseBean.getExpireDate()) + "]");
-		fund.setText("$" + vacancy.getReward());
-
-		// criteriaSize.setText("[" + context.getString(R.string.criteria_text)
-		// + " " + caseBean.getCriteriaNumber() + "]");
 		return view;
+	}
+
+	private static class ViewHolder {
+		public TextView title;
+		public TextView reward;
+		public TextView companyName;
+		public TextView created;
+		public TextView expire;
+		public TextView terms;
+		public TextView demands;
+		public ImageView image;
+		public TextView salary;
+		public TextView city;
+		public TextView companyDescription;
+		public TextView companyAddress;
+		private TextView author;
+		private ImageView avatar;
 	}
 
 	private void loadImage(ParseFile imgFile, final ImageView imgView) {
@@ -158,5 +157,20 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public int getCount() {
+		return requestList.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		return requestList.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return position;
 	}
 }
