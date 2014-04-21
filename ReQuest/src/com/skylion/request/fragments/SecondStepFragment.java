@@ -1,20 +1,13 @@
 package com.skylion.request.fragments;
 
 import java.io.File;
-import java.net.URI;
-import java.util.zip.Inflater;
 
-import android.annotation.SuppressLint;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v7.appcompat.R.layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,7 +25,6 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.skylion.request.R;
 import com.skylion.request.views.NewRequestHolder;
-import com.skylion.request.fragments.*;
 
 public class SecondStepFragment extends Fragment {
 
@@ -99,7 +91,6 @@ public class SecondStepFragment extends Fragment {
 				}
 			}
 		});
-
 	}
 
 	protected void sendVacancy() {
@@ -107,7 +98,6 @@ public class SecondStepFragment extends Fragment {
 				getString(R.string.connecting_new_vacancy), true);
 		ParseObject vacancyObject = new ParseObject("Requests");
 		vacancyObject.put("title", newRequestHolder.getVacancyName());
-		vacancyObject.put("description", newRequestHolder.getCandidateDescription());
 		vacancyObject.put("reward", Integer.parseInt(rewardEdit.getText().toString()));
 		vacancyObject.put("user", ParseUser.getCurrentUser());
 		vacancyObject.put("company", newRequestHolder.getCompanyName());
@@ -117,6 +107,7 @@ public class SecondStepFragment extends Fragment {
 		vacancyObject.put("terms", newRequestHolder.getTerms());
 		vacancyObject.put("company_description", newRequestHolder.getCompanyDescription());
 		vacancyObject.put("company_address", newRequestHolder.getCompanyAddress());
+		vacancyObject.put("type", 0);
 
 		if (newRequestHolder.getImage() != null) {
 			ParseFile file = new ParseFile("logo.png", newRequestHolder.getImage());

@@ -48,7 +48,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 		if (ParseUser.getCurrentUser() == null) {
 			startActivity(new Intent(this, UserLoginActivity.class));
 		}
-
 	}
 	
 	@Override

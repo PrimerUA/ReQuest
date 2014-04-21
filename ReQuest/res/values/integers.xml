@@ -2,4 +2,5 @@
 <resources>
     <integer name="i3">3</integer>
     <integer name="i5">5</integer>
+    <integer name="i1">1</integer>
 </resources>

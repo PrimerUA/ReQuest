@@ -103,7 +103,7 @@
         android:textColor="@android:color/white" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/vacancyItem_expireText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/profile_withdrawEdit"

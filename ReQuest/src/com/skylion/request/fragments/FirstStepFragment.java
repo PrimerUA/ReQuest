@@ -17,7 +17,6 @@ public class FirstStepFragment extends Fragment {
 	private View view;
 
 	private EditText titleEdit;
-	private EditText descEdit;
 	private EditText companyEdit;
 	private Button nextButton;
 	
@@ -40,11 +39,8 @@ public class FirstStepFragment extends Fragment {
 		// ((ActionBarActivity)
 		// getActivity()).getSupportActionBar().setTitle(getString(R.string.request_first_step));
 		titleEdit = (EditText) view.findViewById(R.id.newRequest_titleText);
-		descEdit = (EditText) view.findViewById(R.id.newRequest_descriptionText);
 		
 		nextButton = (Button) view.findViewById(R.id.newRequest_nextButton);
-		
-		
 		nextButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -56,7 +52,6 @@ public class FirstStepFragment extends Fragment {
 //				newRequestHolder.setSalary(companySalary.getText().toString());
 				
 				newRequestHolder.setVacancyName(((EditText)view.findViewById(R.id.newRequest_titleText)).getText().toString());
-				newRequestHolder.setCandidateDescription(((EditText)view.findViewById(R.id.newRequest_descriptionText)).getText().toString());
 				newRequestHolder.setCompanyName(((EditText)view.findViewById(R.id.newRequest_companyText)).getText().toString());				
 				newRequestHolder.setCompanySalary(((EditText)view.findViewById(R.id.newRequest_companySalary)).getText().toString());
 				newRequestHolder.setCity(((EditText)view.findViewById(R.id.newRequest_city)).getText().toString());

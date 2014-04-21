@@ -64,7 +64,7 @@ public class RespondListAdapter extends BaseAdapter implements OnClickListener {
 		TextView fund = (TextView) view.findViewById(R.id.vacancyItem_prizeText);
 		TextView company = (TextView) view.findViewById(R.id.vacancyItem_companyText);
 		TextView created = (TextView) view.findViewById(R.id.vacancyItem_createdText);
-		TextView description = (TextView) view.findViewById(R.id.vacancyItem_desciptionText);
+		TextView description = (TextView) view.findViewById(R.id.vacancyItem_demandsText);
 		final ImageView image = (ImageView) view.findViewById(R.id.vacancyItem_imageView);
 		// TextView criteriaSize = (TextView)
 		// view.findViewById(R.id.CaseListItem_caseCriteriaSize);
