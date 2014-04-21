@@ -16,6 +16,7 @@
     <string name="connection">Connecting</string>
     <string name="connection_requests">Loading requests...</string>
     <string name="connecting_auth">Authentication...</string>
+    <string name="connecting_new_vacancy">Creating new vacancy...</string>
     <string name="new_request">Vacancy name:</string>
     <string name="description_text">Describe your company and the vacancy in detail:</string>
     <string name="company_text">Enter the name of your company:</string>
@@ -50,5 +51,8 @@
     <string name="profile_withdraw">Witdraw money</string>
     <string name="profile_withdraw_text">Amount of money to withdraw:</string>
     <string name="select_picture">Select picture</string>
+    <string name="vacancy_created">Vacancy has been created!</string>
+    <string name="vacancy_creation_error">Creation error! Details:</string>
+    <string name="fill_reward_field">Reward field must not be empty!</string>
     
 </resources>

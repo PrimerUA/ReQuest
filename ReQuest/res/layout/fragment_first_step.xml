@@ -16,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:padding="@dimen/d2p" >
 
             <TextView
                 android:id="@+id/profile_emailText"
@@ -32,8 +33,9 @@
                 android:id="@+id/newRequest_titleText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/fancy_title"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="textCapSentences|textPersonName"
                 android:textColor="#ffffff" >
 
                 <requestFocus />
@@ -56,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/details_hint"
-                android:inputType="textMultiLine"
+                android:inputType="textCapSentences|textMultiLine"
                 android:minLines="@integer/i5"
                 android:textColor="#ffffff" />
 
@@ -76,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="textCapSentences|textPersonName"
                 android:textColor="#ffffff" />
 
             <TextView
@@ -96,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="textCapSentences|textPersonName"
                 android:textColor="#ffffff" />
 
             <TextView
@@ -117,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.09"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="textCapSentences|textPersonName"
                 android:textColor="#ffffff" />
 
             <TextView
@@ -138,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.09"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="textCapSentences|textPersonName"
                 android:textColor="#ffffff" />
 
             <TextView
@@ -180,7 +182,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.09"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="textCapSentences|textPersonName"
                 android:textColor="#ffffff" />
 
             <TextView
@@ -201,7 +203,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.09"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="textCapSentences|textPersonName"
                 android:textColor="#ffffff" />
 
         </LinearLayout>
