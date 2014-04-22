@@ -20,6 +20,7 @@ public class FirstStepFragment extends Fragment {
 
 	private EditText titleEdit;
 	private EditText companyEdit;
+	private EditText descEdit;
 	private Button nextButton;
 	
 	public String testEditText = "";
@@ -49,7 +50,7 @@ public class FirstStepFragment extends Fragment {
 		// ((ActionBarActivity)
 		// getActivity()).getSupportActionBar().setTitle(getString(R.string.request_first_step));
 		titleEdit = (EditText) view.findViewById(R.id.newRequest_titleText);
-		descEdit = (EditText) view.findViewById(R.id.newRequest_descriptionText);		
+//		descEdit = (EditText) view.findViewById(R.id.newRequest_descriptionText);		
 		nextButton = (Button) view.findViewById(R.id.newRequest_nextButton);
 		nextButtonStatus();
 		titleEdit.addTextChangedListener(new TextWatcher() {

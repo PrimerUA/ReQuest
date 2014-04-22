@@ -52,13 +52,10 @@
     <string name="vacancy_creation_error">Creation error! Details:</string>
     <string name="fill_reward_not_zero">Reward field must be bigger than 0!</string>
     <string name="fill_reward_field">Reward field must not be empty!</string>
-<<<<<<< HEAD
     <string name="date_formate_error">Incorrect date/time, must be for ex: 12-30 20-12-2015!</string>	    
-=======
     <string name="company_item_text">Company information:</string>
     <string name="preffer_time_text">Wanted until:</string>
     <string name="city_text">City:</string>
     <string name="salary_item_text">Salary:</string>
->>>>>>> cf796544c3be6f7e4959392fc336b493a9135244
     
 </resources>
