@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import com.parse.ParseAnalytics;
 import com.parse.ParseUser;
@@ -43,8 +44,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 		mTitle = getTitle();
 
 		// Set up the drawer.
-		mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
-
+		mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));		
+		
 		if (ParseUser.getCurrentUser() == null) {
 			startActivity(new Intent(this, UserLoginActivity.class));
 		}

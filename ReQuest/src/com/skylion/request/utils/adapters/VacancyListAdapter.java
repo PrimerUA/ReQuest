@@ -3,6 +3,7 @@ package com.skylion.request.utils.adapters;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -24,20 +25,21 @@ import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.skylion.request.R;
+import com.skylion.request.Recommend_candidate;
 import com.skylion.request.entity.Vacancy;
 import com.skylion.request.utils.ExpandableViewHelper;
 
 public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 
 	private View view;
-
 	private List<Vacancy> requestList;
-
 	private LayoutInflater inflater;
+	private Context contextt = null;
 
 	public VacancyListAdapter(Context context, List<Vacancy> result) {
 		this.requestList = result;
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		contextt = context;
 	}
 
 	@Override
@@ -96,7 +98,8 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		buyButton.setVisibility(View.GONE);
 
 		Button recommendButton = (Button) view.findViewById(R.id.vacancyItem_recommendButton);
-		recommendButton.setOnClickListener(this);
+		recommendButton.setOnClickListener(this);						
+		
 		return view;
 	}
 
@@ -133,15 +136,16 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		});
 
 	}
-
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.vacancyItem_buyButton:
 			Toast.makeText(v.getContext(), "Buy answers!", Toast.LENGTH_SHORT).show();
 			break;
-		case R.id.vacancyItem_recommendButton:
-			Toast.makeText(v.getContext(), "Recommend friend!", Toast.LENGTH_SHORT).show();
+		case R.id.vacancyItem_recommendButton:			
+//			Toast.makeText(v.getContext(), "Recommend friend!", Toast.LENGTH_SHORT).show();
+			contextt.startActivity(new Intent(contextt, Recommend_candidate.class));
 			break;
 		case R.id.vacancyItem_contentLayout:
 			LinearLayout expandableLayout = (LinearLayout) v.findViewById(R.id.vacancyItem_expandableLayout);

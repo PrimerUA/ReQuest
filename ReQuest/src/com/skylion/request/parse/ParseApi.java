@@ -74,7 +74,8 @@ public class ParseApi {
 							result.add(vacancy);
 						}
 					}
-					listView.setAdapter(new VacancyListAdapter(context, result));
+					listView.setAdapter(new VacancyListAdapter(context, result));					
+					
 				} else {
 					DialogsViewer.showErrorDialog(context, context.getString(R.string.error_loading_requests));
 					Log.d("requests", "Error: " + e.getMessage());

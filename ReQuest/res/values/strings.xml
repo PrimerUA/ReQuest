@@ -34,7 +34,7 @@
     <string name="subtitle">Automatization staff search for the reward</string>
     <string name="welcome">Welcome to ReQuest!</string>
     <string name="company_salary">Enter salary:</string>
-    <string name="company_reward">Reward:</string>   
+    <string name="company_reward">Reward:</string>
     <string name="error_loading_requests">Error loading requests</string>
     <string name="image_path_is_empty">Image path is empty</string>
     <string name="error_uploading_image">Error uploading image</string>
@@ -52,10 +52,12 @@
     <string name="vacancy_creation_error">Creation error! Details:</string>
     <string name="fill_reward_not_zero">Reward field must be bigger than 0!</string>
     <string name="fill_reward_field">Reward field must not be empty!</string>
-    <string name="date_formate_error">Incorrect date/time, must be for ex: 12-30 20-12-2015!</string>	    
+    <string name="date_formate_error">Incorrect date/time, must be for ex: 12-30 20-12-2015!</string>
     <string name="company_item_text">Company information:</string>
     <string name="preffer_time_text">Wanted until:</string>
     <string name="city_text">City:</string>
     <string name="salary_item_text">Salary:</string>
-    
+    <string name="title_activity_recommend_candidate">Recommend_candidate</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>

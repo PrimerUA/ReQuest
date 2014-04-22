@@ -9,12 +9,16 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.skylion.request.R;
+import com.skylion.request.Recommend_candidate;
 import com.skylion.request.entity.Respond;
 import com.skylion.request.utils.ExpandableViewHelper;
+import com.skylion.request.views.NewRequestHolder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.sax.StartElementListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +29,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.Activity;
+import android.content.Intent;
+import android.view.Menu;
+
 
 public class RespondListAdapter extends BaseAdapter implements OnClickListener {
 	private View view;
@@ -39,7 +47,7 @@ public class RespondListAdapter extends BaseAdapter implements OnClickListener {
 	}
 
 	@Override
-	public int getCount() {
+	public int getCount() {		
 		return requestList.size();
 	}
 
@@ -127,15 +135,15 @@ public class RespondListAdapter extends BaseAdapter implements OnClickListener {
 		// criteriaSize.setText("[" + context.getString(R.string.criteria_text)
 		// + " " + caseBean.getCriteriaNumber() + "]");
 		return view;
-	}
-
+	}	
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.vacancyItem_buyButton:
 			Toast.makeText(v.getContext(), "Buy answers!", Toast.LENGTH_SHORT).show();
 			break;
-		case R.id.vacancyItem_recommendButton:
+		case R.id.vacancyItem_recommendButton:			
 			Toast.makeText(v.getContext(), "Recommend friend!", Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.vacancyItem_contentLayout:

@@ -30,9 +30,7 @@ public class FirstStepFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_first_step, container, false);
-
 		initScreen();
-
 		return view;
 	}
 

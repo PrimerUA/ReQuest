@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.skylion.request.R;
@@ -15,12 +16,14 @@ import com.skylion.request.fragments.tabs.GeneralVacancyFragment;
 import com.skylion.request.fragments.tabs.HotVacancyFragment;
 import com.skylion.request.fragments.tabs.MyVacancyFragment;
 
+import android.view.View.OnClickListener;
+
 public class VacancyFragment extends Fragment {
 	/**
 	 * The fragment argument representing the section number for this fragment.
 	 */
 	private static final String ARG_SECTION_NUMBER = "section_number";
-	private FragmentTabHost mTabHost;
+	private FragmentTabHost mTabHost;	
 
 	/**
 	 * Returns a new instance of this fragment for the given section number.
@@ -48,7 +51,8 @@ public class VacancyFragment extends Fragment {
 		mTabHost.addTab(mTabHost.newTabSpec(getString(R.string.title_tabs_my)).setIndicator(getString(R.string.title_tabs_my)),
 				MyVacancyFragment.class, null);
 		setTabColor(mTabHost);
-		// mTabHost.setCurrentTab(1);
+		// mTabHost.setCurrentTab(1);				
+				
 		return mTabHost;
 	}
 

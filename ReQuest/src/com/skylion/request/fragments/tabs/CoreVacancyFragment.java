@@ -13,12 +13,14 @@ import com.skylion.request.R;
 import com.skylion.request.parse.ParseApi;
 import com.skylion.request.utils.ExpandableViewHelper;
 
+
+
 abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemClickListener {
 
 	private View rootView;
 	private int fragment_type;
-	private ListView contentList;
-
+	private ListView contentList;		
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -26,8 +28,7 @@ abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemCl
 		contentList = (ListView) rootView.findViewById(R.id.vacancyFragment_contentList);
 		contentList.setOnItemClickListener(this);
 		
-		ParseApi.getInstance().setListView(contentList).loadVacancyList(fragment_type, getActivity());
-		
+		ParseApi.getInstance().setListView(contentList).loadVacancyList(fragment_type, getActivity());					
 		return rootView;
 	}
 
