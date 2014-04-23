@@ -6,9 +6,12 @@ import java.util.List;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -22,30 +25,16 @@ import com.skylion.request.utils.adapters.VacancyListAdapter;
 
 public class ParseApi {
 
-	private ListView listView;
-
-	private static ParseApi instance;
-
-	public static ParseApi getInstance() {
-		if (instance == null) {
-			instance = new ParseApi();
-		}
-		return instance;
-	}
+	private static Context context;
 
 	public ParseApi() {
 	}
 
-	public ListView getListView() {
-		return listView;
+	public static void init(Context context) {
+		ParseApi.context = context;
 	}
 
-	public ParseApi setListView(ListView listView) {
-		this.listView = listView;
-		return this;
-	}
-	
-	public void loadVacancyList(int fragmentType, final Context context) {
+	public static void loadVacancyList(int fragmentType, final ListView listView) {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Requests");
 		switch (fragmentType) {
 		case RequestConstants.FRAGMENT_GENERAL_VACANCY:
@@ -74,8 +63,8 @@ public class ParseApi {
 							result.add(vacancy);
 						}
 					}
-					listView.setAdapter(new VacancyListAdapter(context, result));					
-					
+					listView.setAdapter(new VacancyListAdapter(context, result));
+
 				} else {
 					DialogsViewer.showErrorDialog(context, context.getString(R.string.error_loading_requests));
 					Log.d("requests", "Error: " + e.getMessage());
@@ -105,6 +94,17 @@ public class ParseApi {
 		});
 
 		return res;
+	}
+
+	public static void getWallet(final TextView walletText) {
+		ParseObject wallet = (ParseObject) ParseUser.getCurrentUser().get("wallet");
+		wallet.fetchInBackground(new GetCallback<ParseObject>() {
+
+			@Override
+			public void done(ParseObject wallet, ParseException arg1) {
+				walletText.setText("$" + String.valueOf(wallet.getDouble("total")));
+			}
+		});
 	}
 
 }

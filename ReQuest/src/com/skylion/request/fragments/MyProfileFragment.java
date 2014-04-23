@@ -17,13 +17,14 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.parse.ParseUser;
 import com.skylion.request.R;
+import com.skylion.request.parse.ParseApi;
 
 public class MyProfileFragment extends Fragment implements View.OnClickListener {
 	private static final String ARG_SECTION_NUMBER = "section_number";
-	
+
 	private DisplayImageOptions options;
 	private ImageView avatarView;
-	
+
 	private TextView emailText;
 	private TextView walletText;
 
@@ -60,7 +61,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
 
 	private void initScreen() {
 		avatarView = (ImageView) view.findViewById(R.id.profile_avatarView);
-		
+
 		emailText = (TextView) view.findViewById(R.id.profile_emailText);
 		walletText = (TextView) view.findViewById(R.id.profile_walletText);
 
@@ -74,21 +75,22 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
 		withdrawButton = (Button) view.findViewById(R.id.profile_withdrawButton);
 
 		avatarView.setOnClickListener(this);
-		
+
 		buyFiveButton.setOnClickListener(this);
 		buyTenButton.setOnClickListener(this);
 		buyFiveteenButton.setOnClickListener(this);
 		buyTwentyButton.setOnClickListener(this);
 
 		withdrawButton.setOnClickListener(this);
-		
+
 		ParseUser user = ParseUser.getCurrentUser();
 		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher).showImageForEmptyUri(R.drawable.ic_launcher)
-                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED).resetViewBeforeLoading(true).cacheInMemory(true).cacheOnDisc(true)
-                .displayer(new RoundedBitmapDisplayer(Integer.MAX_VALUE)).build();
+				.imageScaleType(ImageScaleType.EXACTLY_STRETCHED).resetViewBeforeLoading(true).cacheInMemory(true).cacheOnDisc(true)
+				.displayer(new RoundedBitmapDisplayer(Integer.MAX_VALUE)).build();
 		ImageLoader.getInstance().displayImage(user.getString("avatar"), avatarView, options);
-		
+
 		emailText.setText(user.getEmail());
+		ParseApi.getWallet(walletText);
 	}
 
 	@Override
@@ -116,5 +118,5 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
 			break;
 		}
 	}
-	
+
 }

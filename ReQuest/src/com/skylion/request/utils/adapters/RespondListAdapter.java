@@ -9,10 +9,10 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.skylion.request.R;
-import com.skylion.request.Recommend_candidate;
 import com.skylion.request.entity.Respond;
 import com.skylion.request.utils.ExpandableViewHelper;
 import com.skylion.request.views.NewRequestHolder;
+import com.skylion.request.views.NewRecommendActivity;
 
 import android.content.Context;
 import android.content.Intent;

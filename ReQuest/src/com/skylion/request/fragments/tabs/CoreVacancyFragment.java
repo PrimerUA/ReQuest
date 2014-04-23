@@ -28,7 +28,8 @@ abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemCl
 		contentList = (ListView) rootView.findViewById(R.id.vacancyFragment_contentList);
 		contentList.setOnItemClickListener(this);
 		
-		ParseApi.getInstance().setListView(contentList).loadVacancyList(fragment_type, getActivity());					
+		ParseApi.loadVacancyList(fragment_type, contentList);
+		
 		return rootView;
 	}
 

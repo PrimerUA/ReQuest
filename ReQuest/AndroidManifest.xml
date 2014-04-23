@@ -76,7 +76,7 @@
         </receiver>
 
         <activity
-            android:name="com.skylion.request.Recommend_candidate"
+            android:name="com.skylion.request.views.NewRecommendActivity"
             android:label="@string/title_activity_recommend_candidate"
             android:parentActivityName="com.skylion.request.MainActivity" >
             <meta-data
