@@ -7,6 +7,7 @@
     <string name="title_section_responds">My Responds</string>
     <string name="title_section_profile">My Profile</string>
     <string name="title_activity_auth">Sign in</string>
+    <string name="title_activity_new_recommend">New recommendation</string>
     <string name="title_tabs_hot">Hot</string>
     <string name="title_tabs_general">General</string>
     <string name="title_tabs_my">Mine</string>
