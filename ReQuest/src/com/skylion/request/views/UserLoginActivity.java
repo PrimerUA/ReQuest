@@ -23,6 +23,9 @@ import com.skylion.request.R;
 public class UserLoginActivity extends ActionBarActivity implements GooglePlayServicesClient.ConnectionCallbacks,
 		GooglePlayServicesClient.OnConnectionFailedListener {
 
+	private ParseUser user;
+	private ParseObject wallet;
+	
 	private SignInButton loginButton;
 
 	public final int REQUEST_CODE_RESOLVE_ERR = 9000;
@@ -92,21 +95,12 @@ public class UserLoginActivity extends ActionBarActivity implements GooglePlaySe
 	@Override
 	public void onConnected(Bundle arg0) {
 		if (plusClient != null) {
-			//ParseObject wallet = new ParseObject("Wallet");
-			//wallet.put("total", 0);
-			final ParseUser user = new ParseUser();
+			user = new ParseUser();
 			user.setUsername(plusClient.getCurrentPerson().getDisplayName());
 			user.setPassword("my-pass");
 			user.setEmail(plusClient.getAccountName());
-			//user.put("wallet", wallet);
 			user.put("avatar", plusClient.getCurrentPerson().getImage().getUrl());
-			//user.saveInBackground(new SaveCallback() {
-				
-				//@Override
-				//public void done(ParseException arg0) {
-					doAuth(user);
-				//}
-			//});
+			doAuth(user);
 		} else {
 			progressDialog.dismiss();
 			Toast.makeText(UserLoginActivity.this, "G+ is null", Toast.LENGTH_SHORT).show();
@@ -117,13 +111,33 @@ public class UserLoginActivity extends ActionBarActivity implements GooglePlaySe
 		user.signUpInBackground(new SignUpCallback() {
 			public void done(ParseException e) {
 				if (e == null) {
-					progressDialog.dismiss();
-					finish();
+					doWallet(); // the user is new, create wallet for him
 				} else {
-					signIn();
+					signIn(); // user already registered, sign in
 				}
 			}
-		});		
+		});
+	}
+
+	protected void doWallet() {
+		wallet = new ParseObject("Wallet");
+		wallet.put("total", 0);
+		wallet.saveInBackground(new SaveCallback() {
+
+			@Override
+			public void done(ParseException arg0) {
+				user.put("wallet", wallet);
+				user.saveInBackground(new SaveCallback() {
+					
+					@Override
+					public void done(ParseException arg0) {
+						Toast.makeText(UserLoginActivity.this, getString(R.string.welcome), Toast.LENGTH_SHORT).show();
+						progressDialog.dismiss();
+						finish();
+					}
+				});
+			}
+		});
 	}
 
 	protected void signIn() {
@@ -138,7 +152,7 @@ public class UserLoginActivity extends ActionBarActivity implements GooglePlaySe
 					Toast.makeText(UserLoginActivity.this, "Error code: " + e.getMessage(), Toast.LENGTH_SHORT).show();
 				}
 			}
-		});		
+		});
 	}
 
 	@Override

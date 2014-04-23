@@ -12,16 +12,6 @@
         android:text="@string/profile_withdraw"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/profile_emailText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/nameText_profileScreen"
-        android:layout_centerHorizontal="true"
-        android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@android:color/white" />
-
     <EditText
         android:id="@+id/profile_withdrawEdit"
         android:layout_width="wrap_content"
@@ -32,15 +22,6 @@
         android:ems="10"
         android:inputType="number"
         android:text="0" />
-
-    <ImageView
-        android:id="@+id/profile_avatarView"
-        android:layout_width="@dimen/d100p"
-        android:layout_height="@dimen/d100p"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/profile_walletText"
-        android:layout_marginTop="71dp"
-        android:src="@drawable/ic_launcher" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -87,8 +68,36 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Large Text"
+        android:text="$0"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/vacancyItem_expireText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/profile_withdrawEdit"
+        android:layout_centerHorizontal="true"
+        android:text="@string/profile_withdraw_text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white" />
+
+    <ImageView
+        android:id="@+id/profile_avatarView"
+        android:layout_width="@dimen/d100p"
+        android:layout_height="@dimen/d100p"
+        android:layout_above="@+id/profile_emailText"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/profile_emailText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/nameText_profileScreen"
+        android:layout_centerHorizontal="true"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/white" />
 
     <TextView
@@ -99,16 +108,6 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/profile_update_text"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/white" />
-
-    <TextView
-        android:id="@+id/vacancyItem_expireText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/profile_withdrawEdit"
-        android:layout_centerHorizontal="true"
-        android:text="@string/profile_withdraw_text"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/white" />
 

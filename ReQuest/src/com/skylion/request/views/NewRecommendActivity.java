@@ -1,4 +1,4 @@
-package com.skylion.request;
+package com.skylion.request.views;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -12,8 +12,12 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.skylion.request.R;
+import com.skylion.request.R.id;
+import com.skylion.request.R.layout;
+import com.skylion.request.R.menu;
+import com.skylion.request.R.string;
 import com.skylion.request.utils.adapters.VacancyListAdapter;
-import com.skylion.request.views.NewRequestHolder;
 
 import android.speech.RecognitionListener;
 import android.support.v7.app.ActionBarActivity;
@@ -41,12 +45,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
 
-public class Recommend_candidate extends ActionBarActivity {	
+public class NewRecommendActivity extends ActionBarActivity {	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_recommend_candidate);
+		setContentView(R.layout.activity_new_recommend);
 		
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
@@ -109,7 +113,7 @@ public class Recommend_candidate extends ActionBarActivity {
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			rootView = inflater.inflate(
-					R.layout.fragment_recommend_candidate, container, false);
+					R.layout.fragment_new_recommend, container, false);
 			initScreen();
 			return rootView;
 		}

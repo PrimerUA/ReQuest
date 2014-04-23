@@ -25,9 +25,9 @@ import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.skylion.request.R;
-import com.skylion.request.Recommend_candidate;
 import com.skylion.request.entity.Vacancy;
 import com.skylion.request.utils.ExpandableViewHelper;
+import com.skylion.request.views.NewRecommendActivity;
 
 public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 
@@ -145,7 +145,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 			break;
 		case R.id.vacancyItem_recommendButton:			
 //			Toast.makeText(v.getContext(), "Recommend friend!", Toast.LENGTH_SHORT).show();
-			contextt.startActivity(new Intent(contextt, Recommend_candidate.class));
+			contextt.startActivity(new Intent(contextt, NewRecommendActivity.class));
 			break;
 		case R.id.vacancyItem_contentLayout:
 			LinearLayout expandableLayout = (LinearLayout) v.findViewById(R.id.vacancyItem_expandableLayout);
