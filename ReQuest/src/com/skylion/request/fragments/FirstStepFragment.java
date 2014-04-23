@@ -74,10 +74,8 @@ public class FirstStepFragment extends Fragment {
 			}
 		});
 		
-		
-		
+			
 		nextButton = (Button) view.findViewById(R.id.newRequest_nextButton);
-
 		nextButton.setOnClickListener(new OnClickListener() {
 
 			@Override

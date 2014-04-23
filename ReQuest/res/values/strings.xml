@@ -58,6 +58,10 @@
     <string name="city_text">City:</string>
     <string name="salary_item_text">Salary:</string>
     <string name="title_activity_recommend_candidate">Recommend_candidate</string>
-    <string name="hello_world">Hello world!</string>
-
+    <string name="rc_candidate_creation_error">Recommend failed!</string>
+    <string name="rc_candidate_success">Recommends has been created!</string>
+    <string name="rc_candidate_required">Fill required fields!</string>
+    <string name="rc_candidate_date_formate_error">Incorrect date, must be for ex: 21.12.1990!</string>
+    <string name="rc_candidate_creating">Creating respond</string>
+    
 </resources>
