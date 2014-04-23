@@ -23,45 +23,6 @@
         android:inputType="number"
         android:text="0" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/profile_withdrawButton"
-        android:layout_alignRight="@+id/profile_withdrawButton"
-        android:layout_below="@+id/profile_walletText"
-        android:layout_marginTop="18dp"
-        android:gravity="center" >
-
-        <Button
-            android:id="@+id/profile_buyFive"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/profile_buy_five" />
-
-        <Button
-            android:id="@+id/profile_buyTen"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/profile_buy_ten" />
-
-        <Button
-            android:id="@+id/profile_buyFiveteen"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/profile_buy_fiveteen" />
-
-        <Button
-            android:id="@+id/profile_buyTwenty"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/profile_buy_twenty" />
-    </LinearLayout>
-
     <TextView
         android:id="@+id/profile_walletText"
         android:layout_width="wrap_content"
@@ -110,5 +71,52 @@
         android:text="@string/profile_update_text"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_walletText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="@string/buy_coins_text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/profile_buyFive"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_buy_five" />
+
+        <Button
+            android:id="@+id/profile_buyTen"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_buy_ten" />
+
+        <Button
+            android:id="@+id/profile_buyFiveteen"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_buy_fiveteen" />
+
+        <Button
+            android:id="@+id/profile_buyTwenty"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_buy_twenty" />
+    </LinearLayout>
 
 </RelativeLayout>
