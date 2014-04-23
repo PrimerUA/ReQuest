@@ -65,5 +65,16 @@
     <string name="rc_candidate_date_formate_error">Incorrect date, must be for ex: 21.12.1990!</string>
     <string name="rc_candidate_creating">Creating respond</string>
     <string name="buy_coins_text">Purchase coins to create new vacancies:</string>
-
+    <string name="rc_candidate_name">Name:</string>
+    <string name="rc_candidate_email">Email:</string>
+    <string name="rc_candidate_bdate">Date of Birth:</string>
+    <string name="rc_candidate_summary">Summary:</string>
+    <string name="rc_candidate_experience">Experience:</string>
+    <string name="rc_candidate_last_job">Last job:</string>
+    <string name="rc_candidate_last_post">Post at the last place:</string>
+    <string name="rc_candidate_selsect_photo">Select candidate photo:</string>
+    <string name="rc_candidate_comment">Comment on the candidate:</string>
+    <string name="rc_candidate_send">Send</string>
+    <string name="rc_candidate_date">ex: 20.12.2015</string>
+    
 </resources>
