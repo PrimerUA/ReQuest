@@ -136,14 +136,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PDF" />
-
-            <Button
-                android:id="@+id/rc_Candidate_word"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Word" />
+                android:text="@string/rc_Candidate_summary_add" />
         </LinearLayout>
         
                 <TextView

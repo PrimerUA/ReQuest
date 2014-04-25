@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.util.EventLogTags.Description;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -114,14 +115,15 @@ public class NewRecommendActivity extends ActionBarActivity {
 
 		private View rootView = null;
 		private ProgressDialog myProgressDialog;
-		private int PICK_IMAGE = 1;
-		private int PICK_DOC = 2;
-		private int PICK_PDF = 3;
+		private int PICK_IMAGE = 1;		
+		private int PICK_DOCUMENT = 2;
 		private DateTimeSelector dateSelector;		
 		private String vacancyId;
 		private Boolean isPdf = false;
-		private Button pdfButon;
-		private Button docButon;
+		private Button documentButton;		
+		private String extension = "";
+		private String photoExtension = "";
+		private String resumExtension = "";
 		
 		@SuppressLint("ValidFragment")
 		public PlaceholderFragment(String vacancyId) {
@@ -164,11 +166,10 @@ public class NewRecommendActivity extends ActionBarActivity {
 			sendButton = (Button) rootView.findViewById(R.id.button_rcCandidate_send);			
 			logoImageButton = (ImageButton)rootView.findViewById(R.id.rcCandidate_imageButton);
 			logoImageButtonDate = (ImageButton)rootView.findViewById(R.id.rcCandidate_dateButton);
-			pdfButon = (Button) rootView.findViewById(R.id.rc_Candidate_pdf);
-			docButon = (Button) rootView.findViewById(R.id.rc_Candidate_word);
-			//logoImageButtonSummary = (ImageButton)rootView.findViewById(R.id.rc_Candidate_summary_select_button);
+			documentButton = (Button) rootView.findViewById(R.id.rc_Candidate_pdf);
+						
 			logoImageView = (ImageView) rootView.findViewById(R.id.rcCandidate_imageView);	
-			CommentEdit.setText(vacancyId);			
+//			CommentEdit.setText(vacancyId);			
 			dateSelector = new DateTimeSelector();
 			dateSelector.init(Calendar.getInstance());
 			dateSelector.setListener(new DateTimeSelectorListener() {
@@ -221,16 +222,12 @@ public class NewRecommendActivity extends ActionBarActivity {
 									rcCandidate.put("request", vacancyObj);
 									rcCandidate.put("type", 1);
 									if (getImage() != null) {
-										ParseFile file = new ParseFile("photo.png", getImage());
+										ParseFile file = new ParseFile("photo" + photoExtension, getImage());
 										rcCandidate.put("photo", file);
 									}
 									if(getSummaryFile() != null)
 									{ 
-										ParseFile file;
-										if(isPdf)
-											file = new ParseFile("resume.pdf", getSummaryFile());
-										else
-											file = new ParseFile("resume.docx", getSummaryFile());
+										ParseFile file = new ParseFile("resume" + resumExtension, getSummaryFile());										
 										rcCandidate.put("proof", file);
 									}
 									rcCandidate.put("comment", CommentEdit.getText().toString());
@@ -273,49 +270,17 @@ public class NewRecommendActivity extends ActionBarActivity {
 				}
 			});
 			
-			pdfButon.setOnClickListener(new OnClickListener() {
+			documentButton.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					
-					Intent intent = new Intent(Intent.ACTION_VIEW);
-					intent.setType("application/pdf");
-					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-					try {
-					    startActivity(intent);
-					    startActivityForResult(Intent.createChooser(intent, getString(R.string.select_picture)), PICK_PDF);
-					} 
-					catch (ActivityNotFoundException e) {
-					    Toast.makeText(getActivity(), 
-					        "No Application Available to View PDF", 
-					        Toast.LENGTH_SHORT).show();
-					}										
+					Intent intent = new Intent();
+					intent.setType("document/*");
+					intent.setAction(Intent.ACTION_GET_CONTENT);
+					startActivityForResult(Intent.createChooser(intent, getString(R.string.select_picture)), PICK_DOCUMENT);
 				}
-			});
-			
-			
-			docButon.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					
-					Intent intent = new Intent(Intent.ACTION_VIEW);
-					intent.setType("application/msword");
-					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-					try {
-					    startActivity(intent);
-					    startActivityForResult(Intent.createChooser(intent, getString(R.string.select_picture)), PICK_DOC);
-					} 
-					catch (ActivityNotFoundException e) {
-					    Toast.makeText(getActivity(), 
-					        "No Application Available to View DOC", 
-					        Toast.LENGTH_SHORT).show();
-					}										
-				}
-			});
-
+			});									
 		}
 
 		@Override
@@ -324,8 +289,8 @@ public class NewRecommendActivity extends ActionBarActivity {
 			{				
 				if (data != null && data.getData() != null) {					
 					setImage(read(new File(getFilePath(data))));
-	
-					if (getImage() != null) {
+					photoExtension = extension;
+					if (getImage() != null) {						
 						byte[] imgdata = getImage();
 						BitmapFactory.Options options = new BitmapFactory.Options();
 						options.inSampleSize = 1;
@@ -336,31 +301,26 @@ public class NewRecommendActivity extends ActionBarActivity {
 				}
 			}
 			else
-			{
-				if (requestCode == PICK_DOC && data != null && data.getData() != null)
-				{							
-					setSummaryFile(read(new File(getFilePath(data))));
-					summaryFileEdit.setText("Summary file selected");
-				}
-				else
+			{				
+				if (requestCode == PICK_DOCUMENT && data != null && data.getData() != null)
 				{
-					if (requestCode == PICK_PDF && data != null && data.getData() != null)
-					{
-						isPdf = true;
-						setSummaryFile(read(new File(getFilePath(data))));
-						summaryFileEdit.setText("Summary file selected");
-					}
-				}
+					isPdf = true;
+					setSummaryFile(read(new File(getFilePath(data))));
+					resumExtension = extension;
+					summaryFileEdit.setText("Summary file selected");
+				}				
 			}
 		}
 
 		private String getFilePath(Intent data) {
-			Uri uri = data.getData();
+			Uri uri = data.getData();			 
 			Context context = getActivity().getApplicationContext();			
 			Cursor cursor = context.getContentResolver().query(uri,
 					new String[] { android.provider.MediaStore.Images.ImageColumns.DATA }, null, null, null);
 			cursor.moveToFirst();
-			return cursor.getString(0);
+			String path = cursor.getString(0);
+			extension = path.substring(path.lastIndexOf("."));
+			return path;
 		}
 		
 		public byte[] read(File file) {
