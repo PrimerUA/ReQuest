@@ -20,6 +20,7 @@ import com.skylion.request.R;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -121,9 +122,13 @@ public class NewRecommendActivity extends ActionBarActivity {
 		private View rootView = null;
 		private ProgressDialog myProgressDialog;
 		private int PICK_IMAGE = 1;
-		private int PICK_SUMMARY = 2;
+		private int PICK_DOC = 2;
+		private int PICK_PDF = 3;
 		private DateTimeSelector dateSelector;		
 		private String vacancyId;
+		private Boolean isPdf = false;
+		private Button pdfButon;
+		private Button docButon;
 		
 		public PlaceholderFragment(String vacancyId) {
 			this.vacancyId = vacancyId;
@@ -165,7 +170,9 @@ public class NewRecommendActivity extends ActionBarActivity {
 			sendButton = (Button) rootView.findViewById(R.id.button_rcCandidate_send);			
 			logoImageButton = (ImageButton)rootView.findViewById(R.id.rcCandidate_imageButton);
 			logoImageButtonDate = (ImageButton)rootView.findViewById(R.id.rcCandidate_dateButton);
-			logoImageButtonSummary = (ImageButton)rootView.findViewById(R.id.rc_Candidate_summary_select_button);
+			pdfButon = (Button) rootView.findViewById(R.id.rc_Candidate_pdf);
+			docButon = (Button) rootView.findViewById(R.id.rc_Candidate_word);
+			//logoImageButtonSummary = (ImageButton)rootView.findViewById(R.id.rc_Candidate_summary_select_button);
 			logoImageView = (ImageView) rootView.findViewById(R.id.rcCandidate_imageView);	
 			CommentEdit.setText(vacancyId);			
 			dateSelector = new DateTimeSelector();
@@ -224,8 +231,12 @@ public class NewRecommendActivity extends ActionBarActivity {
 										rcCandidate.put("photo", file);
 									}
 									if(getSummaryFile() != null)
-									{
-										ParseFile file = new ParseFile("resume.txt", getSummaryFile());
+									{ 
+										ParseFile file;
+										if(isPdf)
+											file = new ParseFile("resume.pdf", getSummaryFile());
+										else
+											file = new ParseFile("resume.docx", getSummaryFile());
 										rcCandidate.put("proof", file);
 									}
 									rcCandidate.put("comment", CommentEdit.getText().toString());
@@ -268,14 +279,46 @@ public class NewRecommendActivity extends ActionBarActivity {
 				}
 			});
 			
-			logoImageButtonSummary.setOnClickListener(new OnClickListener() {
+			pdfButon.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent();
-					intent.setType("text/*");
-					intent.setAction(Intent.ACTION_GET_CONTENT);
-					startActivityForResult(Intent.createChooser(intent, getString(R.string.select_summary)), PICK_SUMMARY);
+					
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					intent.setType("application/pdf");
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+					try {
+					    startActivity(intent);
+					    startActivityForResult(Intent.createChooser(intent, getString(R.string.select_picture)), PICK_PDF);
+					} 
+					catch (ActivityNotFoundException e) {
+					    Toast.makeText(getActivity(), 
+					        "No Application Available to View PDF", 
+					        Toast.LENGTH_SHORT).show();
+					}										
+				}
+			});
+			
+			
+			docButon.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					intent.setType("application/msword");
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+					try {
+					    startActivity(intent);
+					    startActivityForResult(Intent.createChooser(intent, getString(R.string.select_picture)), PICK_DOC);
+					} 
+					catch (ActivityNotFoundException e) {
+					    Toast.makeText(getActivity(), 
+					        "No Application Available to View DOC", 
+					        Toast.LENGTH_SHORT).show();
+					}										
 				}
 			});
 
@@ -300,10 +343,19 @@ public class NewRecommendActivity extends ActionBarActivity {
 			}
 			else
 			{
-				if (requestCode == PICK_SUMMARY && data != null && data.getData() != null)
-				{					
+				if (requestCode == PICK_DOC && data != null && data.getData() != null)
+				{							
 					setSummaryFile(read(new File(getFilePath(data))));
 					summaryFileEdit.setText("Summary file selected");
+				}
+				else
+				{
+					if (requestCode == PICK_PDF && data != null && data.getData() != null)
+					{
+						isPdf = true;
+						setSummaryFile(read(new File(getFilePath(data))));
+						summaryFileEdit.setText("Summary file selected");
+					}
 				}
 			}
 		}
