@@ -35,7 +35,9 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 	private List<Vacancy> requestList;
 	private LayoutInflater inflater;
 	private Context contextt = null;
-
+	private ViewHolder holder;
+	private String vacancyId;
+	
 	public VacancyListAdapter(Context context, List<Vacancy> result) {
 		this.requestList = result;
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -50,7 +52,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 			view = inflater.inflate(R.layout.vacancy_list_item, null);
 
 		// create holder
-		ViewHolder holder = new ViewHolder();
+		holder = new ViewHolder();
 		holder.title = (TextView) view.findViewById(R.id.vacancyItem_titleText);
 		holder.reward = (TextView) view.findViewById(R.id.vacancyItem_prizeText);
 		holder.companyName = (TextView) view.findViewById(R.id.vacancyItem_companyText);
@@ -82,6 +84,8 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		holder.companyDescription.setText(vacancy.getCompanyDescription());
 		holder.companyAddress.setText(vacancy.getCompanyAddress());
 		holder.author.setText(vacancy.getAuthor().getUsername());
+		vacancyId = vacancy.getObjectId();
+		
 		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
 				.showImageForEmptyUri(R.drawable.ic_launcher).imageScaleType(ImageScaleType.EXACTLY_STRETCHED).resetViewBeforeLoading(true)
 				.cacheInMemory(true).cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(Integer.MAX_VALUE)).build();
@@ -118,8 +122,10 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		public TextView companyAddress;
 		private TextView author;
 		private ImageView avatar;
-	}
-
+		private String vacancyId;					
+		
+	}		
+	
 	private void loadImage(ParseFile imgFile, final ImageView imgView) {
 
 		imgFile.getDataInBackground(new GetDataCallback() {
@@ -144,9 +150,13 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 			Toast.makeText(v.getContext(), "Buy answers!", Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.vacancyItem_recommendButton:			
+		{
 //			Toast.makeText(v.getContext(), "Recommend friend!", Toast.LENGTH_SHORT).show();
-			contextt.startActivity(new Intent(contextt, NewRecommendActivity.class));
+			Intent intent = new Intent(contextt, NewRecommendActivity.class);
+			intent.putExtra("vacancyObjectId", vacancyId);
+			contextt.startActivity(intent);
 			break;
+		}
 		case R.id.vacancyItem_contentLayout:
 			LinearLayout expandableLayout = (LinearLayout) v.findViewById(R.id.vacancyItem_expandableLayout);
 			if (expandableLayout.isShown()) {
@@ -176,5 +186,5 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 	@Override
 	public long getItemId(int position) {
 		return position;
-	}
+	}			
 }
