@@ -34,16 +34,15 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 	private View view;
 	private List<Vacancy> requestList;
 	private LayoutInflater inflater;
-	private Context contextt = null;
-	private ViewHolder holder;
-	private String vacancyId;
+	private Context context = null;
+	private ViewHolder holder;	
 	
 	public VacancyListAdapter(Context context, List<Vacancy> result) {
 		this.requestList = result;
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		contextt = context;
+		this.context = context;
 	}
-
+	
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		final Vacancy vacancy = requestList.get(position);
@@ -84,7 +83,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		holder.companyDescription.setText(vacancy.getCompanyDescription());
 		holder.companyAddress.setText(vacancy.getCompanyAddress());
 		holder.author.setText(vacancy.getAuthor().getUsername());
-		vacancyId = vacancy.getObjectId();
+		holder.vacancyId = vacancy.getObjectId();		
 		
 		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
 				.showImageForEmptyUri(R.drawable.ic_launcher).imageScaleType(ImageScaleType.EXACTLY_STRETCHED).resetViewBeforeLoading(true)
@@ -103,7 +102,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 
 		Button recommendButton = (Button) view.findViewById(R.id.vacancyItem_recommendButton);
 		recommendButton.setOnClickListener(this);						
-		
+		recommendButton.setTag(position);		
 		return view;
 	}
 
@@ -121,9 +120,8 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		public TextView companyDescription;
 		public TextView companyAddress;
 		private TextView author;
-		private ImageView avatar;
-		private String vacancyId;					
-		
+		private ImageView avatar;			
+		private String vacancyId;
 	}		
 	
 	private void loadImage(ParseFile imgFile, final ImageView imgView) {
@@ -152,9 +150,12 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		case R.id.vacancyItem_recommendButton:			
 		{
 //			Toast.makeText(v.getContext(), "Recommend friend!", Toast.LENGTH_SHORT).show();
-			Intent intent = new Intent(contextt, NewRecommendActivity.class);
-			intent.putExtra("vacancyObjectId", vacancyId);
-			contextt.startActivity(intent);
+			Intent intent = new Intent(context, NewRecommendActivity.class);
+			int position = Integer.parseInt(v.getTag().toString());
+			
+			intent.putExtra("vacancyObjectId", requestList.get(position).getObjectId());
+			
+			context.startActivity(intent);
 			break;
 		}
 		case R.id.vacancyItem_contentLayout:

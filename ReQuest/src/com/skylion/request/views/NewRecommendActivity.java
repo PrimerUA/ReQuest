@@ -100,8 +100,7 @@ public class NewRecommendActivity extends ActionBarActivity {
 		private EditText summaryFileEdit;
 		private Button sendButton;
 		private ImageButton logoImageButton;
-		private ImageButton logoImageButtonDate;
-		private ImageButton logoImageButtonSummary;
+		private ImageButton logoImageButtonDate;		
 		private ImageView logoImageView;
 		private Date bDate;
 		private byte[] image = null;
@@ -118,8 +117,7 @@ public class NewRecommendActivity extends ActionBarActivity {
 		private int PICK_IMAGE = 1;		
 		private int PICK_DOCUMENT = 2;
 		private DateTimeSelector dateSelector;		
-		private String vacancyId;
-		private Boolean isPdf = false;
+		private String vacancyId;		
 		private Button documentButton;		
 		private String extension = "";
 		private String photoExtension = "";
@@ -168,8 +166,7 @@ public class NewRecommendActivity extends ActionBarActivity {
 			logoImageButtonDate = (ImageButton)rootView.findViewById(R.id.rcCandidate_dateButton);
 			documentButton = (Button) rootView.findViewById(R.id.rc_Candidate_pdf);
 						
-			logoImageView = (ImageView) rootView.findViewById(R.id.rcCandidate_imageView);	
-//			CommentEdit.setText(vacancyId);			
+			logoImageView = (ImageView) rootView.findViewById(R.id.rcCandidate_imageView);				
 			dateSelector = new DateTimeSelector();
 			dateSelector.init(Calendar.getInstance());
 			dateSelector.setListener(new DateTimeSelectorListener() {
@@ -250,10 +247,7 @@ public class NewRecommendActivity extends ActionBarActivity {
 							      vacancyObj = null;
 							    }
 							  }
-							});
-													
-							
-							
+							});																									
 						}
 					}
 				}
@@ -303,8 +297,7 @@ public class NewRecommendActivity extends ActionBarActivity {
 			else
 			{				
 				if (requestCode == PICK_DOCUMENT && data != null && data.getData() != null)
-				{
-					isPdf = true;
+				{					
 					setSummaryFile(read(new File(getFilePath(data))));
 					resumExtension = extension;
 					summaryFileEdit.setText("Summary file selected");
