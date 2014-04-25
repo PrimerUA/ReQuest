@@ -23,6 +23,7 @@ public class Vacancy {
 	private String companyDescription;
 	private String companyAddress;
 	private ParseUser author;
+	private String objectId;
 
 	private ParseObject parseObject;
 
@@ -46,6 +47,7 @@ public class Vacancy {
 		companyDescription = obj.getString("companyDescription");
 		companyAddress = obj.getString("companyAddress");
 		author = obj.getParseUser("user");
+		objectId = obj.getObjectId();
 
 		return this;
 	}
@@ -171,5 +173,8 @@ public class Vacancy {
 	public void setAuthor(ParseUser author) {
 		this.author = author;
 	}
-
+	
+	public String getObjectId() {
+		return this.objectId;
+	}
 }
