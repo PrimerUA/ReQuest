@@ -76,6 +76,8 @@
     <string name="rc_candidate_selsect_photo">Select candidate photo:</string>
     <string name="rc_candidate_comment">Comment on the candidate:</string>
     <string name="rc_candidate_send">Send</string>
-    <string name="rc_candidate_date">Select...</string>
+    <string name="rc_candidate_date">Select&#8230;</string>
+    <string name="select_summary">Select&#8230;</string>
+    <string name="rec_candidate_summary_attach">Attach summary file:</string>
     
 </resources>

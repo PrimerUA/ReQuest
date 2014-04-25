@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-<<<<<<< HEAD
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -18,8 +17,6 @@ import com.skylion.request.R;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
-=======
->>>>>>> a454c81ccd892c434cb774bafc03aa6d434c9f2f
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -42,14 +39,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-<<<<<<< HEAD
-import com.skylion.request.utils.DateTimeSelector;
-import com.skylion.request.utils.DateTimeSelectorListener;
-
-public class NewRecommendActivity extends ActionBarActivity {	
-	
-=======
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -57,9 +46,12 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.skylion.request.R;
 
-public class NewRecommendActivity extends ActionBarActivity {
+import com.skylion.request.utils.DateTimeSelector;
+import com.skylion.request.utils.DateTimeSelectorListener;
 
->>>>>>> a454c81ccd892c434cb774bafc03aa6d434c9f2f
+public class NewRecommendActivity extends ActionBarActivity {	
+	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -104,32 +96,26 @@ public class NewRecommendActivity extends ActionBarActivity {
 		private EditText LastJobEdit;
 		private EditText PostEdit;
 		private EditText CommentEdit;
+		private EditText summaryFileEdit;
 		private Button sendButton;
 		private ImageButton logoImageButton;
 		private ImageButton logoImageButtonDate;
+		private ImageButton logoImageButtonSummary;
 		private ImageView logoImageView;
 		private Date bDate;
 		private byte[] image = null;
-<<<<<<< HEAD
-		private boolean isSendDate;						
-		
-=======
-		private boolean isSendDate;
+		private byte[] summaryFile = null;
+
+		private boolean isSendDate;							
 
 		// private static Context mContext;
 
->>>>>>> a454c81ccd892c434cb774bafc03aa6d434c9f2f
 		private View rootView = null;
-
 		private ProgressDialog myProgressDialog;
 		private int PICK_IMAGE = 1;
-<<<<<<< HEAD
+		private int PICK_SUMMARY = 2;
+		private DateTimeSelector dateSelector;		
 		
-		private DateTimeSelector dateSelector;
-		
-=======
-
->>>>>>> a454c81ccd892c434cb774bafc03aa6d434c9f2f
 		public PlaceholderFragment() {
 		}
 
@@ -153,11 +139,7 @@ public class NewRecommendActivity extends ActionBarActivity {
 						Toast.LENGTH_LONG).show();
 			}
 		}
-<<<<<<< HEAD
-								
-=======
 
->>>>>>> a454c81ccd892c434cb774bafc03aa6d434c9f2f
 		private void initScreen() {
 
 			myProgressDialog = new ProgressDialog(getActivity());
@@ -169,11 +151,11 @@ public class NewRecommendActivity extends ActionBarActivity {
 			LastJobEdit = (EditText) rootView.findViewById(R.id.rcCandidate_last_job);
 			PostEdit = (EditText) rootView.findViewById(R.id.rcCandidate_post_at_last_job);
 			CommentEdit = (EditText) rootView.findViewById(R.id.rcCandidate_comment);
-			sendButton = (Button) rootView.findViewById(R.id.button_rcCandidate_send);
-<<<<<<< HEAD
-			
+			summaryFileEdit = (EditText) rootView.findViewById(R.id.rc_Candidate_summary_file);
+			sendButton = (Button) rootView.findViewById(R.id.button_rcCandidate_send);			
 			logoImageButton = (ImageButton)rootView.findViewById(R.id.rcCandidate_imageButton);
 			logoImageButtonDate = (ImageButton)rootView.findViewById(R.id.rcCandidate_dateButton);
+			logoImageButtonSummary = (ImageButton)rootView.findViewById(R.id.rc_Candidate_summary_select_button);
 			logoImageView = (ImageView) rootView.findViewById(R.id.rcCandidate_imageView);	
 					
 			dateSelector = new DateTimeSelector();
@@ -194,26 +176,16 @@ public class NewRecommendActivity extends ActionBarActivity {
 					dateSelector.openDateDialog(getActivity());
 				}
 			});
-=======
-
 			logoImageButton = (ImageButton) rootView.findViewById(R.id.rcCandidate_imageButton);
 			logoImageView = (ImageView) rootView.findViewById(R.id.rcCandidate_imageView);
->>>>>>> a454c81ccd892c434cb774bafc03aa6d434c9f2f
-
 			sendButton.setOnClickListener(new OnClickListener() {
 
 				@Override
-				public void onClick(View v) {
-<<<<<<< HEAD
-					if("".equals(NameEdit.getText().toString()) 
-							|| "".equals(EmailEdit.getText().toString()) 
-							|| "".equals(DateEdit.getText().toString())
+				public void onClick(View v) {					
+					if ("".equals(NameEdit.getText().toString()) 
+							|| "".equals(EmailEdit.getText().toString())
+							|| "".equals(DateEdit.getText().toString()) 
 							|| "".equals(SummaryeEdit.getText().toString()))
-=======
-					// TODO Auto-generated method stub
-					if ("".equals(NameEdit.getText().toString()) || "".equals(EmailEdit.getText().toString())
-							|| "".equals(DateEdit.getText().toString()) || "".equals(SummaryeEdit.getText().toString()))
->>>>>>> a454c81ccd892c434cb774bafc03aa6d434c9f2f
 						Toast.makeText(v.getContext(), getString(R.string.rc_candidate_required), Toast.LENGTH_SHORT).show();
 					else {
 						checkDate();
@@ -232,6 +204,11 @@ public class NewRecommendActivity extends ActionBarActivity {
 							if (getImage() != null) {
 								ParseFile file = new ParseFile("photo.png", getImage());
 								rcCandidate.put("photo", file);
+							}
+							if(getSummaryFile() != null)
+							{
+								ParseFile file = new ParseFile("resume.txt", getSummaryFile());
+								rcCandidate.put("proof", file);
 							}
 							rcCandidate.put("comment", CommentEdit.getText().toString());
 
@@ -262,7 +239,18 @@ public class NewRecommendActivity extends ActionBarActivity {
 					Intent intent = new Intent();
 					intent.setType("image/*");
 					intent.setAction(Intent.ACTION_GET_CONTENT);
-					startActivityForResult(Intent.createChooser(intent, getString(R.string.select_picture)), NewRequestHolder.PICK_IMAGE);
+					startActivityForResult(Intent.createChooser(intent, getString(R.string.select_picture)), PICK_IMAGE);
+				}
+			});
+			
+			logoImageButtonSummary.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent();
+					intent.setType("text/*");
+					intent.setAction(Intent.ACTION_GET_CONTENT);
+					startActivityForResult(Intent.createChooser(intent, getString(R.string.select_summary)), PICK_SUMMARY);
 				}
 			});
 
@@ -270,25 +258,40 @@ public class NewRecommendActivity extends ActionBarActivity {
 
 		@Override
 		public void onActivityResult(int requestCode, int resultCode, Intent data) {
-			if (requestCode == PICK_IMAGE && data != null && data.getData() != null) {
-				Uri uri = data.getData();
-				Context context = getActivity().getApplicationContext();
-				Cursor cursor = context.getContentResolver().query(uri,
-						new String[] { android.provider.MediaStore.Images.ImageColumns.DATA }, null, null, null);
-				cursor.moveToFirst();
-				setImage(read(new File(cursor.getString(0))));
-
-				if (getImage() != null) {
-					byte[] imgdata = getImage();
-					BitmapFactory.Options options = new BitmapFactory.Options();
-					options.inSampleSize = 1;
-					Bitmap bitmap = BitmapFactory.decodeByteArray(imgdata, 0, imgdata.length, options);
-					logoImageView.setImageBitmap(bitmap);
-				} else
-					logoImageView.setVisibility(View.GONE);
+			if(requestCode == PICK_IMAGE)
+			{				
+				if (data != null && data.getData() != null) {					
+					setImage(read(new File(getFilePath(data))));
+	
+					if (getImage() != null) {
+						byte[] imgdata = getImage();
+						BitmapFactory.Options options = new BitmapFactory.Options();
+						options.inSampleSize = 1;
+						Bitmap bitmap = BitmapFactory.decodeByteArray(imgdata, 0, imgdata.length, options);
+						logoImageView.setImageBitmap(bitmap);
+					} else
+						logoImageView.setVisibility(View.GONE);
+				}
+			}
+			else
+			{
+				if (requestCode == PICK_SUMMARY && data != null && data.getData() != null)
+				{					
+					setSummaryFile(read(new File(getFilePath(data))));
+					summaryFileEdit.setText("Summary file selected");
+				}
 			}
 		}
 
+		private String getFilePath(Intent data) {
+			Uri uri = data.getData();
+			Context context = getActivity().getApplicationContext();
+			Cursor cursor = context.getContentResolver().query(uri,
+					new String[] { android.provider.MediaStore.Images.ImageColumns.DATA }, null, null, null);
+			cursor.moveToFirst();
+			return cursor.getString(0);
+		}
+		
 		public byte[] read(File file) {
 			ByteArrayOutputStream bos = null;
 			try {
@@ -311,6 +314,14 @@ public class NewRecommendActivity extends ActionBarActivity {
 
 		public void setImage(byte[] image) {
 			this.image = image;
+		}
+
+		public byte[] getSummaryFile() {
+			return summaryFile;
+		}
+
+		public void setSummaryFile(byte[] summaryFile) {
+			this.summaryFile = summaryFile;
 		}				
 	}
 }
