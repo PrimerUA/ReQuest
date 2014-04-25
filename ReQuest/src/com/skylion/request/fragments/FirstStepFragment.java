@@ -19,8 +19,6 @@ public class FirstStepFragment extends Fragment {
 	private View view;
 
 	private EditText titleEdit;
-	private EditText companyEdit;
-	private EditText descEdit;
 	private Button nextButton;
 	
 	public String testEditText = "";

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import com.parse.ParseException;
@@ -13,18 +14,10 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.skylion.request.R;
-import com.skylion.request.R.id;
-import com.skylion.request.R.layout;
-import com.skylion.request.R.menu;
-import com.skylion.request.R.string;
-import com.skylion.request.utils.adapters.VacancyListAdapter;
 
-import android.speech.RecognitionListener;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -44,6 +37,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
+
+import com.skylion.request.utils.DateTimeSelector;
+import com.skylion.request.utils.DateTimeSelectorListener;
 
 public class NewRecommendActivity extends ActionBarActivity {	
 	
@@ -93,18 +89,18 @@ public class NewRecommendActivity extends ActionBarActivity {
 		private EditText CommentEdit;
 		private Button sendButton;
 		private ImageButton logoImageButton;
+		private ImageButton logoImageButtonDate;
 		private ImageView logoImageView;
 		private Date bDate;
 		private byte[] image = null;
-		private boolean isSendDate;
-		
-//		private static Context mContext;
-
+		private boolean isSendDate;						
 		
 		private View rootView = null;
 				
 		private ProgressDialog myProgressDialog;		
 		private int PICK_IMAGE = 1;
+		
+		private DateTimeSelector dateSelector;
 		
 		public PlaceholderFragment() {
 		}
@@ -131,7 +127,7 @@ public class NewRecommendActivity extends ActionBarActivity {
 				Toast.makeText(getActivity(), getString(R.string.rc_candidate_date_formate_error) + " " + e1.getMessage(), Toast.LENGTH_LONG).show();
 			}	
 		}
-		
+								
 		private void initScreen() {
 			
 			myProgressDialog = new ProgressDialog(getActivity());			
@@ -146,13 +142,32 @@ public class NewRecommendActivity extends ActionBarActivity {
 			sendButton = (Button) rootView.findViewById(R.id.button_rcCandidate_send);
 			
 			logoImageButton = (ImageButton)rootView.findViewById(R.id.rcCandidate_imageButton);
-			logoImageView = (ImageView) rootView.findViewById(R.id.rcCandidate_imageView);
-			
+			logoImageButtonDate = (ImageButton)rootView.findViewById(R.id.rcCandidate_dateButton);
+			logoImageView = (ImageView) rootView.findViewById(R.id.rcCandidate_imageView);	
+					
+			dateSelector = new DateTimeSelector();
+			dateSelector.init(Calendar.getInstance());
+			dateSelector.setListener(new DateTimeSelectorListener() {
+				
+				@Override
+				public void updateDate() {
+					DateEdit.setText(dateSelector.getDateString());					
+				}
+			});			
+						
+
+			logoImageButtonDate.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					dateSelector.openDateDialog(getActivity());
+				}
+			});
+
 			sendButton.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
 					if("".equals(NameEdit.getText().toString()) 
 							|| "".equals(EmailEdit.getText().toString()) 
 							|| "".equals(DateEdit.getText().toString())
@@ -259,7 +274,6 @@ public class NewRecommendActivity extends ActionBarActivity {
 
 		public void setImage(byte[] image) {
 			this.image = image;
-		}
+		}				
 	}
-
 }

@@ -3,12 +3,7 @@ package com.skylion.request.fragments;
 import java.io.File;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-
-import org.apache.http.impl.cookie.DateParseException;
-
-import android.app.DatePickerDialog;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -19,17 +14,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.text.format.DateUtils;
-import android.text.method.DateTimeKeyListener;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -192,10 +182,5 @@ public class SecondStepFragment extends Fragment {
 				logoImageView.setVisibility(View.GONE);
 		}
 	}
-	
-	private void updateLabel() {
-		// TODO Auto-generated method stub
 		
-	}
-
 }

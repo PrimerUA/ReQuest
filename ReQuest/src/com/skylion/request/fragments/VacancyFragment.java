@@ -8,15 +8,11 @@ import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.skylion.request.R;
 import com.skylion.request.fragments.tabs.GeneralVacancyFragment;
-import com.skylion.request.fragments.tabs.HotVacancyFragment;
 import com.skylion.request.fragments.tabs.MyVacancyFragment;
-
-import android.view.View.OnClickListener;
 
 public class VacancyFragment extends Fragment {
 	/**

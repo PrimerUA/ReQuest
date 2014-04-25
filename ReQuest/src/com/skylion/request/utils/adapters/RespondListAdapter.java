@@ -11,14 +11,9 @@ import com.parse.ParseObject;
 import com.skylion.request.R;
 import com.skylion.request.entity.Respond;
 import com.skylion.request.utils.ExpandableViewHelper;
-import com.skylion.request.views.NewRequestHolder;
-import com.skylion.request.views.NewRecommendActivity;
-
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.sax.StartElementListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,10 +24,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.app.Activity;
-import android.content.Intent;
-import android.view.Menu;
-
 
 public class RespondListAdapter extends BaseAdapter implements OnClickListener {
 	private View view;

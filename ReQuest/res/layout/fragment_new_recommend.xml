@@ -51,25 +51,41 @@
             
         </EditText>
         
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/rc_candidate_bdate"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/white" />
+        
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/rc_candidate_bdate"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" />
 
-        <EditText
-            android:id="@+id/rcCandidate_bdate"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/fancy_title"
-            android:ems="10"
-            android:hint="@string/rc_candidate_date"
-            android:inputType="date"
-            android:textColorHint="@android:color/white" >
+            android:orientation="horizontal" >
+            
+             <EditText
+                 android:id="@+id/rcCandidate_bdate"
+                 android:layout_width="273dp"
+                 android:layout_height="wrap_content"
+                 android:background="@drawable/fancy_title"
+                 android:ems="10"
+                 android:enabled="false"
+                 android:hint="@string/rc_candidate_date"
+                 android:inputType="none"
+                 android:textColorHint="@android:color/white" >
 
         </EditText>
+
+             <ImageButton
+                 android:id="@+id/rcCandidate_dateButton"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:src="@drawable/date" />
+            
+        </LinearLayout>
+       
         
         <TextView
             android:id="@+id/textView4"
