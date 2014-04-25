@@ -2,10 +2,12 @@
 <resources>
 
     <string name="app_name">ReQuest</string>
+    <string name="base64EncodedPublicKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlwqpujglSWf7mZgazn6ow7rWrzofyHZvqTnMO6gqRAp5vE68H2LXTVeA/s9+wNxtsDjvxiACOxypxlm/zPSFQVolP+zU/bxEL1LaDItmmiQGvLidinnfhI/S+GOPXMqZgsqkup6PxCoUSGQbSsQteVpy+LVOvKMPFEgHhIdvmpYUuEk88NHB7fXPS0axNUrIIpw0twliwmM10PdJscfzTroXHNcls79GdPs9L3XAekS7y2wywYFpiPc7OEkqSHFKJhU7m7/AWYIRd/4w/wFSXuifN02Jr05AmmR2hu6hHx8VdNrWWRCZeIukngOJHfCZ6wDfhQnueN5snnXdKRbfqQIDAQAB</string>
     <string name="title_section_requests">Requests</string>
     <string name="title_section_responds">My Responds</string>
     <string name="title_section_profile">My Profile</string>
     <string name="title_activity_auth">Sign in</string>
+    <string name="title_activity_new_recommend">New recommendation</string>
     <string name="title_tabs_hot">Hot</string>
     <string name="title_tabs_general">General</string>
     <string name="title_tabs_my">Mine</string>
@@ -41,10 +43,10 @@
     <string name="error_updating_profile">Error updating profile</string>
     <string name="profile_save">Update photo</string>
     <string name="profile_update_text">Tap the photo to change it</string>
-    <string name="profile_buy_five">5 USD</string>
-    <string name="profile_buy_ten">10 USD</string>
-    <string name="profile_buy_fiveteen">15 USD</string>
-    <string name="profile_buy_twenty">20 USD</string>
+    <string name="profile_buy_five">1 coin</string>
+    <string name="profile_buy_ten">2 coins</string>
+    <string name="profile_buy_fiveteen">3 coins</string>
+    <string name="profile_buy_twenty">4 coins</string>
     <string name="profile_withdraw">Witdraw money</string>
     <string name="profile_withdraw_text">Amount of money to withdraw:</string>
     <string name="select_picture">Select picture</string>
@@ -63,6 +65,7 @@
     <string name="rc_candidate_required">Fill required fields!</string>
     <string name="rc_candidate_date_formate_error">Incorrect date, must be for ex: 21.12.1990!</string>
     <string name="rc_candidate_creating">Creating respond</string>
+    <string name="buy_coins_text">Purchase coins to create new vacancies:</string>
     <string name="rc_candidate_name">Name:</string>
     <string name="rc_candidate_email">Email:</string>
     <string name="rc_candidate_bdate">Date of Birth:</string>

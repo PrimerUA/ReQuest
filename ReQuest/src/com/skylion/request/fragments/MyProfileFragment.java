@@ -1,7 +1,13 @@
 package com.skylion.request.fragments;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +17,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.parse.ParseUser;
 import com.skylion.request.R;
+import com.skylion.request.billing.IabHelper;
+import com.skylion.request.billing.IabResult;
 import com.skylion.request.parse.ParseApi;
 
 public class MyProfileFragment extends Fragment implements View.OnClickListener {
@@ -39,6 +48,8 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
 
 	private View view;
 
+	private IabHelper mHelper;
+
 	public static MyProfileFragment newInstance(int sectionNumber) {
 		MyProfileFragment fragment = new MyProfileFragment();
 		Bundle args = new Bundle();
@@ -56,9 +67,28 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
 
 		initScreen();
 
+		mHelper = new IabHelper(getActivity(), getString(R.string.base64EncodedPublicKey));
+		mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+			public void onIabSetupFinished(IabResult result) {
+				if (!result.isSuccess()) {
+					Log.d("billing", "Problem setting up In-app Billing: " + result);
+				} else {
+					// Hooray, IAB is fully set up!
+					Log.d("billing", "Success!");
+				}
+			}
+		});
+
 		return view;
 	}
 
+	@Override
+	public void onDestroy() {
+	   super.onDestroy();
+	   if (mHelper != null) mHelper.dispose();
+	   mHelper = null;
+	}
+	
 	private void initScreen() {
 		avatarView = (ImageView) view.findViewById(R.id.profile_avatarView);
 
@@ -82,6 +112,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
 		buyTwentyButton.setOnClickListener(this);
 
 		withdrawButton.setOnClickListener(this);
+		withdrawButton.setEnabled(false);
 
 		ParseUser user = ParseUser.getCurrentUser();
 		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher).showImageForEmptyUri(R.drawable.ic_launcher)
