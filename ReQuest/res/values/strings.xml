@@ -79,5 +79,6 @@
     <string name="rc_candidate_date">Select&#8230;</string>
     <string name="select_summary">Select&#8230;</string>
     <string name="rec_candidate_summary_attach">Attach summary file:</string>
+    <string name="not_enough_funds">Not enought funds, buy more coins!</string>
     
 </resources>

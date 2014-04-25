@@ -13,8 +13,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.skylion.request.R;
+import com.skylion.request.billing.IabHelper;
+import com.skylion.request.billing.IabResult;
 import com.skylion.request.fragments.FirstStepFragment;
 import com.skylion.request.fragments.SecondStepFragment;
 
@@ -43,6 +46,8 @@ public class NewRequestHolder extends ActionBarActivity {
 	private String companyAddress;			
 	
 	public static int PICK_IMAGE = 1;
+	
+	private IabHelper mHelper;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -72,6 +77,8 @@ public class NewRequestHolder extends ActionBarActivity {
 					finish();
 			}
 		});
+		
+		mHelper = new IabHelper(this, getString(R.string.base64EncodedPublicKey));
 	}
 
 	public void showFragment(int fragmentIndex, boolean addToBackStack) {
@@ -272,6 +279,10 @@ public class NewRequestHolder extends ActionBarActivity {
 
 	public void setVacancyName(String vacancyName) {
 		this.vacancyName = vacancyName;
+	}
+
+	public IabHelper getmHelper() {
+		return mHelper;
 	}
 
 }
