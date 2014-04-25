@@ -10,7 +10,6 @@ import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -21,7 +20,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.util.EventLogTags.Description;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,7 +42,6 @@ import com.parse.SaveCallback;
 import com.skylion.request.R;
 import com.skylion.request.utils.DateTimeSelector;
 import com.skylion.request.utils.DateTimeSelectorListener;
-import com.skylion.request.utils.adapters.VacancyListAdapter;
 
 public class NewRecommendActivity extends ActionBarActivity {
 
@@ -100,8 +97,7 @@ public class NewRecommendActivity extends ActionBarActivity {
 		private EditText summaryFileEdit;
 		private Button sendButton;
 		private ImageButton logoImageButton;
-		private ImageButton logoImageButtonDate;
-		private ImageButton logoImageButtonSummary;
+		private ImageButton logoImageButtonDate;		
 		private ImageView logoImageView;
 		private Date bDate;
 		private byte[] image = null;
@@ -119,7 +115,6 @@ public class NewRecommendActivity extends ActionBarActivity {
 		private int PICK_DOCUMENT = 2;
 		private DateTimeSelector dateSelector;
 		private String vacancyId;
-		private Boolean isPdf = false;
 		private Button documentButton;
 		private String extension = "";
 		private String photoExtension = "";
@@ -167,9 +162,7 @@ public class NewRecommendActivity extends ActionBarActivity {
 			logoImageButton = (ImageButton) rootView.findViewById(R.id.rcCandidate_imageButton);
 			logoImageButtonDate = (ImageButton) rootView.findViewById(R.id.rcCandidate_dateButton);
 			documentButton = (Button) rootView.findViewById(R.id.rc_Candidate_pdf);
-
 			logoImageView = (ImageView) rootView.findViewById(R.id.rcCandidate_imageView);
-			// CommentEdit.setText(vacancyId);
 			dateSelector = new DateTimeSelector();
 			dateSelector.init(Calendar.getInstance());
 			dateSelector.setListener(new DateTimeSelectorListener() {
@@ -247,7 +240,6 @@ public class NewRecommendActivity extends ActionBarActivity {
 									}
 								}
 							});
-
 						}
 					}
 				}
@@ -294,7 +286,6 @@ public class NewRecommendActivity extends ActionBarActivity {
 				}
 			} else {
 				if (requestCode == PICK_DOCUMENT && data != null && data.getData() != null) {
-					isPdf = true;
 					setSummaryFile(read(new File(getFilePath(data))));
 					resumExtension = extension;
 					summaryFileEdit.setText("Summary file selected");

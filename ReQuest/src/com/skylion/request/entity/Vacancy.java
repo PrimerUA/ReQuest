@@ -175,6 +175,6 @@ public class Vacancy {
 	}
 	
 	public String getObjectId() {
-		return this.objectId;
+		return objectId;
 	}
 }
