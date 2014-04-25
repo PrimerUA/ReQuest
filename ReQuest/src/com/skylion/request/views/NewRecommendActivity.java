@@ -278,7 +278,7 @@ public class NewRecommendActivity extends ActionBarActivity {
 					Intent intent = new Intent();
 					intent.setType("document/*");
 					intent.setAction(Intent.ACTION_GET_CONTENT);
-					startActivityForResult(Intent.createChooser(intent, getString(R.string.select_picture)), PICK_DOCUMENT);
+					startActivityForResult(Intent.createChooser(intent, getString(R.string.select_cv)), PICK_DOCUMENT);
 				}
 			});									
 		}
@@ -289,7 +289,7 @@ public class NewRecommendActivity extends ActionBarActivity {
 			{				
 				if (data != null && data.getData() != null) {					
 					setImage(read(new File(getFilePath(data))));
-					photoExtension = extension;
+					photoExtension = extension;	
 					if (getImage() != null) {						
 						byte[] imgdata = getImage();
 						BitmapFactory.Options options = new BitmapFactory.Options();

@@ -81,5 +81,6 @@
     <string name="rec_candidate_summary_attach">Attach summary file:</string>
     <string name="not_enough_funds">Not enought funds, buy more coins!</string>
     <string name="rc_Candidate_summary_add">Open</string>
+    <string name="select_cv">Select CV</string>
     
 </resources>
