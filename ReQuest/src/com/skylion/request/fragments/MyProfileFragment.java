@@ -63,7 +63,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener,
 
 	private View view;
 
-	private IabHelper mHelper;
+//	private IabHelper mHelper;
 
 	public static MyProfileFragment newInstance(int sectionNumber) {
 		MyProfileFragment fragment = new MyProfileFragment();
@@ -101,9 +101,9 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener,
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		if (mHelper != null)
-			mHelper.dispose();
-		mHelper = null;
+//		if (mHelper != null)
+//			mHelper.dispose();
+//		mHelper = null;
 	}
 
 	private void initScreen() {
@@ -165,7 +165,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener,
 		// additionalSkuList.add(SKU_2);
 		// additionalSkuList.add(SKU_3);
 		// additionalSkuList.add(SKU_4);
-		mHelper.queryInventoryAsync(true, additionalSkuList, this);
+		//mHelper.queryInventoryAsync(true, additionalSkuList, this);
 		switch (v.getId()) {
 		case R.id.profile_avatarView:
 			Toast.makeText(v.getContext(), "Change avatar!", Toast.LENGTH_SHORT).show();

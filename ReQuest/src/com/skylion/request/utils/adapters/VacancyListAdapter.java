@@ -122,7 +122,6 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		public TextView companyAddress;
 		private TextView author;
 		private ImageView avatar;
-		private String vacancyId;					
 		
 	}		
 	
