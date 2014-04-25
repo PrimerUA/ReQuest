@@ -72,7 +72,7 @@
     <string name="rc_candidate_summary">Summary:</string>
     <string name="rc_candidate_experience">Experience:</string>
     <string name="rc_candidate_last_job">Last job:</string>
-    <string name="rc_candidate_last_post">Post at the last place:</string>
+    <string name="rc_candidate_last_post">Position at the last place:</string>
     <string name="rc_candidate_selsect_photo">Select candidate photo:</string>
     <string name="rc_candidate_comment">Comment on the candidate:</string>
     <string name="rc_candidate_send">Send</string>
