@@ -90,6 +90,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		holder.companyAddress.setText(vacancy.getCompanyAddress());
 		holder.author.setText(vacancy.getAuthor().getUsername());		
 		holder.respondsCount.setText((vacancy.getRespondsCount()).toString());	
+		holder.author.setText(vacancy.getAuthor().getUsername());
 		
 		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
 				.showImageForEmptyUri(R.drawable.ic_launcher).imageScaleType(ImageScaleType.EXACTLY_STRETCHED).resetViewBeforeLoading(true)
@@ -142,6 +143,8 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		private TextView respondsCount;
 	}			
 		
+	}		
+	
 	private void loadImage(ParseFile imgFile, final ImageView imgView) {
 
 		imgFile.getDataInBackground(new GetDataCallback() {

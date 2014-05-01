@@ -88,7 +88,7 @@
                 android:layout_marginTop="@dimen/d10p"
                 android:layout_weight="0.09"
                 android:gravity="center"
-                android:text="Enter company salary:"
+                android:text="@string/vc_company_salary"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#ffffff"
                 android:typeface="serif" />
@@ -108,7 +108,7 @@
                 android:layout_marginTop="@dimen/d10p"
                 android:layout_weight="0.09"
                 android:gravity="center"
-                android:text="Enter City:"
+                android:text="@string/vc_enter_city"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#ffffff"
                 android:typeface="serif" />
@@ -129,7 +129,7 @@
                 android:layout_marginTop="@dimen/d10p"
                 android:layout_weight="0.09"
                 android:gravity="center"
-                android:text="Enter demands:"
+                android:text="@string/vc_demands"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#ffffff"
                 android:typeface="serif" />
@@ -150,7 +150,7 @@
                 android:layout_marginTop="@dimen/d10p"
                 android:layout_weight="0.09"
                 android:gravity="center"
-                android:text="Enter terms:"
+                android:text="@string/vc_terms"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#ffffff"
                 android:typeface="serif" />
@@ -171,7 +171,7 @@
                 android:layout_marginTop="@dimen/d10p"
                 android:layout_weight="0.09"
                 android:gravity="center"
-                android:text="Company description:"
+                android:text="@string/vc_company_description"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#ffffff"
                 android:typeface="serif" />
@@ -192,7 +192,7 @@
                 android:layout_marginTop="@dimen/d10p"
                 android:layout_weight="0.09"
                 android:gravity="center"
-                android:text="Company address:"
+                android:text="@string/vc_company_address"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#ffffff"
                 android:typeface="serif" />

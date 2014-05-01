@@ -3,7 +3,7 @@
 
     <string name="app_name">ReQuest</string>
     <string name="base64EncodedPublicKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlwqpujglSWf7mZgazn6ow7rWrzofyHZvqTnMO6gqRAp5vE68H2LXTVeA/s9+wNxtsDjvxiACOxypxlm/zPSFQVolP+zU/bxEL1LaDItmmiQGvLidinnfhI/S+GOPXMqZgsqkup6PxCoUSGQbSsQteVpy+LVOvKMPFEgHhIdvmpYUuEk88NHB7fXPS0axNUrIIpw0twliwmM10PdJscfzTroXHNcls79GdPs9L3XAekS7y2wywYFpiPc7OEkqSHFKJhU7m7/AWYIRd/4w/wFSXuifN02Jr05AmmR2hu6hHx8VdNrWWRCZeIukngOJHfCZ6wDfhQnueN5snnXdKRbfqQIDAQAB</string>
-    <string name="title_section_requests">Requests</string>
+    <string name="title_section_requests">Requests Stream</string>
     <string name="title_section_responds">My Responds</string>
     <string name="title_section_profile">My Profile</string>
     <string name="title_activity_auth">Sign in</string>
@@ -54,14 +54,12 @@
     <string name="vacancy_creation_error">Creation error! Details:</string>
     <string name="fill_reward_not_zero">Reward field must be bigger than 0!</string>
     <string name="fill_reward_field">Reward field must not be empty!</string>
-    <string name="date_formate_error">Incorrect date/time, must be for ex: 12-30 20-12-2015!</string>
     <string name="company_item_text">Company information:</string>
     <string name="preffer_time_text">Wanted until:</string>
     <string name="city_text">City:</string>
     <string name="salary_item_text">Salary:</string>
-    <string name="title_activity_recommend_candidate">Recommend_candidate</string>
-    <string name="rc_candidate_creation_error">Recommend failed!</string>
-    <string name="rc_candidate_success">Recommends has been created!</string>
+    <string name="rc_candidate_creation_error">Recommendation failed!</string>
+    <string name="rc_candidate_success">Recommendation has been created!</string>
     <string name="rc_candidate_required">Fill required fields!</string>
     <string name="rc_candidate_date_formate_error">Incorrect date, must be for ex: 21.12.1990!</string>
     <string name="rc_candidate_creating">Creating respond</string>
@@ -84,5 +82,11 @@
     <string name="select_cv">Select CV</string>
     <string name="vacancy_responds_button">Show responds</string>
     <string name="vacancy_responds_label">Responds count:</string>
+    <string name="vc_company_salary">Enter company salary:</string>
+    <string name="vc_enter_city">Enter city:</string>
+    <string name="vc_demands">Vacancy demands:</string>
+    <string name="vc_terms">Vacancy terms:</string>
+    <string name="vc_company_description">Company description:</string>
+    <string name="vc_company_address">Company address:</string>
     
 </resources>
