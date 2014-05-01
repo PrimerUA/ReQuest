@@ -1,15 +1,19 @@
 package com.skylion.request.parse;
 
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.Resources.Theme;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.parse.CountCallback;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -26,7 +30,9 @@ import com.skylion.request.utils.adapters.VacancyListAdapter;
 public class ParseApi {
 
 	private static Context context;
-
+	private static int fragment_type;	
+	private static boolean initViews = false; 
+	
 	public ParseApi() {
 	}
 
@@ -35,6 +41,7 @@ public class ParseApi {
 	}
 
 	public static void loadVacancyList(int fragmentType, final ListView listView) {
+		fragment_type = fragmentType;
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Requests");
 		switch (fragmentType) {
 		case RequestConstants.FRAGMENT_GENERAL_VACANCY:
@@ -52,19 +59,51 @@ public class ParseApi {
 		final ProgressDialog myProgressDialog = ProgressDialog.show(context, context.getString(R.string.connection),
 				context.getString(R.string.connection_requests), true);
 		query.findInBackground(new FindCallback<ParseObject>() {
-			public void done(List<ParseObject> vacansyList, ParseException e) {
-				myProgressDialog.dismiss();
-				if (e == null) {
+			public void done(List<ParseObject> vacancyList, ParseException e) {
+				myProgressDialog.dismiss();							
+				if (e == null) {					
 					List<Vacancy> result = new ArrayList<Vacancy>();
-					for (ParseObject obj : vacansyList) {
-						if (obj != null) {
-							Vacancy vacancy = new Vacancy();
-							vacancy.toObject(obj);
-							result.add(vacancy);
+					final List<Vacancy> tresult = new ArrayList<Vacancy>();					
+					for (ParseObject obj : vacancyList) {
+						if (obj != null) {							
+							if(fragment_type == RequestConstants.FRAGMENT_MY_VACANCY)
+							{
+								final ProgressDialog mymProgressDialog = ProgressDialog.show(context, context.getString(R.string.connection),
+										context.getString(R.string.connection_requests), true);
+								if(vacancyList.indexOf(obj) == (vacancyList.size() - 1))
+									initViews = true;
+								final Vacancy tvacancy = new Vacancy();
+								tvacancy.toObject(obj);								
+								
+								ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");								
+								query.whereEqualTo("request", obj);																
+								query.countInBackground(new CountCallback() {
+								  public void done(int count, ParseException e) {
+								    if (e == null) {								    	
+								    	mymProgressDialog.dismiss();							            
+							            tvacancy.setRespondsCount(count);
+							            tvacancy.setFragmentType(fragment_type);
+							            tresult.add(tvacancy);							            
+							            if(initViews)
+							            	init(listView, tresult);
+								    }
+								  }
+								  
+								});
+							}
+							else			
+							{
+								Vacancy vacancy = new Vacancy();
+								vacancy.toObject(obj);
+								vacancy.setFragmentType(fragment_type);
+								result.add(vacancy);
+							}
 						}
 					}
-					listView.setAdapter(new VacancyListAdapter(context, result));
-
+					if(fragment_type != RequestConstants.FRAGMENT_MY_VACANCY)					
+						init(listView, result);	
+//					else
+//						init(listView, tresult);
 				} else {
 					DialogsViewer.showErrorDialog(context, context.getString(R.string.error_loading_requests));
 					Log.d("requests", "Error: " + e.getMessage());
@@ -73,18 +112,22 @@ public class ParseApi {
 		});
 	}
 
-	public static List<Respond> getAllResponds(final ProgressDialog progressDialog) {
+	static void init(ListView listView, List<Vacancy> result) {
+		VacancyListAdapter vacancyListAdapter = new VacancyListAdapter(context, result);					
+		listView.setAdapter(vacancyListAdapter);
+	}
+	
+	public static List<Respond> getAllResponds(final ProgressDialog progressDialog) {		
 		final List<Respond> res = new ArrayList<Respond>();
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");
-		// TODO: user query.whereEqualTo("user", ParseUser.getCurrentUser());
 
 		query.findInBackground(new FindCallback<ParseObject>() {
 
 			@Override
 			public void done(List<ParseObject> list, ParseException e) {
 				if (e == null) {
-					for (ParseObject respond : list) {
-						res.add((Respond) respond);
+					for (ParseObject respond : list) {												
+						res.add((Respond)respond);
 					}
 				} else {
 					Log.d("requests", "Error: " + e.getMessage());

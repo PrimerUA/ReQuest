@@ -2,6 +2,7 @@ package com.skylion.request.utils.adapters;
 
 import java.util.List;
 
+import android.R.layout;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -25,6 +26,7 @@ import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.skylion.request.R;
+import com.skylion.request.entity.RequestConstants;
 import com.skylion.request.entity.Vacancy;
 import com.skylion.request.utils.ExpandableViewHelper;
 import com.skylion.request.views.NewRecommendActivity;
@@ -36,12 +38,15 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 	private LayoutInflater inflater;
 	private Context context = null;
 	private ViewHolder holder;	
+//	private Button respondsButton;	
+	private LinearLayout responds_layout;
+	
 	
 	public VacancyListAdapter(Context context, List<Vacancy> result) {
 		this.requestList = result;
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		this.context = context;
-	}
+		this.context = context;		
+	}	
 	
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
@@ -66,7 +71,8 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		holder.companyAddress = (TextView) view.findViewById(R.id.vacancyItem_companyAddressText);
 		holder.author = (TextView) view.findViewById(R.id.vacancyItem_authorText);
 		holder.avatar = (ImageView) view.findViewById(R.id.vacancyItem_avatarText);
-
+		holder.respondsCount = (TextView) view.findViewById(R.id.vacancyItem_responds_count_editText);
+		
 		ParseFile companyLogo = (ParseFile) vacancy.getImage();
 		if (companyLogo != null)
 			loadImage(companyLogo, holder.image);
@@ -82,8 +88,8 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		holder.city.setText(vacancy.getCity());
 		holder.companyDescription.setText(vacancy.getCompanyDescription());
 		holder.companyAddress.setText(vacancy.getCompanyAddress());
-		holder.author.setText(vacancy.getAuthor().getUsername());
-		holder.vacancyId = vacancy.getObjectId();		
+		holder.author.setText(vacancy.getAuthor().getUsername());		
+		holder.respondsCount.setText((vacancy.getRespondsCount()).toString());	
 		
 		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
 				.showImageForEmptyUri(R.drawable.ic_launcher).imageScaleType(ImageScaleType.EXACTLY_STRETCHED).resetViewBeforeLoading(true)
@@ -95,14 +101,26 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 
 		LinearLayout expandableLayout = (LinearLayout) view.findViewById(R.id.vacancyItem_expandableLayout);
 		expandableLayout.setVisibility(View.GONE);
-
+		
+		responds_layout = (LinearLayout)view.findViewById(R.id.vacancyItem_responds_layout);
+		responds_layout.setVisibility(View.GONE);				
+		
 		Button buyButton = (Button) view.findViewById(R.id.vacancyItem_buyButton);
 		buyButton.setOnClickListener(this);
 		buyButton.setVisibility(View.GONE);
+		
+		Button respondsButton = (Button) view.findViewById(R.id.vacancyItem_respondsButton);
+		respondsButton.setOnClickListener(this);		
 
 		Button recommendButton = (Button) view.findViewById(R.id.vacancyItem_recommendButton);
 		recommendButton.setOnClickListener(this);						
-		recommendButton.setTag(position);		
+		recommendButton.setTag(position);	
+		
+		if(RequestConstants.FRAGMENT_MY_VACANCY == (requestList.get(position)).getFragmentType()) {
+			recommendButton.setVisibility(View.GONE);
+			responds_layout.setVisibility(View.VISIBLE);
+		}
+		
 		return view;
 	}
 
@@ -120,10 +138,10 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		public TextView companyDescription;
 		public TextView companyAddress;
 		private TextView author;
-		private ImageView avatar;			
-		private String vacancyId;
-	}		
-	
+		private ImageView avatar;
+		private TextView respondsCount;
+	}			
+		
 	private void loadImage(ParseFile imgFile, final ImageView imgView) {
 
 		imgFile.getDataInBackground(new GetDataCallback() {
@@ -158,17 +176,24 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 			context.startActivity(intent);
 			break;
 		}
-		case R.id.vacancyItem_contentLayout:
+		case R.id.vacancyItem_contentLayout:					
 			LinearLayout expandableLayout = (LinearLayout) v.findViewById(R.id.vacancyItem_expandableLayout);
 			if (expandableLayout.isShown()) {
 				expandableLayout.setVisibility(View.GONE);
 				ExpandableViewHelper.slideIntoDirection(v.getContext(), expandableLayout, R.anim.item_slide_up);
-
+					
 			} else {
 				expandableLayout.setVisibility(View.VISIBLE);
 				ExpandableViewHelper.slideIntoDirection(v.getContext(), expandableLayout, R.anim.item_slide_down);
+
 			}
 			break;
+		case R.id.vacancyItem_respondsButton : 
+		{
+			// 
+			Toast.makeText(v.getContext(), "Show responds!", Toast.LENGTH_SHORT).show();
+			break;
+		}
 		default:
 			break;
 		}

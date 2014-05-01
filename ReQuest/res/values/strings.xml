@@ -82,5 +82,7 @@
     <string name="not_enough_funds">Not enought funds, buy more coins!</string>
     <string name="rc_Candidate_summary_add">Open</string>
     <string name="select_cv">Select CV</string>
+    <string name="vacancy_responds_button">Show responds</string>
+    <string name="vacancy_responds_label">Responds count:</string>
     
 </resources>

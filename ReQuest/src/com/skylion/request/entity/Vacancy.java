@@ -1,7 +1,9 @@
 package com.skylion.request.entity;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import com.parse.ParseFile;
@@ -23,11 +25,13 @@ public class Vacancy {
 	private String companyDescription;
 	private String companyAddress;
 	private ParseUser author;
-	private String objectId;
+	private String objectId;	
+	private Integer respondsCount = 0;
+	private int fragmentType;
 
 	private ParseObject parseObject;
 
-	public Vacancy() {
+	public Vacancy() {		
 	}
 
 	public Vacancy toObject(ParseObject obj) {
@@ -51,7 +55,15 @@ public class Vacancy {
 
 		return this;
 	}
-
+	
+	public void setRespondsCount(int count) {
+		this.respondsCount = count;
+	}	
+	
+	public Integer getRespondsCount() {
+		return respondsCount;
+	}
+	
 	public ParseFile getImage() {
 		return image;
 	}
@@ -177,4 +189,13 @@ public class Vacancy {
 	public String getObjectId() {
 		return objectId;
 	}
+
+	public int getFragmentType() {
+		return fragmentType;
+	}
+
+	public void setFragmentType(int fragmentType) {
+		this.fragmentType = fragmentType;
+	}
+		
 }
