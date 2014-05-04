@@ -28,6 +28,7 @@ public class Vacancy {
 	private String objectId;	
 	private Integer respondsCount = 0;
 	private int fragmentType;
+	private ParseObject vacancyObj;	
 
 	private ParseObject parseObject;
 
@@ -52,7 +53,8 @@ public class Vacancy {
 		companyAddress = obj.getString("companyAddress");
 		author = obj.getParseUser("user");
 		objectId = obj.getObjectId();
-
+		
+		this.vacancyObj = obj;
 		return this;
 	}
 	
@@ -196,6 +198,10 @@ public class Vacancy {
 
 	public void setFragmentType(int fragmentType) {
 		this.fragmentType = fragmentType;
+	}
+	
+	public ParseObject getvacancyObj() {
+		return vacancyObj;
 	}
 		
 }

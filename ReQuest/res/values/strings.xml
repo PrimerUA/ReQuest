@@ -88,5 +88,12 @@
     <string name="vc_terms">Vacancy terms:</string>
     <string name="vc_company_description">Company description:</string>
     <string name="vc_company_address">Company address:</string>
-    
+    <string name="rs_created">Created at:</string>
+    <string name="rs_user">Who recommended:</string>
+    <string name="rs_photo">Candidate photo:</string>
+    <string name="rs_cv">Candidate CV file:</string>
+    <string name="rs_createAt">Created at:</string>
+    <string name="title_activity_responds_show">RespondsShow</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>

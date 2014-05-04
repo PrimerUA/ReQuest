@@ -2,7 +2,6 @@ package com.skylion.request.utils.adapters;
 
 import java.util.List;
 
-import android.R.layout;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,9 +25,12 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
 import com.skylion.request.R;
+import com.skylion.request.RespondsShow;
 import com.skylion.request.entity.RequestConstants;
 import com.skylion.request.entity.Vacancy;
+import com.skylion.request.parse.ParseApi;
 import com.skylion.request.utils.ExpandableViewHelper;
 import com.skylion.request.views.NewRecommendActivity;
 
@@ -38,8 +41,8 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 	private LayoutInflater inflater;
 	private Context context = null;
 	private ViewHolder holder;	
-//	private Button respondsButton;	
 	private LinearLayout responds_layout;
+	private ViewGroup container;
 	
 	
 	public VacancyListAdapter(Context context, List<Vacancy> result) {
@@ -51,6 +54,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		final Vacancy vacancy = requestList.get(position);
+		container = parent;
 		view = convertView;
 		if (view == null)
 			view = inflater.inflate(R.layout.vacancy_list_item, null);
@@ -90,7 +94,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		holder.companyAddress.setText(vacancy.getCompanyAddress());
 		holder.author.setText(vacancy.getAuthor().getUsername());		
 		holder.respondsCount.setText((vacancy.getRespondsCount()).toString());	
-		holder.author.setText(vacancy.getAuthor().getUsername());
+		holder.author.setText(vacancy.getAuthor().getUsername());		
 		
 		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
 				.showImageForEmptyUri(R.drawable.ic_launcher).imageScaleType(ImageScaleType.EXACTLY_STRETCHED).resetViewBeforeLoading(true)
@@ -111,7 +115,8 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		buyButton.setVisibility(View.GONE);
 		
 		Button respondsButton = (Button) view.findViewById(R.id.vacancyItem_respondsButton);
-		respondsButton.setOnClickListener(this);		
+		respondsButton.setOnClickListener(this);	
+		respondsButton.setTag(position);
 
 		Button recommendButton = (Button) view.findViewById(R.id.vacancyItem_recommendButton);
 		recommendButton.setOnClickListener(this);						
@@ -140,11 +145,9 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		public TextView companyAddress;
 		private TextView author;
 		private ImageView avatar;
-		private TextView respondsCount;
-	}			
-		
-	}		
-	
+		private TextView respondsCount;		
+	}					
+				
 	private void loadImage(ParseFile imgFile, final ImageView imgView) {
 
 		imgFile.getDataInBackground(new GetDataCallback() {
@@ -194,7 +197,10 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		case R.id.vacancyItem_respondsButton : 
 		{
 			// 
-			Toast.makeText(v.getContext(), "Show responds!", Toast.LENGTH_SHORT).show();
+			int index = Integer.parseInt(v.getTag().toString());
+			Intent intent = new Intent(context, RespondsShow.class);										
+			intent.putExtra("request", requestList.get(index).getObjectId());			
+			context.startActivity(intent);
 			break;
 		}
 		default:
@@ -215,5 +221,5 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 	@Override
 	public long getItemId(int position) {
 		return position;
-	}			
+	}				
 }

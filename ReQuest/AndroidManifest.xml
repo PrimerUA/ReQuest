@@ -83,6 +83,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.skylion.request.MainActivity" />
         </activity>
+        <activity
+            android:name="com.skylion.request.RespondsShow"
+            android:label="@string/title_activity_responds_show" >
+        </activity>
     </application>
 
 </manifest>

@@ -54,7 +54,7 @@ public class RespondListAdapter extends BaseAdapter implements OnClickListener {
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		final ParseObject request = requestList.get(position);
+		final ParseObject request = requestList.get(position).getRespondObj();
 		view = convertView;
 		if (view == null)
 			view = inflater.inflate(R.layout.vacancy_list_item, null);

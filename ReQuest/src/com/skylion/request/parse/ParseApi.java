@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.Resources.Theme;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import com.skylion.request.entity.RequestConstants;
 import com.skylion.request.entity.Respond;
 import com.skylion.request.entity.Vacancy;
 import com.skylion.request.utils.DialogsViewer;
+import com.skylion.request.utils.adapters.RespondsListAdapter;
 import com.skylion.request.utils.adapters.VacancyListAdapter;
 
 public class ParseApi {
@@ -39,7 +41,25 @@ public class ParseApi {
 	public static void init(Context context) {
 		ParseApi.context = context;
 	}
-
+	
+	public static void loadRespondsList(ListView listView, List<ParseObject> responds) {		
+		List<Respond>list = getResponds(responds);
+		Toast.makeText(context, "Count : " + ((Integer)list.size()).toString(), Toast.LENGTH_SHORT).show();
+		RespondsListAdapter respondsListAdapter = new RespondsListAdapter(context, list);					
+		listView.setAdapter(respondsListAdapter);
+	}
+	
+	private static List<Respond> getResponds(List<ParseObject> responds) {
+		List<Respond> respondsList = new ArrayList<Respond>();
+		for(ParseObject obj : responds)
+		{
+			Respond respond = new Respond();
+			respond.toObject(obj);
+			respondsList.add(respond);
+		}
+		return respondsList;
+	}
+	
 	public static void loadVacancyList(int fragmentType, final ListView listView) {
 		fragment_type = fragmentType;
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Requests");
@@ -102,8 +122,6 @@ public class ParseApi {
 					}
 					if(fragment_type != RequestConstants.FRAGMENT_MY_VACANCY)					
 						init(listView, result);	
-//					else
-//						init(listView, tresult);
 				} else {
 					DialogsViewer.showErrorDialog(context, context.getString(R.string.error_loading_requests));
 					Log.d("requests", "Error: " + e.getMessage());
@@ -126,8 +144,10 @@ public class ParseApi {
 			@Override
 			public void done(List<ParseObject> list, ParseException e) {
 				if (e == null) {
-					for (ParseObject respond : list) {												
-						res.add((Respond)respond);
+					for (ParseObject trespond : list) {												
+						Respond respond = new Respond();
+						respond.toObject(trespond);
+						res.add(respond);
 					}
 				} else {
 					Log.d("requests", "Error: " + e.getMessage());
