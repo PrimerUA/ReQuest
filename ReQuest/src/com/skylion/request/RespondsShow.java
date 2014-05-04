@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.os.Build;
@@ -69,10 +70,12 @@ public static class PlaceholderFragment extends Fragment {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
+			
 			View rootView = inflater.inflate(R.layout.fragment_responds_show, container, false);
 			contentList = (ListView) rootView.findViewById(R.id.responds_ListView);
 			myProgressDialog = ProgressDialog.show(getActivity(), getActivity().getString(R.string.connection),
-					getActivity().getString(R.string.connection_requests), true);
+					getActivity().getString(R.string.connection_responds), true);						
+			
 			getVacancyObject();
 			return rootView;
 		}
@@ -88,6 +91,7 @@ public static class PlaceholderFragment extends Fragment {
 			    }
 			    else
 			    {
+			    	myProgressDialog.dismiss();
 			    	Toast.makeText(getActivity(), "Not found", Toast.LENGTH_SHORT).show();
 			    }
 			  }
@@ -103,6 +107,11 @@ public static class PlaceholderFragment extends Fragment {
 			        if (e == null) 
 			        {		        			        				
 			            showRequests(responds);
+			        }
+			        else
+			        {
+			        	myProgressDialog.dismiss();
+			        	Toast.makeText(getActivity(), "Not found", Toast.LENGTH_SHORT).show();			        	
 			        }
 				}
 			});

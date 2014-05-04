@@ -75,7 +75,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		holder.companyAddress = (TextView) view.findViewById(R.id.vacancyItem_companyAddressText);
 		holder.author = (TextView) view.findViewById(R.id.vacancyItem_authorText);
 		holder.avatar = (ImageView) view.findViewById(R.id.vacancyItem_avatarText);
-		holder.respondsCount = (TextView) view.findViewById(R.id.vacancyItem_responds_count_editText);
+//		holder.respondsCount = (Button) view.findViewById(R.id.vacancyItem_respondsButton);
 		
 		ParseFile companyLogo = (ParseFile) vacancy.getImage();
 		if (companyLogo != null)
@@ -92,9 +92,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		holder.city.setText(vacancy.getCity());
 		holder.companyDescription.setText(vacancy.getCompanyDescription());
 		holder.companyAddress.setText(vacancy.getCompanyAddress());
-		holder.author.setText(vacancy.getAuthor().getUsername());		
-		holder.respondsCount.setText((vacancy.getRespondsCount()).toString());	
-		holder.author.setText(vacancy.getAuthor().getUsername());		
+		holder.author.setText(vacancy.getAuthor().getUsername());						
 		
 		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
 				.showImageForEmptyUri(R.drawable.ic_launcher).imageScaleType(ImageScaleType.EXACTLY_STRETCHED).resetViewBeforeLoading(true)
@@ -115,6 +113,8 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		buyButton.setVisibility(View.GONE);
 		
 		Button respondsButton = (Button) view.findViewById(R.id.vacancyItem_respondsButton);
+		String bttext = "Show responds(" + vacancy.getRespondsCount().toString() + ")";
+		respondsButton.setText(bttext);
 		respondsButton.setOnClickListener(this);	
 		respondsButton.setTag(position);
 
@@ -145,7 +145,6 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		public TextView companyAddress;
 		private TextView author;
 		private ImageView avatar;
-		private TextView respondsCount;		
 	}					
 				
 	private void loadImage(ParseFile imgFile, final ImageView imgView) {

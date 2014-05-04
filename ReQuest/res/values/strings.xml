@@ -94,6 +94,19 @@
     <string name="rs_cv">Candidate CV file:</string>
     <string name="rs_createAt">Created at:</string>
     <string name="title_activity_responds_show">RespondsShow</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="responds_item_created">Created at:</string>
+    <string name="responds_item_updated">Updated at:</string>
+    <string name="responds_item_candidate_description">Candidate description:</string>
+    <string name="responds_item_email">Email:</string>
+    <string name="responds_item_bdate">Birth date:</string>
+    <string name="responds_item_lastjob">Last job:</string>
+    <string name="responds_item_lastpost">Last post:</string>
+    <string name="responds_item_experience">Experience:</string>
+    <string name="responds_item_comment">Comment:</string>
+    <string name="connection_responds">Loading responds...</string>
+    <string name="responds_item_get_cv">Download CV</string>
+    <string name="responds_item_cv">Candidate CV file</string>
+    <string name="connection_cv_file_fetch">Load CV file...</string>
+    
 
 </resources>

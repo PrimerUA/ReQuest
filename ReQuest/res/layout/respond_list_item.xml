@@ -20,35 +20,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal" >
-
-            <TextView
-                android:id="@+id/respondsItem_companyText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/d5p"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:shadowColor="#ffffff"
-                android:shadowDx="1"
-                android:shadowDy="1"
-                android:shadowRadius="3"
-                android:text="Svitla Systems Inc."
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#33b5e5"
-                android:textStyle="bold"
-                android:typeface="serif" />
-
-            <TextView
-                android:id="@+id/respondsItem_prizeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/fancy_prize"
-                android:gravity="center"
-                android:maxLines="@integer/i1"
-                android:text="$150"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/d30p" />
         </LinearLayout>
 
         <LinearLayout
@@ -59,7 +30,7 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/respondsItem_titleText"
+                android:id="@+id/respondsItem_name_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/d3p"
@@ -70,23 +41,54 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center" >
+                android:orientation="vertical" >
 
-                <TextView
-                    android:id="@+id/textView20"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/preffer_time_text"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:gravity="center" >
 
-                <TextView
-                    android:id="@+id/respondsItem_expireText"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/textView20"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/responds_item_created"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/respondsItem_createdAt_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/d2p"
+                        android:text="15.05.2014 18:00"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/d2p"
-                    android:text="15.05.2014 18:00"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:gravity="center"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/responds_item_updated"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/respond_item_updatedAt_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/d2p"
+                        android:text="Medium Text"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                </LinearLayout>
+
             </LinearLayout>
+
         </LinearLayout>
 
         <ImageView
@@ -111,85 +113,105 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/desc_item_text"
+                android:text="@string/responds_item_candidate_description"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center" >
+                android:layout_height="wrap_content" >
 
                 <TextView
-                    android:id="@+id/TextView04"
+                    android:id="@+id/textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/salary_item_text"
+                    android:text="@string/responds_item_email"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
-                    android:id="@+id/respondsItem_salaryText"
+                    android:id="@+id/respondsItem_email_editText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/d2p"
-                    android:layout_marginRight="@dimen/d10p"
-                    android:text="N/A"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                <TextView
-                    android:id="@+id/TextView03"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/d10p"
-                    android:text="@string/city_text"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                <TextView
-                    android:id="@+id/respondsItem_cityText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/d2p"
-                    android:text="N/A"
+                    android:text="Medium Text"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/respondsItem_demandsText"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/d2p"
-                android:layout_marginTop="@dimen/d5p"
-                android:text="- требования" />
+                android:gravity="center"
+                android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/respondsItem_termsText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/d5p"
-                android:text="- условия" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/company_item_text"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/responds_item_bdate"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
-                android:id="@+id/respondsItem_companyDescriptionText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/d2p"
-                android:layout_marginTop="@dimen/d5p"
-                android:text="описание компании" />
+                    <TextView
+                        android:id="@+id/respondsItem_bdateText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/d2p"
+                        android:layout_marginRight="@dimen/d10p"
+                        android:text="N/A"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
-                android:id="@+id/respondsItem_companyAddressText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/d5p"
-                android:text="город" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/TextView03"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"                        
+                        android:text="@string/responds_item_lastjob"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/respondsItem_lastJob_Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/d2p"
+                        android:text="N/A"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                </LinearLayout>
+                
+                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/TextView15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"                        
+                        android:text="@string/responds_item_lastpost"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/respondsItem_lastPost_Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/d2p"
+                        android:text="N/A"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/respondsItem_responds_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
@@ -199,34 +221,56 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:id="@+id/respondsItem_respondsCount_textView"
+                        android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Responds count"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:text="@string/responds_item_experience"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                    <EditText
-                        android:id="@+id/respondsItem_responds_count_editText"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/respondsItem_experience_editText"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:clickable="false"
-                        android:editable="false"
-                        android:ems="10"
-                        android:longClickable="false" >
+                        android:text="Medium Text"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                        <requestFocus />
-                    </EditText>
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/respondsItem_respondsButton"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Responds" >
-                </Button>
-</LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/responds_item_comment"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/respodsItem_comment_editText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Medium Text"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/respondsItem_cv_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <Button
+                        android:id="@+id/respondsItem_getCV_button"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/create_button"
+                        android:text="@string/responds_item_get_cv" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -278,14 +322,6 @@
                     android:text="Наталия Малецкая"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textStyle="italic"
-                    android:typeface="serif" />
-
-                <TextView
-                    android:id="@+id/respondsItem_createdText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="22.03.2014 15:27"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:typeface="serif" />
             </LinearLayout>
 

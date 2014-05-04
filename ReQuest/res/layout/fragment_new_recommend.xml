@@ -53,7 +53,7 @@
         
         
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/respond_item_updatedAt_textView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/rc_candidate_bdate"
@@ -141,7 +141,7 @@
         </LinearLayout>
         
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/respondsItem_CV file_textView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/rc_candidate_experience"

@@ -1,6 +1,8 @@
 package com.skylion.request.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -11,7 +13,6 @@ public class Respond {
 	private ParseObject respondObj;
 	
 	private Integer type;
-	private ParseFile proof;
 	private ParseUser user;
 	private ParseObject request;
 	private String bdate;
@@ -30,8 +31,7 @@ public class Respond {
 		if(obj == null)
 			return new Respond();
 		
-		type = obj.getInt("type");
-		proof = obj.getParseFile("proof");
+		type = obj.getInt("type");		
 		user = obj.getParseUser("user");
 		request = obj.getParseObject("request");
 		bdate = obj.getString("birthDate");
@@ -39,11 +39,12 @@ public class Respond {
 		email = obj.getString("email");
 		lastJob = obj.getString("lastJob");
 		lastPost = obj.getString("lastPosition");
-		photo = obj.getParseFile("photo");
+		photo = (ParseFile)obj.get("photo");
 		comment = obj.getString("comment");
-		createdAt = (Date)obj.get("createdAt");
-		updatedAt = (Date)obj.get("updatedAt");
-		respondObj = obj;
+		createdAt = obj.getCreatedAt();
+		updatedAt = obj.getUpdatedAt();
+		experience = obj.getString("experience");
+		respondObj = obj;		
 			
 		return this;
 	}
@@ -55,11 +56,6 @@ public class Respond {
 	
 	public ParseObject getRespondObj() {
 		return respondObj;
-	}
-
-
-	public ParseFile getProof() {
-		return proof;
 	}
 
 
@@ -112,12 +108,21 @@ public class Respond {
 		return comment;
 	}
 
-	public Date getCreatedAt() {
-		return createdAt;
+	public String getCreatedAt() {
+		return getDateString(createdAt);
 	}
 
-	public Date getUpdatedAt() {
-		return updatedAt;
+	public String getUpdatedAt() {				
+		return getDateString(updatedAt);
+	}
+	
+	private String getDateString(Date date) {
+		String res = null;
+		if (date != null) {
+			SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm", new Locale("UA"));
+			res = df.format(date.getTime()) + " GMT";
+		}
+		return res;
 	}
 	
 	

@@ -43,8 +43,7 @@ public class ParseApi {
 	}
 	
 	public static void loadRespondsList(ListView listView, List<ParseObject> responds) {		
-		List<Respond>list = getResponds(responds);
-		Toast.makeText(context, "Count : " + ((Integer)list.size()).toString(), Toast.LENGTH_SHORT).show();
+		List<Respond>list = getResponds(responds);		
 		RespondsListAdapter respondsListAdapter = new RespondsListAdapter(context, list);					
 		listView.setAdapter(respondsListAdapter);
 	}
@@ -79,8 +78,7 @@ public class ParseApi {
 		final ProgressDialog myProgressDialog = ProgressDialog.show(context, context.getString(R.string.connection),
 				context.getString(R.string.connection_requests), true);
 		query.findInBackground(new FindCallback<ParseObject>() {
-			public void done(List<ParseObject> vacancyList, ParseException e) {
-				myProgressDialog.dismiss();							
+			public void done(List<ParseObject> vacancyList, ParseException e) {							
 				if (e == null) {					
 					List<Vacancy> result = new ArrayList<Vacancy>();
 					final List<Vacancy> tresult = new ArrayList<Vacancy>();					
@@ -88,8 +86,6 @@ public class ParseApi {
 						if (obj != null) {							
 							if(fragment_type == RequestConstants.FRAGMENT_MY_VACANCY)
 							{
-								final ProgressDialog mymProgressDialog = ProgressDialog.show(context, context.getString(R.string.connection),
-										context.getString(R.string.connection_requests), true);
 								if(vacancyList.indexOf(obj) == (vacancyList.size() - 1))
 									initViews = true;
 								final Vacancy tvacancy = new Vacancy();
@@ -100,7 +96,7 @@ public class ParseApi {
 								query.countInBackground(new CountCallback() {
 								  public void done(int count, ParseException e) {
 								    if (e == null) {								    	
-								    	mymProgressDialog.dismiss();							            
+								    	myProgressDialog.dismiss();							            
 							            tvacancy.setRespondsCount(count);
 							            tvacancy.setFragmentType(fragment_type);
 							            tresult.add(tvacancy);							            
@@ -112,7 +108,8 @@ public class ParseApi {
 								});
 							}
 							else			
-							{
+							{		
+								myProgressDialog.dismiss();
 								Vacancy vacancy = new Vacancy();
 								vacancy.toObject(obj);
 								vacancy.setFragmentType(fragment_type);
