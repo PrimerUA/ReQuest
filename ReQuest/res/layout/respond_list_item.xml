@@ -263,7 +263,7 @@
                     <Button
                         android:id="@+id/respondsItem_getCV_button"
                         style="?android:attr/buttonStyleSmall"
-                        android:layout_width="wrap_content"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/create_button"
                         android:text="@string/responds_item_get_cv" />
