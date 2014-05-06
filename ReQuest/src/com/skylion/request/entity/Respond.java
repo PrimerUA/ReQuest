@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -30,9 +31,9 @@ public class Respond {
 	public Respond toObject(ParseObject obj) {
 		if(obj == null)
 			return new Respond();
-		
+		ParseUser ust = null;
 		type = obj.getInt("type");		
-		user = obj.getParseUser("user");
+		ust = obj.getParseUser("user");
 		request = obj.getParseObject("request");
 		bdate = obj.getString("birthDate");
 		name = obj.getString("name");
@@ -44,7 +45,14 @@ public class Respond {
 		createdAt = obj.getCreatedAt();
 		updatedAt = obj.getUpdatedAt();
 		experience = obj.getString("experience");
-		respondObj = obj;		
+		respondObj = obj;
+				
+		try {
+			user = ust.fetch();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 			
 		return this;
 	}
@@ -59,7 +67,7 @@ public class Respond {
 	}
 
 
-	public ParseUser getUser() {
+	public ParseUser getUser() {		
 		return user;
 	}
 

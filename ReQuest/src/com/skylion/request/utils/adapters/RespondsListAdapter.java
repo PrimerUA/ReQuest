@@ -89,10 +89,10 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 		
 		Respond respond = respondList.get(position);
 		
-//		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
-//				.showImageForEmptyUri(R.drawable.ic_launcher).imageScaleType(ImageScaleType.EXACTLY_STRETCHED).resetViewBeforeLoading(true)
-//				.cacheInMemory(true).cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(Integer.MAX_VALUE)).build();
-//		ImageLoader.getInstance().displayImage(respond.getUser().getString("avatar"), holder.avatar, options);
+		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
+				.showImageForEmptyUri(R.drawable.ic_launcher).imageScaleType(ImageScaleType.EXACTLY_STRETCHED).resetViewBeforeLoading(true)
+				.cacheInMemory(true).cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(Integer.MAX_VALUE)).build();
+		ImageLoader.getInstance().displayImage(respond.getUser().getString("avatar"), holder.avatar, options);
 		
 		Button downloadCVButton = (Button)view.findViewById(R.id.respondsItem_getCV_button);
 		downloadCVButton.setOnClickListener(this);
@@ -110,7 +110,7 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 		holder.experience.setText(respond.getExperience());
 		holder.comment.setText(respond.getComment());
 		
-//		holder.user.setText(respond.getUser().getUsername());
+		holder.user.setText(respond.getUser().getUsername());
 		
 		ParseFile candidatePhoto = (ParseFile) respond.getPhoto();
 		if (candidatePhoto != null)
@@ -151,7 +151,7 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 	
 	private void loadCVFile(int index) {
 		
-		ParseObject pobject = respondList.get(index).getRespondObj();
+		ParseObject pobject = respondList.get(index).getRespondObj();		
 //		Toast.makeText(context, pobject.getString("name"), Toast.LENGTH_SHORT).show();
 		final ProgressDialog myProgressDialog = ProgressDialog.show(context, context.getString(R.string.connection),
 				context.getString(R.string.connection_cv_file_fetch), true);
