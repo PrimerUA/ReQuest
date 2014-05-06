@@ -119,7 +119,7 @@ public static class PlaceholderFragment extends Fragment {
 		
 		private void showRequests(List<ParseObject> responds) {
 			myProgressDialog.dismiss();
-			ParseApi.loadRespondsList(contentList, responds);            
+			ParseApi.loadRespondsList(contentList, responds, getActivity());            
 		}	
 	}
 

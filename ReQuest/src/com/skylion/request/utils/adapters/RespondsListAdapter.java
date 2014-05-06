@@ -156,8 +156,10 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 		final ProgressDialog myProgressDialog = ProgressDialog.show(context, context.getString(R.string.connection),
 				context.getString(R.string.connection_cv_file_fetch), true);
 		final ParseFile applicantResume = (ParseFile)pobject.get("proof");		
-		if(applicantResume == null)
+		if(applicantResume == null){
 			Toast.makeText(context, "CV not found!", Toast.LENGTH_SHORT).show();
+			myProgressDialog.dismiss();
+		}
 		else
 		{
 			applicantResume.getDataInBackground(new GetDataCallback() {
@@ -176,20 +178,20 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 
 	private void saveCVFile (byte[] data, String fileName) {				
 		Toast.makeText(context, fileName + ";size : " + ((Integer)data.length).toString() , Toast.LENGTH_SHORT).show();		
-//		FileDialog FileSaveDialog =  new FileDialog(context, "FileSave", new FileDialog.FileDialogLitener()
-//		{
-//			@Override
-//			public void onChosenDir(String chosenDir) 
-//			{
-//				// The code in this function will be executed when the dialog OK button is pushed
-//				m_chosen = chosenDir;
-//				Toast.makeText(context, "Chosen FileOpenDialog File: " + m_chosen, Toast.LENGTH_LONG).show();
-//			}
-//		});
-//		
-//		//You can change the default filename using the public variable "Default_File_Name"
-//		FileSaveDialog.Default_File_Name = fileName;
-//		FileSaveDialog.chooseFile_or_Dir();
+		FileDialog FileSaveDialog =  new FileDialog(context, "FileSave", new FileDialog.FileDialogLitener()
+		{
+			@Override
+			public void onChosenDir(String chosenDir) 
+			{
+				// The code in this function will be executed when the dialog OK button is pushed
+				m_chosen = chosenDir;
+				Toast.makeText(context, "Chosen FileOpenDialog File: " + m_chosen, Toast.LENGTH_LONG).show();
+			}
+		});
+		
+		//You can change the default filename using the public variable "Default_File_Name"
+		FileSaveDialog.Default_File_Name = fileName;
+		FileSaveDialog.chooseFile_or_Dir();
 	}
 	
 	@Override

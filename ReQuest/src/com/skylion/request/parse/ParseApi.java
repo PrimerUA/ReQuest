@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.Resources.Theme;
@@ -42,9 +43,9 @@ public class ParseApi {
 		ParseApi.context = context;
 	}
 	
-	public static void loadRespondsList(ListView listView, List<ParseObject> responds) {		
+	public static void loadRespondsList(ListView listView, List<ParseObject> responds, Activity activity) {		
 		List<Respond>list = getResponds(responds);		
-		RespondsListAdapter respondsListAdapter = new RespondsListAdapter(context, list);					
+		RespondsListAdapter respondsListAdapter = new RespondsListAdapter(activity, list);					
 		listView.setAdapter(respondsListAdapter);
 	}
 	
