@@ -104,7 +104,7 @@
     <string name="responds_item_experience">Experience:</string>
     <string name="responds_item_comment">Comment:</string>
     <string name="connection_responds">Loading responds...</string>
-    <string name="responds_item_get_cv">Download CV</string>
+    <string name="responds_item_get_cv">Open CV</string>
     <string name="responds_item_cv">Candidate CV file</string>
     <string name="connection_cv_file_fetch">Load CV file...</string>
     

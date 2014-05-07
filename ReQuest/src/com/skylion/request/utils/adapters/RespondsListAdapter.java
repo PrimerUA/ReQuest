@@ -1,5 +1,8 @@
 package com.skylion.request.utils.adapters;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 
@@ -15,13 +18,19 @@ import com.parse.ParseObject;
 import com.skylion.request.R;
 import com.skylion.request.entity.Respond;
 import com.skylion.request.entity.Vacancy;
+import com.skylion.request.views.NewRequestHolder;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.provider.MediaStore.Audio.Media;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -55,13 +64,18 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 	private ViewGroup container;
 	private LayoutInflater inflater;
 	private Context context = null;
-	private List<Respond> respondList;
-	private String m_chosen;
+	private List<Respond> respondList;	
+	private File path = null;
 	
 	public RespondsListAdapter(Context context, List<Respond> result) {
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		respondList = result;
 		this.context = context;		
+	}
+	
+	protected void finalize() {
+		if(path != null)
+			path.delete();
 	}
 	
 	@Override
@@ -175,10 +189,59 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 		}
 	}
 
-	private void saveCVFile (byte[] data, String fileName) {				
-		Toast.makeText(context, fileName + ";size : " + ((Integer)data.length).toString() , Toast.LENGTH_SHORT).show();				
+	private void saveCVFile (byte[] data, String fileName) {						
+			
+		File directory = new File(context.getExternalCacheDir(), "cv_files");
+		if(!directory.exists()) {
+			directory.mkdir();			
+		}		
+		else
+		{
+			String[] children = directory.list();
+		    for (int i = 0; i < children.length; i++) {
+		        new File(directory, children[i]).delete();
+		    }
+		}
+		FileOutputStream outFile;
+		try 
+		{										
+			path = new File(directory, fileName);
+			outFile = new FileOutputStream(path);
+			outFile.write(data);
+			outFile.close();
+
+			Intent intent = new Intent();
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			intent.setAction(Intent.ACTION_VIEW);			
+			
+			String type = "application/*";
+
+			int i = fileName.lastIndexOf('.');
+			if (i > 0) {
+			    String extension = fileName.substring(i+1);
+			    extension.toLowerCase();
+			    if("txt".equals(extension))
+			    	type = "text/plain";
+			    else
+			    {
+			    	if("pdf".equals(extension))
+			    		type = "application/pdf";
+			    	else
+			    		if("doc".equals(extension) || "docx".equals(extension))
+			    			type = "application/doc";
+			    }	
+			}			
+
+			intent.setDataAndType(Uri.fromFile(path), type);			
+			context.startActivity(intent);						
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			Toast.makeText(context, "Error. File not saved.", Toast.LENGTH_SHORT).show();
+		}						
+		
 	}
-	
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
