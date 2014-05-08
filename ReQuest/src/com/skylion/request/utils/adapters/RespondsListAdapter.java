@@ -2,11 +2,8 @@ package com.skylion.request.utils.adapters;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.net.URI;
-import java.util.Date;
 import java.util.List;
 
-import com.google.android.gms.internal.ew;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -17,25 +14,18 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.skylion.request.R;
 import com.skylion.request.entity.Respond;
-import com.skylion.request.entity.Vacancy;
-import com.skylion.request.views.NewRequestHolder;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.provider.MediaStore;
-import android.provider.MediaStore.Audio.Media;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -61,7 +51,7 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 	}		
 	
 	private View view;
-	private ViewGroup container;
+
 	private LayoutInflater inflater;
 	private Context context = null;
 	private List<Respond> respondList;	
@@ -79,8 +69,7 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 	}
 	
 	@Override
-	public View getView(final int position, View convertView, ViewGroup parent) {
-		container = parent;
+	public View getView(final int position, View convertView, ViewGroup parent) {		
 		view = convertView;
 		if (view == null)
 			view = inflater.inflate(R.layout.respond_list_item, null);
@@ -164,13 +153,12 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 	
 	private void loadCVFile(int index) {
 		
-		ParseObject pobject = respondList.get(index).getRespondObj();		
-//		Toast.makeText(context, pobject.getString("name"), Toast.LENGTH_SHORT).show();
+		ParseObject pobject = respondList.get(index).getRespondObj();
 		final ProgressDialog myProgressDialog = ProgressDialog.show(context, context.getString(R.string.connection),
 				context.getString(R.string.connection_cv_file_fetch), true);
 		final ParseFile applicantResume = (ParseFile)pobject.get("proof");		
 		if(applicantResume == null){
-			Toast.makeText(context, "CV not found!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(context, Resources.getSystem().getString(R.string.error_cv_not_found), Toast.LENGTH_SHORT).show();
 			myProgressDialog.dismiss();
 		}
 		else
@@ -182,7 +170,7 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 			    	saveCVFile(data, applicantResume.getName());
 			    } else {
 			    	myProgressDialog.dismiss();
-			    	Toast.makeText(context, "Error get CV!", Toast.LENGTH_SHORT).show();
+			    	Toast.makeText(context, Resources.getSystem().getString(R.string.error_get_cv_file), Toast.LENGTH_SHORT).show();
 			    }
 			  }
 			});
@@ -237,7 +225,7 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			Toast.makeText(context, "Error. File not saved.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(context, Resources.getSystem().getString(R.string.error_get_cv_file), Toast.LENGTH_SHORT).show();
 		}						
 		
 	}

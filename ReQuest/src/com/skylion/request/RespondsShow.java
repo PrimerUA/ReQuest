@@ -10,7 +10,6 @@ import com.parse.ParseException;
 import com.skylion.request.parse.ParseApi;
 
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -19,10 +18,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.os.Build;
 
 public class RespondsShow extends ActionBarActivity {
 

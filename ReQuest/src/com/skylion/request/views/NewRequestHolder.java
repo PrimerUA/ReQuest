@@ -13,11 +13,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.skylion.request.R;
 import com.skylion.request.billing.IabHelper;
-import com.skylion.request.billing.IabResult;
 import com.skylion.request.fragments.FirstStepFragment;
 import com.skylion.request.fragments.SecondStepFragment;
 

@@ -106,7 +106,9 @@
     <string name="connection_responds">Loading responds...</string>
     <string name="responds_item_get_cv">Open CV</string>
     <string name="responds_item_cv">Candidate CV file</string>
-    <string name="connection_cv_file_fetch">Load CV file...</string>
+    <string name="connection_cv_file_fetch">Loading CV file...</string>
+    <string name="error_get_cv_file">Error while loading CV file!</string>
+    <string name="error_cv_not_found">CV not found!</string>    
     
 
 </resources>
