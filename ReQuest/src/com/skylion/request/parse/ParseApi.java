@@ -34,8 +34,7 @@ public class ParseApi {
 
 	private static Context context;
 	private static int fragment_type;	
-	private static boolean initViews = false; 
-	private static List<Vacancy> result = new ArrayList<Vacancy>();
+	private static boolean initViews = false; 	
 	
 	public ParseApi() {
 	}
@@ -134,16 +133,16 @@ public class ParseApi {
 		listView.setAdapter(vacancyListAdapter);
 	}
 	
-	public static List<Vacancy> getAllResponds(final ProgressDialog progressDialog) {		
+	public static void getAllResponds(final ProgressDialog progressDialog, final ListView contentList, final Context contentListContext) {		
 //		final List<Vacancy> res = new ArrayList<Vacancy>();		
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");
-		query.whereEqualTo("user", ParseUser.getCurrentUser());
+		query.whereEqualTo("user", ParseUser.getCurrentUser());		
 		query.findInBackground(new FindCallback<ParseObject>() {
 
 			@Override
 			public void done(List<ParseObject> list, ParseException e) {
 				if (e == null) {
-					getVacancyList(list);
+					getVacancyList(list, contentList, contentListContext);					
 				} 
 				else {
 					Log.d("requests", "Error: " + e.getMessage());
@@ -151,8 +150,8 @@ public class ParseApi {
 				progressDialog.dismiss();
 			}			
 		});
-
-		return result;
+		
+//		return result;
 	}
 
 	public static void getWallet(final TextView walletText) {
@@ -166,15 +165,16 @@ public class ParseApi {
 		});
 	}
 	
-	private static void getVacancyList(List<ParseObject>respondList) {				
+	private static void getVacancyList(List<ParseObject>respondList, ListView contentList, Context contentListContext) {				
+		List<Vacancy> result = new ArrayList<Vacancy>();
 		for (ParseObject trespond : respondList) {
 			Respond respond = new Respond();
 			respond.toObject(trespond);
 			Vacancy vacancy = new Vacancy();
 			vacancy.toObject(respond.getRequest());
 			result.add(vacancy);
-		}	
-//		Toast.makeText(context, "len : " + ((Integer)result.size()).toString(), Toast.LENGTH_SHORT).show();
+		}			
+		contentList.setAdapter(new VacancyListAdapter(contentListContext, result));
 	}
 
 }

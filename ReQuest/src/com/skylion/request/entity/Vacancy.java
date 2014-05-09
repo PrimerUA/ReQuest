@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -36,7 +37,7 @@ public class Vacancy {
 	public Vacancy toObject(ParseObject obj) {
 		if (obj == null)
 			return new Vacancy();
-
+		ParseUser tauthor = null;
 		image = (ParseFile) obj.get("image");
 		title = obj.getString("title");
 		demands = obj.getString("demands");
@@ -49,8 +50,15 @@ public class Vacancy {
 		city = obj.getString("city");
 		companyDescription = obj.getString("companyDescription");
 		companyAddress = obj.getString("companyAddress");
-		author = obj.getParseUser("user");
+		tauthor = obj.getParseUser("user");
 		objectId = obj.getObjectId();
+		
+		try {
+			author = tauthor.fetch();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		this.vacancyObj = obj;
 		return this;
