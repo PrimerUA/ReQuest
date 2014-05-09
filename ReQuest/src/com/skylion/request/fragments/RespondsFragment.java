@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.skylion.request.R;
 import com.skylion.request.parse.ParseApi;
 import com.skylion.request.utils.adapters.RespondListAdapter;
+import com.skylion.request.utils.adapters.VacancyListAdapter;
 
 public class RespondsFragment extends Fragment implements ListView.OnItemClickListener {
 
@@ -43,8 +44,8 @@ public class RespondsFragment extends Fragment implements ListView.OnItemClickLi
 		contentList = (ListView) rootView.findViewById(R.id.requestFragment_contentList);
 		contentList.setOnItemClickListener(this);
 
-		// loadData();
-		Toast.makeText(getActivity(), "Coming soon!", Toast.LENGTH_LONG).show();
+		 loadData();
+//		Toast.makeText(getActivity(), "Coming soon!", Toast.LENGTH_LONG).show();
 		return rootView;
 	}
 
@@ -63,6 +64,7 @@ public class RespondsFragment extends Fragment implements ListView.OnItemClickLi
 		final ProgressDialog myProgressDialog = ProgressDialog.show(getActivity(), getString(R.string.connection),
 				getString(R.string.connection_requests), true);
 
-		contentList.setAdapter(new RespondListAdapter(getActivity(), ParseApi.getAllResponds(myProgressDialog)));
+//		contentList.setAdapter(new RespondListAdapter(getActivity(), ParseApi.getAllResponds(myProgressDialog)));
+		contentList.setAdapter(new VacancyListAdapter(getActivity(), ParseApi.getAllResponds(myProgressDialog)));
 	}
 }

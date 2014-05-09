@@ -35,6 +35,7 @@ public class ParseApi {
 	private static Context context;
 	private static int fragment_type;	
 	private static boolean initViews = false; 
+	private static List<Vacancy> result = new ArrayList<Vacancy>();
 	
 	public ParseApi() {
 	}
@@ -133,28 +134,25 @@ public class ParseApi {
 		listView.setAdapter(vacancyListAdapter);
 	}
 	
-	public static List<Respond> getAllResponds(final ProgressDialog progressDialog) {		
-		final List<Respond> res = new ArrayList<Respond>();
+	public static List<Vacancy> getAllResponds(final ProgressDialog progressDialog) {		
+//		final List<Vacancy> res = new ArrayList<Vacancy>();		
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");
-
+		query.whereEqualTo("user", ParseUser.getCurrentUser());
 		query.findInBackground(new FindCallback<ParseObject>() {
 
 			@Override
 			public void done(List<ParseObject> list, ParseException e) {
 				if (e == null) {
-					for (ParseObject trespond : list) {												
-						Respond respond = new Respond();
-						respond.toObject(trespond);
-						res.add(respond);
-					}
-				} else {
+					getVacancyList(list);
+				} 
+				else {
 					Log.d("requests", "Error: " + e.getMessage());
 				}
 				progressDialog.dismiss();
-			}
+			}			
 		});
 
-		return res;
+		return result;
 	}
 
 	public static void getWallet(final TextView walletText) {
@@ -166,6 +164,17 @@ public class ParseApi {
 				walletText.setText("$" + String.valueOf(wallet.getDouble("total")));
 			}
 		});
+	}
+	
+	private static void getVacancyList(List<ParseObject>respondList) {				
+		for (ParseObject trespond : respondList) {
+			Respond respond = new Respond();
+			respond.toObject(trespond);
+			Vacancy vacancy = new Vacancy();
+			vacancy.toObject(respond.getRequest());
+			result.add(vacancy);
+		}	
+//		Toast.makeText(context, "len : " + ((Integer)result.size()).toString(), Toast.LENGTH_SHORT).show();
 	}
 
 }

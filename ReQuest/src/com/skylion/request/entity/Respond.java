@@ -32,9 +32,10 @@ public class Respond {
 		if(obj == null)
 			return new Respond();
 		ParseUser ust = null;
+		ParseObject requestt = null;
 		type = obj.getInt("type");		
 		ust = obj.getParseUser("user");
-		request = obj.getParseObject("request");
+		requestt = obj.getParseObject("request");
 		bdate = obj.getString("birthDate");
 		name = obj.getString("name");
 		email = obj.getString("email");
@@ -49,6 +50,13 @@ public class Respond {
 				
 		try {
 			user = ust.fetch();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			request = requestt.fetch();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
