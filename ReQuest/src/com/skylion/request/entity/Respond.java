@@ -139,7 +139,5 @@ public class Respond {
 			res = df.format(date.getTime()) + " GMT";
 		}
 		return res;
-	}
-	
-	
+	}		
 }

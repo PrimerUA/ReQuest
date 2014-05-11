@@ -29,7 +29,7 @@ public class Vacancy {
 	private int fragmentType;
 	private ParseObject vacancyObj;	
 
-	private ParseObject parseObject;
+	private ParseObject parseObject;	
 
 	public Vacancy() {		
 	}
@@ -208,6 +208,22 @@ public class Vacancy {
 	
 	public ParseObject getvacancyObj() {
 		return vacancyObj;
-	}
+	}	
 		
+	@Override
+	public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+//        if (!(obj instanceof Vacancy)) {
+//            return false;
+//        }
+        Vacancy other = (Vacancy) obj;
+        return this.objectId.equals(other.getObjectId());
+    }
+	
+	@Override
+	public int hashCode() {
+	    return objectId.hashCode();
+	}
 }

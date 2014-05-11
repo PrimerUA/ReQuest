@@ -1,19 +1,14 @@
 package com.skylion.request.parse;
 
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.res.Resources.Theme;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.parse.CountCallback;
 import com.parse.FindCallback;
@@ -134,14 +129,13 @@ public class ParseApi {
 	}
 	
 	public static void getAllResponds(final ProgressDialog progressDialog, final ListView contentList, final Context contentListContext) {		
-//		final List<Vacancy> res = new ArrayList<Vacancy>();		
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");
-		query.whereEqualTo("user", ParseUser.getCurrentUser());		
+		query.whereEqualTo("user", ParseUser.getCurrentUser());
 		query.findInBackground(new FindCallback<ParseObject>() {
 
 			@Override
 			public void done(List<ParseObject> list, ParseException e) {
-				if (e == null) {
+				if (e == null) {										
 					getVacancyList(list, contentList, contentListContext);					
 				} 
 				else {
@@ -149,9 +143,7 @@ public class ParseApi {
 				}
 				progressDialog.dismiss();
 			}			
-		});
-		
-//		return result;
+		});	
 	}
 
 	public static void getWallet(final TextView walletText) {
@@ -165,15 +157,17 @@ public class ParseApi {
 		});
 	}
 	
-	private static void getVacancyList(List<ParseObject>respondList, ListView contentList, Context contentListContext) {				
-		List<Vacancy> result = new ArrayList<Vacancy>();
+	private static void getVacancyList(List<ParseObject>respondList, ListView contentList, Context contentListContext) {					    
+		List<Vacancy> result = new ArrayList<Vacancy>();		
 		for (ParseObject trespond : respondList) {
 			Respond respond = new Respond();
-			respond.toObject(trespond);
+			respond.toObject(trespond);					
 			Vacancy vacancy = new Vacancy();
-			vacancy.toObject(respond.getRequest());
-			result.add(vacancy);
-		}			
+			vacancy.toObject(respond.getRequest());									
+			if(!result.contains(vacancy))
+				result.add(vacancy);							
+		}
+		
 		contentList.setAdapter(new VacancyListAdapter(contentListContext, result));
 	}
 
