@@ -271,28 +271,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <Button
-                    android:id="@+id/respondsItem_buyButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/create_button"
-                    android:text="@string/buy_text" />
-
-                <Button
-                    android:id="@+id/respondsItem_recommendButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/create_button"
-                    android:text="@string/recommend_text" />
-
-            </LinearLayout>
         </LinearLayout>
 
         <RelativeLayout

@@ -163,7 +163,8 @@ public class ParseApi {
 			Respond respond = new Respond();
 			respond.toObject(trespond);					
 			Vacancy vacancy = new Vacancy();
-			vacancy.toObject(respond.getRequest());									
+			vacancy.toObject(respond.getRequest());
+			vacancy.setFragmentType(RequestConstants.SHOW_MY_RESPONDS);
 			if(!result.contains(vacancy))
 				result.add(vacancy);							
 		}

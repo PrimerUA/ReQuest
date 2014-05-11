@@ -2,6 +2,7 @@ package com.skylion.request.utils.adapters;
 
 import java.util.List;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -120,7 +121,19 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 
 		Button recommendButton = (Button) view.findViewById(R.id.vacancyItem_recommendButton);
 		recommendButton.setOnClickListener(this);						
-		recommendButton.setTag(position);	
+		recommendButton.setTag(position);				
+		
+
+		switch ((requestList.get(position).getFragmentType())) {
+		case RequestConstants.SHOW_MY_RESPONDS:
+			recommendButton.setText(R.string.my_responds_show_candidate_button);
+			break;
+
+		default:
+			break;
+		}
+			
+			
 		
 		if(RequestConstants.FRAGMENT_MY_VACANCY == (requestList.get(position)).getFragmentType()) {
 			recommendButton.setVisibility(View.GONE);
@@ -172,13 +185,21 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 			break;
 		case R.id.vacancyItem_recommendButton:			
 		{
-//			Toast.makeText(v.getContext(), "Recommend friend!", Toast.LENGTH_SHORT).show();
-			Intent intent = new Intent(context, NewRecommendActivity.class);
-			int position = Integer.parseInt(v.getTag().toString());
-			
-			intent.putExtra("vacancyObjectId", requestList.get(position).getObjectId());
-			
-			context.startActivity(intent);
+			int position = Integer.parseInt(v.getTag().toString());							
+			switch ((requestList.get(position).getFragmentType())) {
+			case RequestConstants.SHOW_MY_RESPONDS: {					
+					Intent intent = new Intent(context, RespondsShow.class);
+					intent.putExtra("request", requestList.get(position).getObjectId());
+					context.startActivity(intent);
+					break;
+				}
+			default: {
+					Intent intent = new Intent(context, NewRecommendActivity.class);	
+					intent.putExtra("vacancyObjectId", requestList.get(position).getObjectId());			
+					context.startActivity(intent);
+					break;
+				}
+			}						
 			break;
 		}
 		case R.id.vacancyItem_contentLayout:					
