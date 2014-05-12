@@ -9,6 +9,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.CountCallback;
 import com.parse.FindCallback;
@@ -158,18 +159,24 @@ public class ParseApi {
 	}
 	
 	private static void getVacancyList(List<ParseObject>respondList, ListView contentList, Context contentListContext) {					    
-		List<Vacancy> result = new ArrayList<Vacancy>();		
-		for (ParseObject trespond : respondList) {
-			Respond respond = new Respond();
-			respond.toObject(trespond);					
-			Vacancy vacancy = new Vacancy();
-			vacancy.toObject(respond.getRequest());
-			vacancy.setFragmentType(RequestConstants.SHOW_MY_RESPONDS);
-			if(!result.contains(vacancy))
-				result.add(vacancy);							
+		if(!respondList.isEmpty()) 
+		{
+			List<Vacancy> result = new ArrayList<Vacancy>();		
+			for (ParseObject trespond : respondList) {
+				Respond respond = new Respond();
+				respond.toObject(trespond);					
+				Vacancy vacancy = new Vacancy();
+				vacancy.toObject(respond.getRequest());
+				vacancy.setFragmentType(RequestConstants.SHOW_MY_RESPONDS);
+				if(!result.contains(vacancy))
+					result.add(vacancy);							
+			}
+			
+			contentList.setAdapter(new VacancyListAdapter(contentListContext, result));
 		}
-		
-		contentList.setAdapter(new VacancyListAdapter(contentListContext, result));
+		else {
+			Toast.makeText(context, context.getString(R.string.responses_not_found), Toast.LENGTH_SHORT).show();
+		}
 	}
 
 }

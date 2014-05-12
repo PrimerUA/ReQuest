@@ -63,9 +63,6 @@ public class RespondsFragment extends Fragment implements ListView.OnItemClickLi
 	private void loadData() {
 		final ProgressDialog myProgressDialog = ProgressDialog.show(getActivity(), getString(R.string.connection),
 				getString(R.string.connection_requests), true);
-
-//		contentList.setAdapter(new RespondListAdapter(getActivity(), ParseApi.getAllResponds(myProgressDialog)));
-//		contentList.setAdapter(new VacancyListAdapter(getActivity(), ParseApi.getAllResponds(myProgressDialog)));
 		ParseApi.getAllResponds(myProgressDialog, contentList, getActivity());
 	}
 }

@@ -98,9 +98,7 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 		
 		Button downloadCVButton = (Button)view.findViewById(R.id.respondsItem_getCV_button);
 		downloadCVButton.setOnClickListener(this);
-		downloadCVButton.setTag(position);
-		
-		
+		downloadCVButton.setTag(position);				
 		
 		holder.name.setText(respond.getName());
 		holder.createdAt.setText(respond.getCreatedAt());
@@ -152,13 +150,13 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 	}
 	
 	private void loadCVFile(int index) {
-		
+				
 		ParseObject pobject = respondList.get(index).getRespondObj();
 		final ProgressDialog myProgressDialog = ProgressDialog.show(context, context.getString(R.string.connection),
 				context.getString(R.string.connection_cv_file_fetch), true);
 		final ParseFile applicantResume = (ParseFile)pobject.get("proof");		
 		if(applicantResume == null){
-			Toast.makeText(context, Resources.getSystem().getString(R.string.error_cv_not_found), Toast.LENGTH_SHORT).show();
+			Toast.makeText(context, context.getString(R.string.error_cv_not_found), Toast.LENGTH_SHORT).show();
 			myProgressDialog.dismiss();
 		}
 		else
@@ -170,7 +168,7 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 			    	saveCVFile(data, applicantResume.getName());
 			    } else {
 			    	myProgressDialog.dismiss();
-			    	Toast.makeText(context, Resources.getSystem().getString(R.string.error_get_cv_file), Toast.LENGTH_SHORT).show();
+			    	Toast.makeText(context, context.getString(R.string.error_get_cv_file), Toast.LENGTH_SHORT).show();
 			    }
 			  }
 			});
@@ -225,7 +223,7 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			Toast.makeText(context, Resources.getSystem().getString(R.string.error_get_cv_file), Toast.LENGTH_SHORT).show();
+			Toast.makeText(context, context.getString(R.string.error_get_cv_file), Toast.LENGTH_SHORT).show();
 		}						
 		
 	}
