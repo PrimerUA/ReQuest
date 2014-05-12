@@ -53,7 +53,7 @@ public class ParseApi {
 			respond.toObject(obj);
 			respondsList.add(respond);
 		}
-		return respondsList;
+		return respondsList;	
 	}
 	
 	public static void loadVacancyList(int fragmentType, final ListView listView) {
@@ -76,7 +76,7 @@ public class ParseApi {
 				context.getString(R.string.connection_requests), true);
 		query.findInBackground(new FindCallback<ParseObject>() {
 			public void done(List<ParseObject> vacancyList, ParseException e) {							
-				if (e == null) {					
+				if (e == null && !vacancyList.isEmpty()) {					
 					List<Vacancy> result = new ArrayList<Vacancy>();
 					final List<Vacancy> tresult = new ArrayList<Vacancy>();					
 					for (ParseObject obj : vacancyList) {
@@ -99,7 +99,7 @@ public class ParseApi {
 							            tresult.add(tvacancy);							            
 							            if(initViews)
 							            	init(listView, tresult);
-								    }
+								    }								    
 								  }
 								  
 								});
@@ -117,10 +117,16 @@ public class ParseApi {
 					if(fragment_type != RequestConstants.FRAGMENT_MY_VACANCY)					
 						init(listView, result);	
 				} else {
-					DialogsViewer.showErrorDialog(context, context.getString(R.string.error_loading_requests));
-					Log.d("requests", "Error: " + e.getMessage());
-				}
-			}
+					if(vacancyList.isEmpty()) {
+						myProgressDialog.dismiss();
+						Toast.makeText(context, context.getString(R.string.requests_not_found), Toast.LENGTH_SHORT).show();
+					}
+					else {
+						DialogsViewer.showErrorDialog(context, context.getString(R.string.error_loading_requests));
+						Log.d("requests", "Error: " + e.getMessage());
+					}
+				}				
+			}			
 		});
 	}
 
@@ -135,16 +141,16 @@ public class ParseApi {
 		query.findInBackground(new FindCallback<ParseObject>() {
 
 			@Override
-			public void done(List<ParseObject> list, ParseException e) {
-				if (e == null) {										
+			public void done(List<ParseObject> list, ParseException e) {				
+				if (e == null && !list.isEmpty()) {										
 					getVacancyList(list, contentList, contentListContext);					
 				} 
 				else {
-					Log.d("requests", "Error: " + e.getMessage());
+					Toast.makeText(context, context.getString(R.string.responses_not_found), Toast.LENGTH_SHORT).show();
 				}
 				progressDialog.dismiss();
 			}			
-		});	
+		});			
 	}
 
 	public static void getWallet(final TextView walletText) {
@@ -159,8 +165,8 @@ public class ParseApi {
 	}
 	
 	private static void getVacancyList(List<ParseObject>respondList, ListView contentList, Context contentListContext) {					    
-		if(!respondList.isEmpty()) 
-		{
+//		if(!respondList.isEmpty()) 
+//		{
 			List<Vacancy> result = new ArrayList<Vacancy>();		
 			for (ParseObject trespond : respondList) {
 				Respond respond = new Respond();
@@ -173,10 +179,10 @@ public class ParseApi {
 			}
 			
 			contentList.setAdapter(new VacancyListAdapter(contentListContext, result));
-		}
-		else {
-			Toast.makeText(context, context.getString(R.string.responses_not_found), Toast.LENGTH_SHORT).show();
-		}
+//		}
+//		else {
+//			Toast.makeText(context, context.getString(R.string.responses_not_found), Toast.LENGTH_SHORT).show();
+//		}
 	}
 
 }

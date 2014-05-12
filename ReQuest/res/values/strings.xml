@@ -111,6 +111,7 @@
     <string name="error_cv_not_found">CV not found!</string>    
     <string name="my_responds_show_candidate_button">Show cadidats</string>
     <string name="responses_not_found">Responses not found!</string>
+    <string name="requests_not_found">Requests not found!</string>
     
 
 </resources>

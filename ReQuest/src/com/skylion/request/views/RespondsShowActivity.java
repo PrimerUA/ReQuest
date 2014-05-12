@@ -94,7 +94,7 @@ public static class PlaceholderFragment extends Fragment {
 			    else
 			    {
 			    	myProgressDialog.dismiss();
-			    	Toast.makeText(getActivity(), "Not found", Toast.LENGTH_SHORT).show();
+			    	Toast.makeText(getActivity(), getActivity().getString(R.string.requests_not_found), Toast.LENGTH_SHORT).show();
 			    }
 			  }
 			});
@@ -106,14 +106,14 @@ public static class PlaceholderFragment extends Fragment {
 			query.whereEqualTo("request", object);
 			query.findInBackground(new FindCallback<ParseObject>() {					
 			    public void done(List<ParseObject> responds, ParseException e) {
-			        if (e == null) 
+			        if (e == null && !responds.isEmpty()) 
 			        {		        			        				
 			            showRequests(responds);
 			        }
 			        else
 			        {
 			        	myProgressDialog.dismiss();
-			        	Toast.makeText(getActivity(), "Not found", Toast.LENGTH_SHORT).show();			        	
+			        	Toast.makeText(getActivity(), getActivity().getString(R.string.responses_not_found), Toast.LENGTH_SHORT).show();			        	
 			        }
 				}
 			});
