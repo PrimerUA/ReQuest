@@ -3,5 +3,5 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.skylion.request.RespondsShow"
+    tools:context="com.skylion.request.views.RespondsShowActivity"
     tools:ignore="MergeRootFrame" />

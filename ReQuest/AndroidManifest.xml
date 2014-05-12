@@ -86,7 +86,7 @@
                 android:value="com.skylion.request.MainActivity" />
         </activity>
         <activity
-            android:name="com.skylion.request.RespondsShow"
+            android:name="com.skylion.request.views.RespondsShowActivity"
             android:label="@string/title_activity_responds_show"
             android:windowSoftInputMode="stateAlwaysHidden">
         </activity>

@@ -28,12 +28,12 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.skylion.request.R;
-import com.skylion.request.RespondsShow;
 import com.skylion.request.entity.RequestConstants;
 import com.skylion.request.entity.Vacancy;
 import com.skylion.request.parse.ParseApi;
 import com.skylion.request.utils.ExpandableViewHelper;
 import com.skylion.request.views.NewRecommendActivity;
+import com.skylion.request.views.RespondsShowActivity;
 
 public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 
@@ -188,7 +188,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 			int position = Integer.parseInt(v.getTag().toString());							
 			switch ((requestList.get(position).getFragmentType())) {
 			case RequestConstants.SHOW_MY_RESPONDS: {					
-					Intent intent = new Intent(context, RespondsShow.class);
+					Intent intent = new Intent(context, RespondsShowActivity.class);
 					intent.putExtra("request", requestList.get(position).getObjectId());
 					context.startActivity(intent);
 					break;
@@ -218,7 +218,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		{
 			// 
 			int index = Integer.parseInt(v.getTag().toString());
-			Intent intent = new Intent(context, RespondsShow.class);										
+			Intent intent = new Intent(context, RespondsShowActivity.class);										
 			intent.putExtra("request", requestList.get(index).getObjectId());			
 			context.startActivity(intent);
 			break;

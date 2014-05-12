@@ -1,4 +1,4 @@
-package com.skylion.request;
+package com.skylion.request.views;
 
 import java.util.List;
 
@@ -7,6 +7,11 @@ import com.parse.GetCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseException;
+import com.skylion.request.R;
+import com.skylion.request.R.id;
+import com.skylion.request.R.layout;
+import com.skylion.request.R.menu;
+import com.skylion.request.R.string;
 import com.skylion.request.parse.ParseApi;
 
 import android.support.v7.app.ActionBarActivity;
@@ -21,7 +26,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class RespondsShow extends ActionBarActivity {
+public class RespondsShowActivity extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
