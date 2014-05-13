@@ -30,7 +30,6 @@ public class ParseApi {
 
 	private static Context context;
 	private static int fragment_type;	
-	private static boolean initViews = false; 	
 	
 	public ParseApi() {
 	}
@@ -56,6 +55,43 @@ public class ParseApi {
 		return respondsList;	
 	}
 	
+	static private void fragment_general_vacancy(final List<ParseObject> vacancyList, final ListView listView, final ProgressDialog myProgressDialog) { 
+		List<Vacancy> result = new ArrayList<Vacancy>();						
+		for (ParseObject obj : vacancyList) {
+			if (obj != null) {
+				Vacancy vacancy = new Vacancy();
+				vacancy.toObject(obj);
+				vacancy.setFragmentType(fragment_type);
+				result.add(vacancy);
+			}
+		}
+		init(listView, result, myProgressDialog);
+	}
+	
+	static private void fragment_my_vacancy(final List<ParseObject> vacancyList, final ListView listView, final ProgressDialog myProgressDialog) { 		
+		final List<Vacancy> result = new ArrayList<Vacancy>();				
+		final int last_element = vacancyList.size() - 1;
+		for (final ParseObject obj : vacancyList) {
+			if (obj != null) {																									
+				final Vacancy tvacancy = new Vacancy();
+				tvacancy.toObject(obj);												
+				ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");								
+				query.whereEqualTo("request", obj);																
+				query.countInBackground(new CountCallback() {
+				  public void done(int count, ParseException e) {
+				    if (e == null) {								    	
+			            tvacancy.setRespondsCount(count);
+			            tvacancy.setFragmentType(fragment_type);
+			            result.add(tvacancy);			
+			            if(vacancyList.indexOf(obj) == last_element)
+			            	init(listView, result, myProgressDialog);
+			            }
+				    }								    
+				  });				  					
+			}				
+		}		
+	}
+	
 	public static void loadVacancyList(int fragmentType, final ListView listView) {
 		fragment_type = fragmentType;
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Requests");
@@ -76,63 +112,36 @@ public class ParseApi {
 				context.getString(R.string.connection_requests), true);
 		query.findInBackground(new FindCallback<ParseObject>() {
 			public void done(List<ParseObject> vacancyList, ParseException e) {							
-				if (e == null && !vacancyList.isEmpty()) {					
-					List<Vacancy> result = new ArrayList<Vacancy>();
-					final List<Vacancy> tresult = new ArrayList<Vacancy>();					
-					for (ParseObject obj : vacancyList) {
-						if (obj != null) {							
-							if(fragment_type == RequestConstants.FRAGMENT_MY_VACANCY)
-							{
-								if(vacancyList.indexOf(obj) == (vacancyList.size() - 1))
-									initViews = true;
-								final Vacancy tvacancy = new Vacancy();
-								tvacancy.toObject(obj);								
-								
-								ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");								
-								query.whereEqualTo("request", obj);																
-								query.countInBackground(new CountCallback() {
-								  public void done(int count, ParseException e) {
-								    if (e == null) {								    	
-								    	myProgressDialog.dismiss();							            
-							            tvacancy.setRespondsCount(count);
-							            tvacancy.setFragmentType(fragment_type);
-							            tresult.add(tvacancy);							            
-							            if(initViews)
-							            	init(listView, tresult);
-								    }								    
-								  }
-								  
-								});
-							}
-							else			
-							{		
-								myProgressDialog.dismiss();
-								Vacancy vacancy = new Vacancy();
-								vacancy.toObject(obj);
-								vacancy.setFragmentType(fragment_type);
-								result.add(vacancy);
-							}
-						}
+				if (e == null && !vacancyList.isEmpty()) {	
+					switch (fragment_type) {
+					case RequestConstants.FRAGMENT_MY_VACANCY:
+						fragment_my_vacancy(vacancyList, listView, myProgressDialog);
+						break;
+					case RequestConstants.FRAGMENT_GENERAL_VACANCY:
+						fragment_general_vacancy(vacancyList, listView, myProgressDialog);
+						break;
+					default:
+						break;
 					}
-					if(fragment_type != RequestConstants.FRAGMENT_MY_VACANCY)					
-						init(listView, result);	
-				} else {
+				} 
+				else {
 					if(vacancyList.isEmpty()) {
-						myProgressDialog.dismiss();
 						Toast.makeText(context, context.getString(R.string.requests_not_found), Toast.LENGTH_SHORT).show();
 					}
 					else {
 						DialogsViewer.showErrorDialog(context, context.getString(R.string.error_loading_requests));
 						Log.d("requests", "Error: " + e.getMessage());
 					}
-				}				
+					myProgressDialog.dismiss();
+				}		
 			}			
 		});
 	}
 
-	static void init(ListView listView, List<Vacancy> result) {
+	static void init(ListView listView, List<Vacancy> result, final ProgressDialog myProgressDialog) {
 		VacancyListAdapter vacancyListAdapter = new VacancyListAdapter(context, result);					
 		listView.setAdapter(vacancyListAdapter);
+		myProgressDialog.dismiss();
 	}
 	
 	public static void getAllResponds(final ProgressDialog progressDialog, final ListView contentList, final Context contentListContext) {		
@@ -165,24 +174,17 @@ public class ParseApi {
 	}
 	
 	private static void getVacancyList(List<ParseObject>respondList, ListView contentList, Context contentListContext) {					    
-//		if(!respondList.isEmpty()) 
-//		{
-			List<Vacancy> result = new ArrayList<Vacancy>();		
-			for (ParseObject trespond : respondList) {
-				Respond respond = new Respond();
-				respond.toObject(trespond);					
-				Vacancy vacancy = new Vacancy();
-				vacancy.toObject(respond.getRequest());
-				vacancy.setFragmentType(RequestConstants.SHOW_MY_RESPONDS);
-				if(!result.contains(vacancy))
-					result.add(vacancy);							
-			}
-			
-			contentList.setAdapter(new VacancyListAdapter(contentListContext, result));
-//		}
-//		else {
-//			Toast.makeText(context, context.getString(R.string.responses_not_found), Toast.LENGTH_SHORT).show();
-//		}
+		List<Vacancy> result = new ArrayList<Vacancy>();		
+		for (ParseObject trespond : respondList) {
+			Respond respond = new Respond();
+			respond.toObject(trespond);					
+			Vacancy vacancy = new Vacancy();
+			vacancy.toObject(respond.getRequest());
+			vacancy.setFragmentType(RequestConstants.SHOW_MY_RESPONDS);
+			if(!result.contains(vacancy))
+				result.add(vacancy);							
+		}			
+		contentList.setAdapter(new VacancyListAdapter(contentListContext, result));
 	}
 
 }
