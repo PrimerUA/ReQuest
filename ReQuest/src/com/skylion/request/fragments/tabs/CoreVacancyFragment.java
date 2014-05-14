@@ -55,7 +55,7 @@ abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemCl
 			}
 			
 			private void isScrollCompleted() {
-				if (this.currentVisibleItemCount >= (result.size() - 4) && this.currentScrollState == SCROLL_STATE_IDLE && isload) {
+				if (this.currentVisibleItemCount >= (result.size() - 1) && this.currentScrollState == SCROLL_STATE_IDLE && isload) {
 					ParseApi.loadVacancyList(fragment_type, contentList, count, result);
 					if(count > result.size() )
 						isload = false;
