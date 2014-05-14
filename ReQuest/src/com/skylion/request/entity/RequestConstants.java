@@ -15,6 +15,7 @@ public class RequestConstants {
 	public static final int RESPOND_PENDING = 2;
 	public static final int RESPOND_OFFER = 3;
 	public static final int RESPOND_APPROVED = 4;
-	public static final int RESPOND_SHOW = 5;	
+	public static final int RESPOND_SHOW = 5;
+	public static final int LIST_ITEMS_LOAD = 5;
 	
 }

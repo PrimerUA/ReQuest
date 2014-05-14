@@ -55,8 +55,8 @@ public class ParseApi {
 		return respondsList;	
 	}
 	
-	static private void fragment_general_vacancy(final List<ParseObject> vacancyList, final ListView listView, final ProgressDialog myProgressDialog) { 
-		List<Vacancy> result = new ArrayList<Vacancy>();						
+	static private void fragment_general_vacancy(final List<ParseObject> vacancyList, final ListView listView, final ProgressDialog myProgressDialog, final List<Vacancy> result) { 
+//		List<Vacancy> result = new ArrayList<Vacancy>();						
 		for (ParseObject obj : vacancyList) {
 			if (obj != null) {
 				Vacancy vacancy = new Vacancy();
@@ -92,13 +92,16 @@ public class ParseApi {
 		}		
 	}
 	
-	public static void loadVacancyList(int fragmentType, final ListView listView) {
+	public static void loadVacancyList(int fragmentType, final ListView listView, final int count, final List<Vacancy> result) {
 		fragment_type = fragmentType;
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Requests");
 		switch (fragmentType) {
-		case RequestConstants.FRAGMENT_GENERAL_VACANCY:
+		case RequestConstants.FRAGMENT_GENERAL_VACANCY: {
 			query.whereEqualTo("type", RequestConstants.REQUEST_GENERAL);
+			query.setLimit(RequestConstants.LIST_ITEMS_LOAD);
+			query.setSkip(count);			
 			break;
+			}
 		// case RequestConstants.FRAGMENT_HOT_VACANCY:
 		// query.whereEqualTo("type", RequestConstants.REQUEST_HOT);
 		// break;
@@ -118,7 +121,7 @@ public class ParseApi {
 						fragment_my_vacancy(vacancyList, listView, myProgressDialog);
 						break;
 					case RequestConstants.FRAGMENT_GENERAL_VACANCY:
-						fragment_general_vacancy(vacancyList, listView, myProgressDialog);
+						fragment_general_vacancy(vacancyList, listView, myProgressDialog, result);
 						break;
 					default:
 						break;
