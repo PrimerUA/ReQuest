@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,7 +57,11 @@ public class ParseApi {
 	}
 	
 	static private void fragment_general_vacancy(final List<ParseObject> vacancyList, final ListView listView, final ProgressDialog myProgressDialog, final List<Vacancy> result) { 
-//		List<Vacancy> result = new ArrayList<Vacancy>();						
+		boolean isInited;
+		if(result.isEmpty())
+			isInited = false;
+		else
+			isInited = true;
 		for (ParseObject obj : vacancyList) {
 			if (obj != null) {
 				Vacancy vacancy = new Vacancy();
@@ -65,11 +70,23 @@ public class ParseApi {
 				result.add(vacancy);
 			}
 		}
-		init(listView, result, myProgressDialog);
+		if(!isInited) {
+			init(listView, result, myProgressDialog);			
+		}
+		else
+		{			
+			listView.invalidate();
+			((BaseAdapter)listView.getAdapter()).notifyDataSetChanged();
+			myProgressDialog.dismiss();
+		}
 	}
 	
-	static private void fragment_my_vacancy(final List<ParseObject> vacancyList, final ListView listView, final ProgressDialog myProgressDialog) { 		
-		final List<Vacancy> result = new ArrayList<Vacancy>();				
+	static private void fragment_my_vacancy(final List<ParseObject> vacancyList, final ListView listView, final ProgressDialog myProgressDialog, final List<Vacancy> result) { 					
+		final boolean isInited; 
+		if(result.isEmpty())
+			isInited = false;
+		else
+			isInited = true;
 		final int last_element = vacancyList.size() - 1;
 		for (final ParseObject obj : vacancyList) {
 			if (obj != null) {																									
@@ -83,10 +100,18 @@ public class ParseApi {
 			            tvacancy.setRespondsCount(count);
 			            tvacancy.setFragmentType(fragment_type);
 			            result.add(tvacancy);			
-			            if(vacancyList.indexOf(obj) == last_element)
-			            	init(listView, result, myProgressDialog);
+			            if(vacancyList.indexOf(obj) == last_element) {
+			            	if(!isInited) {			            
+			            		init(listView, result, myProgressDialog);
+			        		}
+			        		else {		        			
+			        			listView.invalidate();
+			        			((BaseAdapter)listView.getAdapter()).notifyDataSetChanged();
+			        			myProgressDialog.dismiss();
+			        		}			            				      
 			            }
-				    }								    
+		            }
+				  }								    
 				  });				  					
 			}				
 		}		
@@ -107,6 +132,8 @@ public class ParseApi {
 		// break;
 		case RequestConstants.FRAGMENT_MY_VACANCY:
 			query.whereEqualTo("user", ParseUser.getCurrentUser());
+			query.setLimit(RequestConstants.LIST_ITEMS_LOAD);
+			query.setSkip(count);
 			break;
 		}
 
@@ -118,7 +145,7 @@ public class ParseApi {
 				if (e == null && !vacancyList.isEmpty()) {	
 					switch (fragment_type) {
 					case RequestConstants.FRAGMENT_MY_VACANCY:
-						fragment_my_vacancy(vacancyList, listView, myProgressDialog);
+						fragment_my_vacancy(vacancyList, listView, myProgressDialog, result);
 						break;
 					case RequestConstants.FRAGMENT_GENERAL_VACANCY:
 						fragment_general_vacancy(vacancyList, listView, myProgressDialog, result);
@@ -143,8 +170,8 @@ public class ParseApi {
 
 	static void init(ListView listView, List<Vacancy> result, final ProgressDialog myProgressDialog) {
 		VacancyListAdapter vacancyListAdapter = new VacancyListAdapter(context, result);					
-		listView.setAdapter(vacancyListAdapter);
-		myProgressDialog.dismiss();
+		listView.setAdapter(vacancyListAdapter);		
+		myProgressDialog.dismiss();		
 	}
 	
 	public static void getAllResponds(final ProgressDialog progressDialog, final ListView contentList, final Context contentListContext) {		
