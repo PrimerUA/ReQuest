@@ -112,6 +112,10 @@
     <string name="my_responds_show_candidate_button">Show cadidats</string>
     <string name="responses_not_found">Responses not found!</string>
     <string name="requests_not_found">Requests not found!</string>
+    <string name="respond_dismiss">Dismiss</string>
+    <string name="respond_processing">Processing</string>
+    <string name="respond_offer">Offer</string>
+    <string name="respond_accepted">Accepted</string>
     
 
 </resources>

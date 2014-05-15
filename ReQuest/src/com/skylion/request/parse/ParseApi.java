@@ -39,18 +39,19 @@ public class ParseApi {
 		ParseApi.context = context;
 	}
 	
-	public static void loadRespondsList(ListView listView, List<ParseObject> responds, Activity activity) {		
-		List<Respond>list = getResponds(responds);		
+	public static void loadRespondsList(ListView listView, List<ParseObject> responds, Activity activity, int fragment) {		
+		List<Respond>list = getResponds(responds, fragment);		
 		RespondsListAdapter respondsListAdapter = new RespondsListAdapter(activity, list);					
 		listView.setAdapter(respondsListAdapter);
 	}
 	
-	private static List<Respond> getResponds(List<ParseObject> responds) {
+	private static List<Respond> getResponds(List<ParseObject> responds, int fragment) {
 		List<Respond> respondsList = new ArrayList<Respond>();
 		for(ParseObject obj : responds)
 		{
 			Respond respond = new Respond();
 			respond.toObject(obj);
+			respond.setFragmentType(fragment);
 			respondsList.add(respond);
 		}
 		return respondsList;	

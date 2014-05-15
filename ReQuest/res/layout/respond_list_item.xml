@@ -270,6 +270,45 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/rc_button_dismiss"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/create_button"
+                        android:text="@string/respond_dismiss" />
+
+                    <Button
+                        android:id="@+id/rc_button_processing"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/create_button"
+                        android:text="@string/respond_processing" />
+
+                    <Button
+                        android:id="@+id/rc_button_offer"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/create_button"
+                        android:text="@string/respond_offer" />
+
+                    <Button
+                        android:id="@+id/rc_button_accepted"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/create_button"
+                        android:text="@string/respond_accepted" />
+
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
 

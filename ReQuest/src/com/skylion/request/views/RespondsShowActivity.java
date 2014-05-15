@@ -12,6 +12,7 @@ import com.skylion.request.R.id;
 import com.skylion.request.R.layout;
 import com.skylion.request.R.menu;
 import com.skylion.request.R.string;
+import com.skylion.request.entity.RequestConstants;
 import com.skylion.request.parse.ParseApi;
 
 import android.support.v7.app.ActionBarActivity;
@@ -28,6 +29,8 @@ import android.widget.Toast;
 
 public class RespondsShowActivity extends ActionBarActivity {
 
+	private static int fragmentType = 0;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -83,7 +86,8 @@ public static class PlaceholderFragment extends Fragment {
 		}
 		
 		private void getVacancyObject(){
-			String objectId =  getActivity().getIntent().getStringExtra("request");		
+			fragmentType = Integer.parseInt(getActivity().getIntent().getStringExtra("fragment_type"));
+			String objectId =  getActivity().getIntent().getStringExtra("request");					
 			ParseQuery<ParseObject> query = ParseQuery.getQuery("Requests");		
 			query.getInBackground(objectId, new GetCallback<ParseObject>() {
 			  public void done(ParseObject object, ParseException e) {
@@ -121,7 +125,7 @@ public static class PlaceholderFragment extends Fragment {
 		
 		private void showRequests(List<ParseObject> responds) {
 			myProgressDialog.dismiss();
-			ParseApi.loadRespondsList(contentList, responds, getActivity());            
+			ParseApi.loadRespondsList(contentList, responds, getActivity(), fragmentType);            
 		}	
 	}
 

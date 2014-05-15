@@ -8,11 +8,14 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.skylion.request.R;
+import com.skylion.request.entity.RequestConstants;
 import com.skylion.request.entity.Respond;
 
 import android.app.ProgressDialog;
@@ -99,6 +102,28 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 		Button downloadCVButton = (Button)view.findViewById(R.id.respondsItem_getCV_button);
 		downloadCVButton.setOnClickListener(this);
 		downloadCVButton.setTag(position);				
+		
+		Button dismissButton = (Button)view.findViewById(R.id.rc_button_dismiss);
+		dismissButton.setOnClickListener(this);
+		dismissButton.setTag(position);
+		Button processingButton = (Button)view.findViewById(R.id.rc_button_processing);
+		processingButton.setOnClickListener(this);
+		processingButton.setTag(position);
+		Button offerButton = (Button)view.findViewById(R.id.rc_button_offer);
+		offerButton.setOnClickListener(this);
+		offerButton.setTag(position);
+		Button acceptedButton = (Button)view.findViewById(R.id.rc_button_accepted);
+		acceptedButton.setOnClickListener(this);
+		acceptedButton.setTag(position);
+		
+		if(respond.getFragmentType() == RequestConstants.SHOW_MY_RESPONDS)
+		{
+			dismissButton.setVisibility(View.GONE);
+			acceptedButton.setVisibility(View.GONE);
+			offerButton.setVisibility(View.GONE);
+			processingButton.setVisibility(View.GONE);
+			// else show status
+		}
 		
 		holder.name.setText(respond.getName());
 		holder.createdAt.setText(respond.getCreatedAt());
@@ -227,16 +252,70 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 		}						
 		
 	}
-
+	
+	private void updateVacacyStatus(final int status, Respond respondObj) {
+		Toast.makeText(context, "Coming soon:)", Toast.LENGTH_SHORT).show();
+		/*
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");		 
+		query.getInBackground(respondObj.getObjectId(), new GetCallback<ParseObject>() {
+		  public void done(ParseObject gameScore, ParseException e) {
+		    if (e == null) {
+		      gameScore.put("", status);		      
+		      gameScore.saveInBackground();
+		      switch (status) {
+				case RequestConstants.RESPOND_STATUS_PROCESSING:
+					Toast.makeText(context, context.getString(R.string.respond_processing), Toast.LENGTH_SHORT).show();
+					break;
+				case RequestConstants.RESPOND_STATUS_DISMISS:
+					Toast.makeText(context, context.getString(R.string.respond_dismiss), Toast.LENGTH_SHORT).show();
+					break;
+					
+				case RequestConstants.RESPOND_STATUS_OFFER:
+					Toast.makeText(context, context.getString(R.string.respond_offer), Toast.LENGTH_SHORT).show();
+					break;
+					
+				case RequestConstants.RESPOND_STATUS_ACCEPTED:
+					Toast.makeText(context, context.getString(R.string.respond_accepted), Toast.LENGTH_SHORT).show();
+					break;
+	
+				default:
+					break;
+		      }
+		    }
+		  }
+		});
+		*/
+	}
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.respondsItem_getCV_button:
-		{				
+		case R.id.respondsItem_getCV_button: {				
 			int position = Integer.parseInt(v.getTag().toString());
-			loadCVFile(position);
+			loadCVFile(position);			
+			}
+			break;		
+		case R.id.rc_button_dismiss: {			
+			int position = Integer.parseInt(v.getTag().toString());		
+			updateVacacyStatus(RequestConstants.RESPOND_STATUS_DISMISS, respondList.get(position));
+			}
 			break;
-		}
+		case R.id.rc_button_processing: {			
+			int position = Integer.parseInt(v.getTag().toString());		
+			updateVacacyStatus(RequestConstants.RESPOND_STATUS_PROCESSING, respondList.get(position));
+			}
+			break;
+		case R.id.rc_button_offer: {
+			
+			int position = Integer.parseInt(v.getTag().toString());		
+			updateVacacyStatus(RequestConstants.RESPOND_STATUS_OFFER, respondList.get(position));
+			}
+			break;
+		case R.id.rc_button_accepted: {			
+			int position = Integer.parseInt(v.getTag().toString());		
+			updateVacacyStatus(RequestConstants.RESPOND_STATUS_ACCEPTED, respondList.get(position));
+			}
+			break;
 		default:
 			break;
 		}

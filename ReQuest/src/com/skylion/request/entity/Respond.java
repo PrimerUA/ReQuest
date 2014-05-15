@@ -26,6 +26,8 @@ public class Respond {
 	private String comment;
 	private Date createdAt;
 	private Date updatedAt;
+	private String objectId;
+	private int fragmentType;
 	
 	
 	public Respond toObject(ParseObject obj) {
@@ -45,7 +47,8 @@ public class Respond {
 		comment = obj.getString("comment");
 		createdAt = obj.getCreatedAt();
 		updatedAt = obj.getUpdatedAt();
-		experience = obj.getString("experience");
+		experience = obj.getString("experience");		
+		objectId = obj.getObjectId();
 		respondObj = obj;
 				
 		try {
@@ -63,6 +66,18 @@ public class Respond {
 		}
 			
 		return this;
+	}	
+	
+	public String getObjectId() {
+		return objectId;
+	}	
+
+	public int getFragmentType() {
+		return fragmentType;
+	}
+
+	public void setFragmentType(int fragmentType) {
+		this.fragmentType = fragmentType;
 	}
 
 	public Integer getType() {

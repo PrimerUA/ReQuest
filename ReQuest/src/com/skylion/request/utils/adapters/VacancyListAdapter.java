@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -131,9 +132,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 
 		default:
 			break;
-		}
-			
-			
+		}						
 		
 		if(RequestConstants.FRAGMENT_MY_VACANCY == (requestList.get(position)).getFragmentType()) {
 			recommendButton.setVisibility(View.GONE);
@@ -190,6 +189,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 			case RequestConstants.SHOW_MY_RESPONDS: {					
 					Intent intent = new Intent(context, RespondsShowActivity.class);
 					intent.putExtra("request", requestList.get(position).getObjectId());
+					intent.putExtra("fragment_type", ((Integer)requestList.get(position).getFragmentType()).toString());
 					context.startActivity(intent);
 					break;
 				}
@@ -218,8 +218,9 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		{
 			// 
 			int index = Integer.parseInt(v.getTag().toString());
-			Intent intent = new Intent(context, RespondsShowActivity.class);										
-			intent.putExtra("request", requestList.get(index).getObjectId());			
+			Intent intent = new Intent(context, RespondsShowActivity.class);	
+			intent.putExtra("request", requestList.get(index).getObjectId());
+			intent.putExtra("fragment_type", ((Integer)requestList.get(index).getFragmentType()).toString());					
 			context.startActivity(intent);
 			break;
 		}

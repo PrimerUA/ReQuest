@@ -147,7 +147,7 @@ public class RespondListAdapter extends BaseAdapter implements OnClickListener {
 				expandableLayout.setVisibility(View.VISIBLE);
 				ExpandableViewHelper.slideIntoDirection(v.getContext(), expandableLayout, R.anim.item_slide_down);
 			}
-			break;
+			break;		
 		default:
 			break;
 		}
