@@ -4,9 +4,11 @@ import java.util.List;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseException;
+import com.parse.ParseUser;
 import com.skylion.request.R;
 import com.skylion.request.R.id;
 import com.skylion.request.R.layout;
@@ -108,6 +110,7 @@ public static class PlaceholderFragment extends Fragment {
 			
 			ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");
 			query.whereEqualTo("request", object);
+			query.whereEqualTo("user", ParseUser.getCurrentUser());
 			query.findInBackground(new FindCallback<ParseObject>() {					
 			    public void done(List<ParseObject> responds, ParseException e) {
 			        if (e == null && !responds.isEmpty()) 
