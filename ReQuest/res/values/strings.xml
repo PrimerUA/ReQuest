@@ -116,6 +116,9 @@
     <string name="respond_processing">Processing</string>
     <string name="respond_offer">Offer</string>
     <string name="respond_accepted">Accepted</string>
+    <string name="respond_new">New</string>
+    <string name="respond_status">Candidate status:</string>
+    <string name="respond_set_status">Setting of status...</string>
     
 
 </resources>

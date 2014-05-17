@@ -28,6 +28,7 @@ public class Respond {
 	private Date updatedAt;
 	private String objectId;
 	private int fragmentType;
+	private Integer candidateStatus;
 	
 	
 	public Respond toObject(ParseObject obj) {
@@ -48,6 +49,7 @@ public class Respond {
 		createdAt = obj.getCreatedAt();
 		updatedAt = obj.getUpdatedAt();
 		experience = obj.getString("experience");		
+		candidateStatus = (Integer) obj.getNumber("status");
 		objectId = obj.getObjectId();
 		respondObj = obj;
 				
@@ -68,6 +70,14 @@ public class Respond {
 		return this;
 	}	
 	
+	public Integer getCandidateStatus() {
+		return candidateStatus;
+	}
+
+	public void setCandidateStatus(Integer candidateStatus) {
+		this.candidateStatus = candidateStatus;
+	}
+
 	public String getObjectId() {
 		return objectId;
 	}	

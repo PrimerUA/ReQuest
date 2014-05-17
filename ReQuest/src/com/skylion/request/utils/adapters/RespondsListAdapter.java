@@ -2,6 +2,7 @@ package com.skylion.request.utils.adapters;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.BreakIterator;
 import java.util.List;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -25,6 +26,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,6 +34,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,8 +53,9 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 		public TextView lastPost;
 		public TextView experience;
 		public TextView comment;
-		public TextView user;
-		private ImageView avatar;
+		public TextView user;	
+		public TextView status;
+		private ImageView avatar;		
 	}		
 	
 	private View view;
@@ -91,6 +96,7 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 		holder.comment = (TextView)view.findViewById(R.id.respodsItem_comment_editText);		
 		holder.user = (TextView)view.findViewById(R.id.respondsItem_authorText);
 		holder.avatar = (ImageView)view.findViewById(R.id.respondsItem_avatarText);
+		holder.status = (TextView)view.findViewById(R.id.textView_status);
 		
 		Respond respond = respondList.get(position);
 		
@@ -101,28 +107,83 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 		
 		Button downloadCVButton = (Button)view.findViewById(R.id.respondsItem_getCV_button);
 		downloadCVButton.setOnClickListener(this);
-		downloadCVButton.setTag(position);				
+		downloadCVButton.setTag(position);								
 		
-		Button dismissButton = (Button)view.findViewById(R.id.rc_button_dismiss);
-		dismissButton.setOnClickListener(this);
-		dismissButton.setTag(position);
-		Button processingButton = (Button)view.findViewById(R.id.rc_button_processing);
-		processingButton.setOnClickListener(this);
-		processingButton.setTag(position);
-		Button offerButton = (Button)view.findViewById(R.id.rc_button_offer);
-		offerButton.setOnClickListener(this);
-		offerButton.setTag(position);
-		Button acceptedButton = (Button)view.findViewById(R.id.rc_button_accepted);
-		acceptedButton.setOnClickListener(this);
-		acceptedButton.setTag(position);
+		RadioGroup radioButtonGroup;
+		radioButtonGroup = (RadioGroup)view.findViewById(R.id.radios);
+						
+		RadioButton rbDismiss = (RadioButton)view.findViewById(R.id.radioButton_dismiss);
+		rbDismiss.setTag(position);
+		rbDismiss.setOnClickListener(this);
+		
+		RadioButton rbProcessing = (RadioButton)view.findViewById(R.id.radioButton_processing);
+		rbProcessing.setTag(position);
+		rbProcessing.setOnClickListener(this);
+		
+		RadioButton rbOffer = (RadioButton)view.findViewById(R.id.radioButton_offer);
+		rbOffer.setTag(position);
+		rbOffer.setOnClickListener(this);
+		
+		RadioButton rbAccepted = (RadioButton)view.findViewById(R.id.radioButton_accepted);
+		rbAccepted.setTag(position);
+		rbAccepted.setOnClickListener(this);
+		
 		
 		if(respond.getFragmentType() == RequestConstants.SHOW_MY_RESPONDS)
 		{
-			dismissButton.setVisibility(View.GONE);
-			acceptedButton.setVisibility(View.GONE);
-			offerButton.setVisibility(View.GONE);
-			processingButton.setVisibility(View.GONE);
-			// else show status
+			radioButtonGroup.setVisibility(View.GONE);
+			switch (respond.getCandidateStatus()) {						
+			case RequestConstants.RESPOND_STATUS_NEW:
+				holder.status.setText(context.getString(R.string.respond_new));
+				break;
+			case RequestConstants.RESPOND_STATUS_DISMISS:
+				holder.status.setText(context.getString(R.string.respond_dismiss));
+				break;
+			case RequestConstants.RESPOND_STATUS_PROCESSING:
+				holder.status.setText(context.getString(R.string.respond_processing));
+				break;
+			case RequestConstants.RESPOND_STATUS_OFFER:
+				holder.status.setText(context.getString(R.string.respond_offer));
+				break;
+			case RequestConstants.RESPOND_STATUS_ACCEPTED:
+				holder.status.setText(context.getString(R.string.respond_accepted));
+				break;
+
+			default: {
+				rbDismiss.setChecked(false);
+				rbProcessing.setChecked(false);
+				rbOffer.setChecked(false);
+				rbAccepted.setChecked(false);
+				}
+				break;
+			}
+		}
+		else
+		{
+			View layoutStatus = view.findViewById(R.id.candidate_status_layout);
+			layoutStatus.setVisibility(View.GONE);
+			switch (respond.getCandidateStatus()) {						
+			case RequestConstants.RESPOND_STATUS_DISMISS:
+				rbDismiss.setChecked(true);
+				break;
+			case RequestConstants.RESPOND_STATUS_PROCESSING:
+				rbProcessing.setChecked(true);		
+				break;
+			case RequestConstants.RESPOND_STATUS_OFFER:
+				rbOffer.setChecked(true);
+				break;
+			case RequestConstants.RESPOND_STATUS_ACCEPTED:
+				rbAccepted.setChecked(true);
+				break;
+
+			default: {
+				rbDismiss.setChecked(false);
+				rbProcessing.setChecked(false);
+				rbOffer.setChecked(false);
+				rbAccepted.setChecked(false);
+				}
+				break;
+			}
 		}
 		
 		holder.name.setText(respond.getName());
@@ -254,14 +315,16 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 	}
 	
 	private void updateVacacyStatus(final int status, Respond respondObj) {
-		Toast.makeText(context, "Coming soon:)", Toast.LENGTH_SHORT).show();
-		/*
+		final ProgressDialog myProgressDialog = ProgressDialog.show(context, context.getString(R.string.connection),
+				context.getString(R.string.respond_set_status), true);
+		
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");		 
 		query.getInBackground(respondObj.getObjectId(), new GetCallback<ParseObject>() {
 		  public void done(ParseObject gameScore, ParseException e) {
 		    if (e == null) {
-		      gameScore.put("", status);		      
+		      gameScore.put("status", status);		      
 		      gameScore.saveInBackground();
+		      myProgressDialog.dismiss();
 		      switch (status) {
 				case RequestConstants.RESPOND_STATUS_PROCESSING:
 					Toast.makeText(context, context.getString(R.string.respond_processing), Toast.LENGTH_SHORT).show();
@@ -284,7 +347,7 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 		    }
 		  }
 		});
-		*/
+		
 	}
 	
 	@Override
@@ -295,23 +358,23 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 			loadCVFile(position);			
 			}
 			break;		
-		case R.id.rc_button_dismiss: {			
+		case R.id.radioButton_dismiss: {			
 			int position = Integer.parseInt(v.getTag().toString());		
 			updateVacacyStatus(RequestConstants.RESPOND_STATUS_DISMISS, respondList.get(position));
 			}
 			break;
-		case R.id.rc_button_processing: {			
+		case R.id.radioButton_processing: {			
 			int position = Integer.parseInt(v.getTag().toString());		
 			updateVacacyStatus(RequestConstants.RESPOND_STATUS_PROCESSING, respondList.get(position));
 			}
 			break;
-		case R.id.rc_button_offer: {
+		case R.id.radioButton_offer: {
 			
 			int position = Integer.parseInt(v.getTag().toString());		
 			updateVacacyStatus(RequestConstants.RESPOND_STATUS_OFFER, respondList.get(position));
 			}
 			break;
-		case R.id.rc_button_accepted: {			
+		case R.id.radioButton_accepted: {			
 			int position = Integer.parseInt(v.getTag().toString());		
 			updateVacacyStatus(RequestConstants.RESPOND_STATUS_ACCEPTED, respondList.get(position));
 			}

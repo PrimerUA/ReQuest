@@ -19,6 +19,7 @@ public class RequestConstants {
 	public static final int RESPOND_SHOW = 5;
 	public static final int LIST_ITEMS_LOAD = 10;
 	
+	public static final int RESPOND_STATUS_NEW = 0;
 	public static final int RESPOND_STATUS_DISMISS = 1;
 	public static final int RESPOND_STATUS_PROCESSING = 2;
 	public static final int RESPOND_STATUS_OFFER = 3;

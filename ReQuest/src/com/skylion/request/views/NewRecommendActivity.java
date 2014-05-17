@@ -40,6 +40,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.skylion.request.R;
+import com.skylion.request.entity.RequestConstants;
 import com.skylion.request.utils.DateTimeSelector;
 import com.skylion.request.utils.DateTimeSelectorListener;
 
@@ -100,6 +101,7 @@ public class NewRecommendActivity extends ActionBarActivity {
 		private ImageButton logoImageButtonDate;		
 		private ImageView logoImageView;
 		private Date bDate;
+		private int status = RequestConstants.RESPOND_STATUS_NEW;
 		private byte[] image = null;
 		private byte[] summaryFile = null;
 
@@ -211,6 +213,7 @@ public class NewRecommendActivity extends ActionBarActivity {
 										rcCandidate.put("user", ParseUser.getCurrentUser());
 										rcCandidate.put("request", vacancyObj);
 										rcCandidate.put("type", 1);
+										rcCandidate.put("status", status);
 										if (getImage() != null) {
 											ParseFile file = new ParseFile("photo" + photoExtension, getImage());
 											rcCandidate.put("photo", file);
