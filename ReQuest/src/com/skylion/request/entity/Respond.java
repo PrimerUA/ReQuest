@@ -49,7 +49,7 @@ public class Respond {
 		createdAt = obj.getCreatedAt();
 		updatedAt = obj.getUpdatedAt();
 		experience = obj.getString("experience");		
-		candidateStatus = (Integer) obj.getNumber("status");
+		candidateStatus = (Integer) obj.getNumber("type");
 		objectId = obj.getObjectId();
 		respondObj = obj;
 				

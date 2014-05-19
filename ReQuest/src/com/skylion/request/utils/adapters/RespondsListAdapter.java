@@ -322,7 +322,7 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 		query.getInBackground(respondObj.getObjectId(), new GetCallback<ParseObject>() {
 		  public void done(ParseObject gameScore, ParseException e) {
 		    if (e == null) {
-		      gameScore.put("status", status);		      
+		      gameScore.put("type", status);		      
 		      gameScore.saveInBackground();
 		      myProgressDialog.dismiss();
 		      switch (status) {

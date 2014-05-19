@@ -212,8 +212,7 @@ public class NewRecommendActivity extends ActionBarActivity {
 										rcCandidate.put("lastPosition", PostEdit.getText().toString());
 										rcCandidate.put("user", ParseUser.getCurrentUser());
 										rcCandidate.put("request", vacancyObj);
-										rcCandidate.put("type", 1);
-										rcCandidate.put("status", status);
+										rcCandidate.put("type", status);										
 										if (getImage() != null) {
 											ParseFile file = new ParseFile("photo" + photoExtension, getImage());
 											rcCandidate.put("photo", file);
