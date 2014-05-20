@@ -53,6 +53,13 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		this.context = context;		
 	}	
 	
+	private static void setDataAndVisibility(TextView textView, String data) {
+		if(data == null)
+			textView.setVisibility(View.GONE);
+		else
+			textView.setText(data);
+	}
+	
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		final Vacancy vacancy = requestList.get(position);
@@ -83,18 +90,30 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		if (companyLogo != null)
 			loadImage(companyLogo, holder.image);
 
-		holder.title.setText(vacancy.getTitle());
-		holder.reward.setText("$" + vacancy.getReward());
-		holder.companyName.setText(vacancy.getCompany());
-		holder.created.setText(vacancy.getCreatedAtToString());
-		holder.expire.setText(vacancy.getExpireToString());
-		holder.demands.setText(vacancy.getDemands());
-		holder.terms.setText(vacancy.getTerms());
-		holder.salary.setText(vacancy.getSalary());
-		holder.city.setText(vacancy.getCity());
-		holder.companyDescription.setText(vacancy.getCompanyDescription());
-		holder.companyAddress.setText(vacancy.getCompanyAddress());
-		holder.author.setText(vacancy.getAuthor().getUsername());						
+		setDataAndVisibility(holder.title, vacancy.getTitle());
+//		holder.title.setText(vacancy.getTitle());
+		setDataAndVisibility(holder.reward, vacancy.getRewardText());
+//		holder.reward.setText("$" + vacancy.getReward());
+		setDataAndVisibility(holder.companyName, vacancy.getCompany());
+//		holder.companyName.setText(vacancy.getCompany());
+		setDataAndVisibility(holder.created, vacancy.getCreatedAtToString());
+//		holder.created.setText(vacancy.getCreatedAtToString());
+		setDataAndVisibility(holder.expire, vacancy.getExpireToString());
+//		holder.expire.setText(vacancy.getExpireToString());
+		setDataAndVisibility(holder.demands, vacancy.getDemands());
+//		holder.demands.setText(vacancy.getDemands());
+		setDataAndVisibility(holder.terms, vacancy.getTerms());
+//		holder.terms.setText(vacancy.getTerms());
+		setDataAndVisibility(holder.salary, vacancy.getSalary());
+//		holder.salary.setText(vacancy.getSalary());
+		setDataAndVisibility(holder.city, vacancy.getCity());
+//		holder.city.setText(vacancy.getCity());
+		setDataAndVisibility(holder.companyDescription, vacancy.getCompanyDescription());
+//		holder.companyDescription.setText(vacancy.getCompanyDescription());
+		setDataAndVisibility(holder.companyAddress, vacancy.getCompanyAddress());
+//		holder.companyAddress.setText(vacancy.getCompanyAddress());
+		setDataAndVisibility(holder.author, vacancy.getAuthor().getUsername());
+//		holder.author.setText(vacancy.getAuthor().getUsername());						
 		
 		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
 				.showImageForEmptyUri(R.drawable.ic_launcher).imageScaleType(ImageScaleType.EXACTLY_STRETCHED).resetViewBeforeLoading(true)

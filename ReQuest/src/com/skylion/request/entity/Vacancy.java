@@ -112,6 +112,10 @@ public class Vacancy {
 	public int getReward() {
 		return reward;
 	}
+	
+	public String getRewardText() {
+		return "$" + ((Integer)reward).toString();
+	}
 
 	public void setReward(int reward) {
 		this.reward = reward;
