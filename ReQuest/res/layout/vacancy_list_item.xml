@@ -109,6 +109,7 @@
             android:orientation="vertical" >
 
             <TextView
+                android:id="@+id/textView_vacancyDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/desc_item_text"
@@ -168,6 +169,7 @@
                 android:text="- условия" />
 
             <TextView
+                android:id="@+id/textView_companyInformation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/company_item_text"

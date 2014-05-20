@@ -53,11 +53,24 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		this.context = context;		
 	}	
 	
-	private static void setDataAndVisibility(TextView textView, String data) {
-		if(data == null)
+	private static void setDataAndVisibility(TextView textView, String data, View view) {
+		if(data == null) {			
 			textView.setVisibility(View.GONE);
-		else
-			textView.setText(data);
+			switch (textView.getId()) {
+			case R.id.vacancyItem_salaryText:{
+				view.findViewById(R.id.TextView04).setVisibility(View.GONE);
+				}
+				break;
+			case R.id.vacancyItem_cityText: {
+				view.findViewById(R.id.TextView03).setVisibility(View.GONE);
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		else		
+			textView.setText(data);		
 	}
 	
 	@Override
@@ -90,30 +103,24 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		if (companyLogo != null)
 			loadImage(companyLogo, holder.image);
 
-		setDataAndVisibility(holder.title, vacancy.getTitle());
-//		holder.title.setText(vacancy.getTitle());
-		setDataAndVisibility(holder.reward, vacancy.getRewardText());
-//		holder.reward.setText("$" + vacancy.getReward());
-		setDataAndVisibility(holder.companyName, vacancy.getCompany());
-//		holder.companyName.setText(vacancy.getCompany());
-		setDataAndVisibility(holder.created, vacancy.getCreatedAtToString());
-//		holder.created.setText(vacancy.getCreatedAtToString());
-		setDataAndVisibility(holder.expire, vacancy.getExpireToString());
-//		holder.expire.setText(vacancy.getExpireToString());
-		setDataAndVisibility(holder.demands, vacancy.getDemands());
-//		holder.demands.setText(vacancy.getDemands());
-		setDataAndVisibility(holder.terms, vacancy.getTerms());
-//		holder.terms.setText(vacancy.getTerms());
-		setDataAndVisibility(holder.salary, vacancy.getSalary());
-//		holder.salary.setText(vacancy.getSalary());
-		setDataAndVisibility(holder.city, vacancy.getCity());
-//		holder.city.setText(vacancy.getCity());
-		setDataAndVisibility(holder.companyDescription, vacancy.getCompanyDescription());
-//		holder.companyDescription.setText(vacancy.getCompanyDescription());
-		setDataAndVisibility(holder.companyAddress, vacancy.getCompanyAddress());
-//		holder.companyAddress.setText(vacancy.getCompanyAddress());
-		setDataAndVisibility(holder.author, vacancy.getAuthor().getUsername());
-//		holder.author.setText(vacancy.getAuthor().getUsername());						
+		setDataAndVisibility(holder.title, vacancy.getTitle(), view);
+		setDataAndVisibility(holder.reward, vacancy.getRewardText(), view);
+		setDataAndVisibility(holder.companyName, vacancy.getCompany(), view);
+		setDataAndVisibility(holder.created, vacancy.getCreatedAtToString(), view);
+		setDataAndVisibility(holder.expire, vacancy.getExpireToString(), view);
+		setDataAndVisibility(holder.demands, vacancy.getDemands(), view);
+		setDataAndVisibility(holder.terms, vacancy.getTerms(), view);
+		setDataAndVisibility(holder.salary, vacancy.getSalary(), view);
+		setDataAndVisibility(holder.city, vacancy.getCity(), view);
+		setDataAndVisibility(holder.companyDescription, vacancy.getCompanyDescription(), view);
+		setDataAndVisibility(holder.companyAddress, vacancy.getCompanyAddress(), view);
+		setDataAndVisibility(holder.author, vacancy.getAuthor().getUsername(), view);
+		
+		if(holder.city.getVisibility() == View.GONE && holder.salary.getVisibility() == View.GONE)					
+			view.findViewById(R.id.textView_vacancyDescription).setVisibility(View.GONE);
+		
+		if(holder.companyDescription.getVisibility() == View.GONE && holder.companyAddress.getVisibility() == View.GONE)
+			view.findViewById(R.id.textView_companyInformation).setVisibility(View.GONE);
 		
 		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
 				.showImageForEmptyUri(R.drawable.ic_launcher).imageScaleType(ImageScaleType.EXACTLY_STRETCHED).resetViewBeforeLoading(true)
@@ -169,7 +176,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		public TextView expire;
 		public TextView terms;
 		public TextView demands;
-		public ImageView image;
+		public ImageView image;		
 		public TextView salary;
 		public TextView city;
 		public TextView companyDescription;
