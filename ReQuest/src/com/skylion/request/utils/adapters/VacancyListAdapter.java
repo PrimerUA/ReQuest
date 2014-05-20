@@ -53,16 +53,18 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		this.context = context;		
 	}	
 	
-	private static void setDataAndVisibility(TextView textView, String data, View view) {
+	private void setDataAndVisibility(TextView textView, String data, View view) {
 		if(data == null) {			
 			textView.setVisibility(View.GONE);
 			switch (textView.getId()) {
 			case R.id.vacancyItem_salaryText:{
-				view.findViewById(R.id.TextView04).setVisibility(View.GONE);
+				TextView tv = (TextView)view.findViewById(R.id.TextView04);
+				tv.setVisibility(View.GONE);
 				}
 				break;
 			case R.id.vacancyItem_cityText: {
-				view.findViewById(R.id.TextView03).setVisibility(View.GONE);
+				TextView tv = (TextView)view.findViewById(R.id.TextView03);
+				tv.setVisibility(View.GONE);
 				}
 				break;
 			default:
