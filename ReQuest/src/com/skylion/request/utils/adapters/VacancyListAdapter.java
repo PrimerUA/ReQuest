@@ -155,7 +155,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 
 		switch ((requestList.get(position).getFragmentType())) {
 		case RequestConstants.SHOW_MY_RESPONDS:
-			recommendButton.setText(R.string.my_responds_show_candidate_button);
+			recommendButton.setText(R.string.vacancy_responds_button);
 			break;
 
 		default:

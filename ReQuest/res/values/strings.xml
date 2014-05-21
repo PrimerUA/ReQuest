@@ -80,7 +80,7 @@
     <string name="not_enough_funds">Not enought funds, buy more coins!</string>
     <string name="rc_Candidate_summary_add">Open</string>
     <string name="select_cv">Select CV</string>
-    <string name="vacancy_responds_button">Show responds</string>
+    <string name="vacancy_responds_button">Show my respond</string>
     <string name="vacancy_responds_label">Responds count:</string>
     <string name="vc_company_salary">Enter company salary:</string>
     <string name="vc_enter_city">Enter city:</string>
@@ -93,7 +93,7 @@
     <string name="rs_photo">Candidate photo:</string>
     <string name="rs_cv">Candidate CV file:</string>
     <string name="rs_createAt">Created at:</string>
-    <string name="title_activity_responds_show">RespondsShow</string>
+    <string name="title_activity_responds_show">Candidates list</string>
     <string name="responds_item_created">Created at:</string>
     <string name="responds_item_updated">Updated at:</string>
     <string name="responds_item_candidate_description">Candidate description:</string>
@@ -109,7 +109,6 @@
     <string name="connection_cv_file_fetch">Loading CV file...</string>
     <string name="error_get_cv_file">Error while loading CV file!</string>
     <string name="error_cv_not_found">CV not found!</string>    
-    <string name="my_responds_show_candidate_button">Show cadidats</string>
     <string name="responses_not_found">Responses not found!</string>
     <string name="requests_not_found">Requests not found!</string>
     <string name="respond_dismiss">Dismiss</string>
