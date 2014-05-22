@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.AbsListView.OnScrollListener;
-import android.widget.Toast;
 
 import com.skylion.request.R;
 import com.skylion.request.entity.RequestConstants;
@@ -61,7 +60,6 @@ abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemCl
 						isload = false;
 					else
 						count += RequestConstants.LIST_ITEMS_LOAD;
-					
 				}
 			}
 			

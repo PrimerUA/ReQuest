@@ -52,7 +52,11 @@ public class NewRecommendActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_recommend);
+		
 		getSupportActionBar().setTitle(R.string.title_activity_new_recommend);
+		getSupportActionBar().setHomeButtonEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		Intent intent = getIntent();
 		vacancyId = intent.getStringExtra("vacancyObjectId");
 		if (savedInstanceState == null) {
@@ -74,10 +78,7 @@ public class NewRecommendActivity extends ActionBarActivity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
+		finish();
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -98,7 +99,7 @@ public class NewRecommendActivity extends ActionBarActivity {
 		private EditText summaryFileEdit;
 		private Button sendButton;
 		private ImageButton logoImageButton;
-		private ImageButton logoImageButtonDate;		
+		private ImageButton logoImageButtonDate;
 		private ImageView logoImageView;
 		private Date bDate;
 		private int status = RequestConstants.RESPOND_STATUS_NEW;
@@ -212,7 +213,7 @@ public class NewRecommendActivity extends ActionBarActivity {
 										rcCandidate.put("lastPosition", PostEdit.getText().toString());
 										rcCandidate.put("user", ParseUser.getCurrentUser());
 										rcCandidate.put("request", vacancyObj);
-										rcCandidate.put("type", status);										
+										rcCandidate.put("type", status);
 										if (getImage() != null) {
 											ParseFile file = new ParseFile("photo" + photoExtension, getImage());
 											rcCandidate.put("photo", file);
