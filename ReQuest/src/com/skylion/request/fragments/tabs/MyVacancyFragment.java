@@ -6,5 +6,5 @@ public class MyVacancyFragment extends CoreVacancyFragment {
 	
 	public MyVacancyFragment() {
 		onCreateVacancyFragment(RequestConstants.FRAGMENT_MY_VACANCY);
-	}
+	}	
 }

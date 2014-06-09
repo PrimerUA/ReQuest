@@ -101,11 +101,11 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		holder.avatar = (ImageView) view.findViewById(R.id.vacancyItem_avatarText);
 //		holder.respondsCount = (Button) view.findViewById(R.id.vacancyItem_respondsButton);
 		
-		ParseFile companyLogo = (ParseFile) vacancy.getImage();
-		if (companyLogo != null)
-			loadImage(companyLogo, holder.image);
-		else
-			holder.image.setVisibility(View.GONE);
+//		ParseFile companyLogo = (ParseFile) vacancy.getImage();
+//		if (companyLogo != null)
+//			loadImage(companyLogo, holder.image);
+//		else
+//			holder.image.setVisibility(View.GONE);
 
 		setDataAndVisibility(holder.title, vacancy.getTitle(), view);
 		setDataAndVisibility(holder.reward, vacancy.getRewardText(), view);

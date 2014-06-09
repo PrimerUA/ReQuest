@@ -3,19 +3,22 @@ package com.skylion.request.fragments;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.skylion.request.R;
 import com.skylion.request.parse.ParseApi;
 
-public class RespondsFragment extends Fragment implements ListView.OnItemClickListener {
+public class RespondsFragment extends Fragment implements ListView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
 	private ListView contentList;
+	private SwipeRefreshLayout refreshLayout;
 	/**
 	 * The fragment argument representing the section number for this fragment.
 	 */
@@ -28,7 +31,7 @@ public class RespondsFragment extends Fragment implements ListView.OnItemClickLi
 		RespondsFragment fragment = new RespondsFragment();
 		Bundle args = new Bundle();
 		args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-		fragment.setArguments(args);
+		fragment.setArguments(args);				
 		return fragment;
 	}
 
@@ -41,24 +44,43 @@ public class RespondsFragment extends Fragment implements ListView.OnItemClickLi
 		contentList = (ListView) rootView.findViewById(R.id.requestFragment_contentList);
 		contentList.setOnItemClickListener(this);
 
+		refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.fragment_container);		 
+	    refreshLayout.setOnRefreshListener(this);
+	    refreshLayout.setColorScheme(android.R.color.holo_blue_bright,
+		            android.R.color.holo_green_light,
+		            android.R.color.holo_orange_light,
+		            android.R.color.holo_red_light);
 		loadData();
+		
 		return rootView;
-	}
+	}		
 
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 	}
-
+		
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
 
-	}
+	}	
 
 	private void loadData() {
 		final ProgressDialog myProgressDialog = ProgressDialog.show(getActivity(), getString(R.string.connection),
 				getString(R.string.connection_requests), true);
-		ParseApi.getAllResponds(myProgressDialog, contentList, getActivity());
+		ParseApi.getAllResponds(myProgressDialog, contentList, getActivity(), null);
+	}
+
+	@Override
+	public void onRefresh() {
+		// TODO Auto-generated method stub
+//		new Handler().postDelayed(new Runnable() {
+//	        @Override public void run() {
+//	        	refreshLayout.setRefreshing(false);
+//	        }
+//	    }, 5000);
+		ParseApi.getAllResponds(null, contentList, getActivity(), refreshLayout);
+		
 	}
 }

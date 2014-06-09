@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.parse.CountCallback;
 import com.parse.FindCallback;
@@ -141,6 +142,7 @@ public class ParseApi {
 		query.include("user");
 		final ProgressDialog myProgressDialog = ProgressDialog.show(context, context.getString(R.string.connection),
 				context.getString(R.string.connection_requests), true);
+		
 		query.findInBackground(new FindCallback<ParseObject>() {
 			public void done(List<ParseObject> vacancyList, ParseException e) {							
 				if (e == null && !vacancyList.isEmpty()) {	
@@ -175,9 +177,13 @@ public class ParseApi {
 		myProgressDialog.dismiss();		
 	}
 	
-	public static void getAllResponds(final ProgressDialog progressDialog, final ListView contentList, final Context contentListContext) {		
+	public static void getAllResponds(final ProgressDialog progressDialog, 
+									final ListView contentList, 
+									final Context contentListContext, 
+									final SwipeRefreshLayout swipeLayout) {		
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");
 		query.whereEqualTo("user", ParseUser.getCurrentUser());
+		query.setLimit(5);
 		query.findInBackground(new FindCallback<ParseObject>() {
 
 			@Override
@@ -188,7 +194,10 @@ public class ParseApi {
 				else {
 					Toast.makeText(context, context.getString(R.string.responses_not_found), Toast.LENGTH_SHORT).show();
 				}
-				progressDialog.dismiss();
+				if(progressDialog != null)
+					progressDialog.dismiss();
+				else
+					swipeLayout.setRefreshing(false);
 			}			
 		});			
 	}
