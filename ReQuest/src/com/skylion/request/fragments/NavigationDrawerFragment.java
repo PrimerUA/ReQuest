@@ -59,7 +59,7 @@ public class NavigationDrawerFragment extends Fragment {
 
 	private int mCurrentSelectedPosition = 0;
 	private boolean mFromSavedInstanceState;
-	private boolean mUserLearnedDrawer;
+	private boolean mUserLearnedDrawer;	
 
 	public NavigationDrawerFragment() {
 	}
@@ -67,7 +67,7 @@ public class NavigationDrawerFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
 		// Read in the flag indicating whether or not the user has demonstrated
 		// awareness of the
 		// drawer. See PREF_USER_LEARNED_DRAWER for details.
@@ -94,6 +94,7 @@ public class NavigationDrawerFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		mDrawerListView = (ListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+		
 		mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -122,7 +123,7 @@ public class NavigationDrawerFragment extends Fragment {
 	 */
 	public void setUp(int fragmentId, DrawerLayout drawerLayout) {
 		mFragmentContainerView = getActivity().findViewById(fragmentId);
-		mDrawerLayout = drawerLayout;
+		mDrawerLayout = drawerLayout;					
 
 		// set a custom shadow that overlays the main content when the drawer
 		// opens
@@ -195,6 +196,7 @@ public class NavigationDrawerFragment extends Fragment {
 		});
 
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
+				
 	}
 
 	private void selectItem(int position) {

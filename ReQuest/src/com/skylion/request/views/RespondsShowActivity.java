@@ -4,7 +4,9 @@ import java.util.List;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,12 +27,12 @@ import com.skylion.request.parse.ParseApi;
 
 public class RespondsShowActivity extends ActionBarActivity {
 
-	private static int fragmentType = 0;
+	private static int fragmentType = 0;	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_responds_show);
+		setContentView(R.layout.activity_responds_show);				
 		
 		getSupportActionBar().setTitle(R.string.title_activity_responds_show);
 		getSupportActionBar().setHomeButtonEnabled(true);
@@ -62,10 +64,11 @@ public class RespondsShowActivity extends ActionBarActivity {
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-public static class PlaceholderFragment extends Fragment {
+public static class PlaceholderFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 		
 		private ProgressDialog myProgressDialog;
 		private ListView contentList;
+		private SwipeRefreshLayout refreshLayout;
 		public PlaceholderFragment() {
 		}
 
@@ -75,6 +78,14 @@ public static class PlaceholderFragment extends Fragment {
 			
 			View rootView = inflater.inflate(R.layout.fragment_responds_show, container, false);
 			contentList = (ListView) rootView.findViewById(R.id.responds_ListView);
+			
+			refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.responds_fragment_container);
+			refreshLayout.setOnRefreshListener(this);
+		    refreshLayout.setColorScheme(android.R.color.holo_red_light,
+			            android.R.color.black,
+			            android.R.color.white,
+			            android.R.color.black);
+			
 			myProgressDialog = ProgressDialog.show(getActivity(), getActivity().getString(R.string.connection),
 					getActivity().getString(R.string.connection_responds), true);						
 			
@@ -136,6 +147,16 @@ public static class PlaceholderFragment extends Fragment {
 			ParseApi.loadRespondsList(contentList, responds, getActivity(), fragmentType);            
 		}
 		
-	}
+		@Override
+		public void onRefresh() {
+			// TODO Auto-generated method stub
+			new Handler().postDelayed(new Runnable() {
+		        @Override public void run() {
+		        	refreshLayout.setRefreshing(false);
+		        }
+		    }, 5000);
+		}
+		
+	}	
 
 }

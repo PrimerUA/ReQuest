@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,16 +22,24 @@ import com.skylion.request.entity.Vacancy;
 import com.skylion.request.parse.ParseApi;
 import com.skylion.request.utils.ExpandableViewHelper;
 
-abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemClickListener {
+abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
 	private View rootView;
 	private int fragment_type;
-	private ListView contentList;				
+	private ListView contentList;
+	private SwipeRefreshLayout refreshLayout;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final List<Vacancy> result = new ArrayList<Vacancy>();		
 		rootView = inflater.inflate(R.layout.fragment_vacancy, container, false);
+		refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.navigation_fragment_container);
+		refreshLayout.setOnRefreshListener(this);
+	    refreshLayout.setColorScheme(android.R.color.holo_red_light,
+		            android.R.color.black,
+		            android.R.color.white,
+		            android.R.color.black);
+		
 		contentList = (ListView) rootView.findViewById(R.id.vacancyFragment_contentList);
 		contentList.setOnItemClickListener(this);		
 		contentList.setOnScrollListener(new OnScrollListener() {
@@ -84,6 +94,18 @@ abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemCl
 			expandableLayout.setVisibility(View.VISIBLE);
 			ExpandableViewHelper.slideIntoDirection(view.getContext(), expandableLayout, R.anim.item_slide_down);												
 		}
+	}
+	
+	@Override
+	public void onRefresh() {
+		// TODO Auto-generated method stub
+		
+		new Handler().postDelayed(new Runnable() {
+        @Override public void run() {
+        	refreshLayout.setRefreshing(false);
+        }
+    }, 5000);
+		
 	}
 	
 }

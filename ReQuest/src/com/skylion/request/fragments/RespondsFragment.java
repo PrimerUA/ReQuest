@@ -44,12 +44,12 @@ public class RespondsFragment extends Fragment implements ListView.OnItemClickLi
 		contentList = (ListView) rootView.findViewById(R.id.requestFragment_contentList);
 		contentList.setOnItemClickListener(this);
 
-		refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.fragment_container);		 
+		refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.navigation_fragment_container);		 
 	    refreshLayout.setOnRefreshListener(this);
-	    refreshLayout.setColorScheme(android.R.color.holo_blue_bright,
-		            android.R.color.holo_green_light,
-		            android.R.color.holo_orange_light,
-		            android.R.color.holo_red_light);
+	    refreshLayout.setColorScheme(android.R.color.holo_red_light,
+		            android.R.color.black,
+		            android.R.color.white,
+		            android.R.color.black);
 		loadData();
 		
 		return rootView;
