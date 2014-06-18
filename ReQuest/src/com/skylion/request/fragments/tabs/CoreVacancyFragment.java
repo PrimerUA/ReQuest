@@ -28,10 +28,11 @@ abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemCl
 	private int fragment_type;
 	private ListView contentList;
 	private SwipeRefreshLayout refreshLayout;
-	
+	public List<Vacancy> result = new ArrayList<Vacancy>();
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		final List<Vacancy> result = new ArrayList<Vacancy>();		
+//		final List<Vacancy> result = new ArrayList<Vacancy>();
+		result.clear();
 		rootView = inflater.inflate(R.layout.fragment_vacancy, container, false);
 		refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.navigation_fragment_container);
 		refreshLayout.setOnRefreshListener(this);
@@ -65,7 +66,7 @@ abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemCl
 			
 			private void isScrollCompleted() {
 				if (this.currentVisibleItemCount >= (result.size() - 1) && this.currentScrollState == SCROLL_STATE_IDLE && isload) {
-					ParseApi.loadVacancyList(fragment_type, contentList, count, result);
+					ParseApi.loadVacancyList(fragment_type, contentList, count, result, null);
 					if(count > result.size() )
 						isload = false;
 					else
@@ -74,7 +75,7 @@ abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemCl
 			}
 			
 		});
-		ParseApi.loadVacancyList(fragment_type, contentList, 0, result);
+		ParseApi.loadVacancyList(fragment_type, contentList, 0, result, null);			
 		
 		return rootView;
 	}
@@ -98,14 +99,8 @@ abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemCl
 	
 	@Override
 	public void onRefresh() {
-		// TODO Auto-generated method stub
-		
-		new Handler().postDelayed(new Runnable() {
-        @Override public void run() {
-        	refreshLayout.setRefreshing(false);
-        }
-    }, 5000);
-		
+		result.clear();
+		ParseApi.loadVacancyList(fragment_type, contentList, 0, result, refreshLayout);
 	}
 	
 }
