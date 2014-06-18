@@ -33,7 +33,7 @@ public class ParseApi {
 
 	private static Context context;
 	private static int fragment_type;	
-	private static ProgressDialog myProgressDialogXX;
+	private static ProgressDialog myProgressDialog;
 	private static SwipeRefreshLayout refreshLayout = null;
 	
 	public ParseApi() {
@@ -149,7 +149,7 @@ public class ParseApi {
 		query.include("user");
 
 		if(refreshLayout == null) {					
-			myProgressDialogXX = ProgressDialog.show(context, context.getString(R.string.connection),
+			myProgressDialog = ProgressDialog.show(context, context.getString(R.string.connection),
 					context.getString(R.string.connection_requests), true);
 		}
 		
@@ -187,10 +187,12 @@ public class ParseApi {
 		dismissProgressDialog();
 	}
 	
-	public static void getAllResponds(final ProgressDialog progressDialog, 
+	public static void getAllResponds(final ProgressDialog progressDialogg, 
 									final ListView contentList, 
 									final Context contentListContext, 
-									final SwipeRefreshLayout swipeLayout) {		
+									final SwipeRefreshLayout swipeLay) {
+		refreshLayout = swipeLay;
+		myProgressDialog = progressDialogg;
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");
 		query.whereEqualTo("user", ParseUser.getCurrentUser());
 		query.setLimit(5);
@@ -204,10 +206,7 @@ public class ParseApi {
 				else {
 					Toast.makeText(context, context.getString(R.string.responses_not_found), Toast.LENGTH_SHORT).show();
 				}
-				if(progressDialog != null)
-					progressDialog.dismiss();
-				else
-					swipeLayout.setRefreshing(false);
+				dismissProgressDialog();
 			}			
 		});			
 	}
@@ -239,7 +238,7 @@ public class ParseApi {
 	
 	private static void dismissProgressDialog() {
 		if(refreshLayout == null) {
-			myProgressDialogXX.dismiss();
+			myProgressDialog.dismiss();
 		}
 		else {
 			refreshLayout.setRefreshing(false);

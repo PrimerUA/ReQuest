@@ -23,6 +23,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.skylion.request.R;
+import com.skylion.request.entity.RequestConstants;
 import com.skylion.request.parse.ParseApi;
 
 public class RespondsShowActivity extends ActionBarActivity {
@@ -89,23 +90,21 @@ public static class PlaceholderFragment extends Fragment implements SwipeRefresh
 			myProgressDialog = ProgressDialog.show(getActivity(), getActivity().getString(R.string.connection),
 					getActivity().getString(R.string.connection_responds), true);						
 			
-			getVacancyObject();
+			getVacancyObject(RequestConstants.RESPOND_LOAD);
 			return rootView;
 		}
 		
-		private void getVacancyObject(){
+		private void getVacancyObject(final int select){
 			fragmentType = Integer.parseInt(getActivity().getIntent().getStringExtra("fragment_type"));
 			String objectId =  getActivity().getIntent().getStringExtra("request");					
 			ParseQuery<ParseObject> query = ParseQuery.getQuery("Requests");		
 			query.getInBackground(objectId, new GetCallback<ParseObject>() {
 			  public void done(ParseObject object, ParseException e) {
-			    if (e == null) 
-			    {		
-			    	getRequests(object);
+			    if (e == null) {		
+			    	getRequests(object, select);
 			    }
-			    else
-			    {
-			    	myProgressDialog.dismiss();
+			    else {
+			    	dismissUpdateDialog(select);
 			    	Toast.makeText(getActivity(), getActivity().getString(R.string.requests_not_found), Toast.LENGTH_SHORT).show();
 			    }
 			  }
@@ -122,39 +121,41 @@ public static class PlaceholderFragment extends Fragment implements SwipeRefresh
 			return true;
 		}
 		
-		private void getRequests(ParseObject object) {
+		private void getRequests(ParseObject object, final int select) {
 			
 			ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");
 			query.whereEqualTo("request", object);
 			query.whereEqualTo("user", ParseUser.getCurrentUser());
 			query.findInBackground(new FindCallback<ParseObject>() {					
 			    public void done(List<ParseObject> responds, ParseException e) {
-			        if (e == null && !responds.isEmpty()) 
-			        {		        			        				
-			            showRequests(responds);
+			        if (e == null && !responds.isEmpty()) {		        			        				
+			            showRequests(responds, select);
 			        }
-			        else
-			        {
-			        	myProgressDialog.dismiss();
+			        else {			        	
+			        	dismissUpdateDialog(select);
 			        	Toast.makeText(getActivity(), getActivity().getString(R.string.responses_not_found), Toast.LENGTH_SHORT).show();			        	
 			        }
 				}
 			});
 		}
 		
-		private void showRequests(List<ParseObject> responds) {
-			myProgressDialog.dismiss();
+		private void showRequests(List<ParseObject> responds, final int select) {
+			dismissUpdateDialog(select);
 			ParseApi.loadRespondsList(contentList, responds, getActivity(), fragmentType);            
 		}
 		
 		@Override
 		public void onRefresh() {
-			// TODO Auto-generated method stub
-			new Handler().postDelayed(new Runnable() {
-		        @Override public void run() {
-		        	refreshLayout.setRefreshing(false);
-		        }
-		    }, 5000);
+			getVacancyObject(RequestConstants.RESPOND_REFRESH);			
+		}
+		
+		public void dismissUpdateDialog(final int select) {
+			if(select == RequestConstants.RESPOND_LOAD) {
+	    		myProgressDialog.dismiss();
+	    	}
+	    	else {
+	    		refreshLayout.setRefreshing(false);
+	    	}
 		}
 		
 	}	

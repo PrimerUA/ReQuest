@@ -28,10 +28,9 @@ abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemCl
 	private int fragment_type;
 	private ListView contentList;
 	private SwipeRefreshLayout refreshLayout;
-	public List<Vacancy> result = new ArrayList<Vacancy>();
+	private List<Vacancy> result = new ArrayList<Vacancy>();
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//		final List<Vacancy> result = new ArrayList<Vacancy>();
 		result.clear();
 		rootView = inflater.inflate(R.layout.fragment_vacancy, container, false);
 		refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.navigation_fragment_container);

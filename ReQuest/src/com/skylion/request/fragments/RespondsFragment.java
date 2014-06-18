@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.skylion.request.R;
+import com.skylion.request.entity.RequestConstants;
 import com.skylion.request.parse.ParseApi;
 
 public class RespondsFragment extends Fragment implements ListView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
@@ -50,7 +51,7 @@ public class RespondsFragment extends Fragment implements ListView.OnItemClickLi
 		            android.R.color.black,
 		            android.R.color.white,
 		            android.R.color.black);
-		loadData();
+		loadData(RequestConstants.RESPOND_LOAD);
 		
 		return rootView;
 	}		
@@ -66,21 +67,28 @@ public class RespondsFragment extends Fragment implements ListView.OnItemClickLi
 
 	}	
 
-	private void loadData() {
-		final ProgressDialog myProgressDialog = ProgressDialog.show(getActivity(), getString(R.string.connection),
-				getString(R.string.connection_requests), true);
-		ParseApi.getAllResponds(myProgressDialog, contentList, getActivity(), null);
+	private void loadData(int select) {
+		
+		switch (select) {
+		case RequestConstants.RESPOND_LOAD: {
+			final ProgressDialog myProgressDialog = ProgressDialog.show(getActivity(), getString(R.string.connection),
+					getString(R.string.connection_requests), true);
+			ParseApi.getAllResponds(myProgressDialog, contentList, getActivity(), null);
+			break;
+		}
+		case RequestConstants.RESPOND_REFRESH: {			
+			ParseApi.getAllResponds(null, contentList, getActivity(), refreshLayout);
+			break;
+		}
+		default:
+			break;
+		}
+		
+		
 	}
 
 	@Override
-	public void onRefresh() {
-		// TODO Auto-generated method stub
-//		new Handler().postDelayed(new Runnable() {
-//	        @Override public void run() {
-//	        	refreshLayout.setRefreshing(false);
-//	        }
-//	    }, 5000);
-		ParseApi.getAllResponds(null, contentList, getActivity(), refreshLayout);
-		
+	public void onRefresh() {			
+		loadData(RequestConstants.RESPOND_REFRESH);
 	}
 }
