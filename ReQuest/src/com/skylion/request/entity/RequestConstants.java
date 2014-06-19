@@ -28,4 +28,6 @@ public class RequestConstants {
 	public static final int RESPOND_REFRESH = 1;
 	public static final int RESPOND_LOAD = 0;
 	
+	public static final Boolean DEV_FLUG = false;
+	
 }
