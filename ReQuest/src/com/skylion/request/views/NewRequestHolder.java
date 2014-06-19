@@ -30,21 +30,21 @@ public class NewRequestHolder extends ActionBarActivity {
 	private String description;
 	private String company;
 	private byte[] image = null;
-	
-//	private String salary;
-	
+
+	// private String salary;
+
 	private String vacancyName;
-	private String companyName;	
-	
+	private String companyName;
+
 	private String companySalary;
 	private String city;
 	private String demands;
 	private String terms;
 	private String companyDescription;
-	private String companyAddress;			
-	
+	private String companyAddress;
+
 	public static int PICK_IMAGE = 1;
-	
+
 	private IabHelper mHelper;
 
 	@Override
@@ -55,11 +55,11 @@ public class NewRequestHolder extends ActionBarActivity {
 		getSupportActionBar().setTitle(R.string.action_request);
 		getSupportActionBar().setHomeButtonEnabled(true);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
+
 		FragmentManager fm = getSupportFragmentManager();
 		FirstStepFragment startFragment = (FirstStepFragment) fm.findFragmentById(R.id.firstFragment);
 		fragments[0] = startFragment;
-		fragments[1] = (SecondStepFragment) fm.findFragmentById(R.id.secondFragment);		
+		fragments[1] = (SecondStepFragment) fm.findFragmentById(R.id.secondFragment);
 		FragmentTransaction transaction = fm.beginTransaction();
 		for (int i = 0; i < fragments.length; i++) {
 			transaction.hide(fragments[i]);
@@ -75,7 +75,7 @@ public class NewRequestHolder extends ActionBarActivity {
 					finish();
 			}
 		});
-		
+
 		mHelper = new IabHelper(this, getString(R.string.base64EncodedPublicKey));
 	}
 
@@ -83,8 +83,7 @@ public class NewRequestHolder extends ActionBarActivity {
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction transaction = fm.beginTransaction();
 		for (int i = 0; i < fragments.length; i++) {
-			if (i == fragmentIndex) 
-			{								
+			if (i == fragmentIndex) {
 				transaction.show(fragments[i]);
 			} else {
 				transaction.hide(fragments[i]);
@@ -122,50 +121,43 @@ public class NewRequestHolder extends ActionBarActivity {
 		backButton();
 	}
 
-	/*@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == 0) {
-			setResult(0);
-			finish();
-			
-		}
-		if (requestCode == PICK_IMAGE && data != null && data.getData() != null) {
-			Uri uri = data.getData();
-
-			Cursor cursor = getContentResolver().query(
-					uri, 
-					new String[] { android.provider.MediaStore.Images.ImageColumns.DATA }, 
-					null,
-					null, 
-					null);
-			
-			cursor.moveToFirst();
-
-			setImage(read(new File(cursor.getString(0))));
-//			companyAddress = "opapop";//cursor.getString(0);
-		}
-		super.onActivityResult(requestCode, resultCode, data);
-*///		if(resultCode == PICK_IMAGE && requestCode == Activity.RESULT_OK)
-//			try
-//			{					
-//				companyAddress = data.getData().toString();
-				/*File file = new File(data.getData().toString());
-				int size = (int)file.length();
-				cImage = new byte[size];
-				BufferedInputStream buf = new BufferedInputStream(new FileInputStream(file));
-				buf.read(cImage, 0, cImage.length);
-				buf.close();						*/	
-//			}
-//			catch(FileNotFoundException e) 
-//			{
-//				e.printStackTrace();
-//			}
-//		catch(IOException e)
-//		{
-//			e.printStackTrace();
-//		}
-//		super.onActivityResult(requestCode, resultCode, data);
-//	}
+	/*
+	 * @Override protected void onActivityResult(int requestCode, int
+	 * resultCode, Intent data) { if (resultCode == 0) { setResult(0); finish();
+	 * 
+	 * } if (requestCode == PICK_IMAGE && data != null && data.getData() !=
+	 * null) { Uri uri = data.getData();
+	 * 
+	 * Cursor cursor = getContentResolver().query( uri, new String[] {
+	 * android.provider.MediaStore.Images.ImageColumns.DATA }, null, null,
+	 * null);
+	 * 
+	 * cursor.moveToFirst();
+	 * 
+	 * setImage(read(new File(cursor.getString(0)))); // companyAddress =
+	 * "opapop";//cursor.getString(0); } super.onActivityResult(requestCode,
+	 * resultCode, data);
+	 */// if(resultCode == PICK_IMAGE && requestCode == Activity.RESULT_OK)
+		// try
+	// {
+	// companyAddress = data.getData().toString();
+	/*
+	 * File file = new File(data.getData().toString()); int size =
+	 * (int)file.length(); cImage = new byte[size]; BufferedInputStream buf =
+	 * new BufferedInputStream(new FileInputStream(file)); buf.read(cImage, 0,
+	 * cImage.length); buf.close();
+	 */
+	// }
+	// catch(FileNotFoundException e)
+	// {
+	// e.printStackTrace();
+	// }
+	// catch(IOException e)
+	// {
+	// e.printStackTrace();
+	// }
+	// super.onActivityResult(requestCode, resultCode, data);
+	// }
 
 	public String getVacancyTitle() {
 		return title;
@@ -193,12 +185,12 @@ public class NewRequestHolder extends ActionBarActivity {
 
 	public byte[] getImage() {
 		return image;
-	}	
-	
+	}
+
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
-	
+
 	public byte[] read(File file) {
 		ByteArrayOutputStream bos = null;
 		try {

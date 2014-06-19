@@ -26,19 +26,18 @@ import com.skylion.request.parse.ParseApi;
 public class RespondsShowActivity extends ActionBarActivity {
 
 	private static int fragmentType = 0;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_responds_show);
-		
+
 		getSupportActionBar().setTitle(R.string.title_activity_responds_show);
 		getSupportActionBar().setHomeButtonEnabled(true);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			getSupportFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
 
@@ -62,45 +61,42 @@ public class RespondsShowActivity extends ActionBarActivity {
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-public static class PlaceholderFragment extends Fragment {
-		
+	public static class PlaceholderFragment extends Fragment {
+
 		private ProgressDialog myProgressDialog;
 		private ListView contentList;
+
 		public PlaceholderFragment() {
 		}
 
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
 			View rootView = inflater.inflate(R.layout.fragment_responds_show, container, false);
 			contentList = (ListView) rootView.findViewById(R.id.responds_ListView);
 			myProgressDialog = ProgressDialog.show(getActivity(), getActivity().getString(R.string.connection),
-					getActivity().getString(R.string.connection_responds), true);						
-			
+					getActivity().getString(R.string.connection_responds), true);
+
 			getVacancyObject();
 			return rootView;
 		}
-		
-		private void getVacancyObject(){
+
+		private void getVacancyObject() {
 			fragmentType = Integer.parseInt(getActivity().getIntent().getStringExtra("fragment_type"));
-			String objectId =  getActivity().getIntent().getStringExtra("request");					
-			ParseQuery<ParseObject> query = ParseQuery.getQuery("Requests");		
+			String objectId = getActivity().getIntent().getStringExtra("request");
+			ParseQuery<ParseObject> query = ParseQuery.getQuery("Requests");
 			query.getInBackground(objectId, new GetCallback<ParseObject>() {
-			  public void done(ParseObject object, ParseException e) {
-			    if (e == null) 
-			    {		
-			    	getRequests(object);
-			    }
-			    else
-			    {
-			    	myProgressDialog.dismiss();
-			    	Toast.makeText(getActivity(), getActivity().getString(R.string.requests_not_found), Toast.LENGTH_SHORT).show();
-			    }
-			  }
+				public void done(ParseObject object, ParseException e) {
+					if (e == null) {
+						getRequests(object);
+					} else {
+						myProgressDialog.dismiss();
+						Toast.makeText(getActivity(), getActivity().getString(R.string.requests_not_found), Toast.LENGTH_SHORT).show();
+					}
+				}
 			});
 		}
-		
+
 		@Override
 		public boolean onOptionsItemSelected(MenuItem item) {
 			switch (item.getItemId()) {
@@ -110,32 +106,29 @@ public static class PlaceholderFragment extends Fragment {
 			}
 			return true;
 		}
-		
+
 		private void getRequests(ParseObject object) {
-			
+
 			ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");
 			query.whereEqualTo("request", object);
 			query.whereEqualTo("user", ParseUser.getCurrentUser());
-			query.findInBackground(new FindCallback<ParseObject>() {					
-			    public void done(List<ParseObject> responds, ParseException e) {
-			        if (e == null && !responds.isEmpty()) 
-			        {		        			        				
-			            showRequests(responds);
-			        }
-			        else
-			        {
-			        	myProgressDialog.dismiss();
-			        	Toast.makeText(getActivity(), getActivity().getString(R.string.responses_not_found), Toast.LENGTH_SHORT).show();			        	
-			        }
+			query.findInBackground(new FindCallback<ParseObject>() {
+				public void done(List<ParseObject> responds, ParseException e) {
+					if (e == null && !responds.isEmpty()) {
+						showRequests(responds);
+					} else {
+						myProgressDialog.dismiss();
+						Toast.makeText(getActivity(), getActivity().getString(R.string.responses_not_found), Toast.LENGTH_SHORT).show();
+					}
 				}
 			});
 		}
-		
+
 		private void showRequests(List<ParseObject> responds) {
 			myProgressDialog.dismiss();
-			ParseApi.loadRespondsList(contentList, responds, getActivity(), fragmentType);            
+			ParseApi.loadRespondsList(contentList, responds, getActivity(), fragmentType);
 		}
-		
+
 	}
 
 }
