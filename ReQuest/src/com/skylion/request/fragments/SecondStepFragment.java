@@ -1,7 +1,6 @@
 package com.skylion.request.fragments;
 
 import java.io.File;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -13,7 +12,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,7 +28,10 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.skylion.parse.settings.ParseConstants;
+import com.skylion.parse.settings.ParseTable;
 import com.skylion.request.R;
+import com.skylion.request.entity.RequestConstants;
 import com.skylion.request.views.NewRequestHolder;
 
 public class SecondStepFragment extends Fragment {
@@ -121,12 +122,13 @@ public class SecondStepFragment extends Fragment {
 	protected void checkWallet() {
 		myProgressDialog = ProgressDialog.show(getActivity(), getString(R.string.connection), getString(R.string.connecting_new_vacancy),
 				true);
-		ParseObject wallet = (ParseObject) ParseUser.getCurrentUser().get("wallet");
+		
+		ParseObject wallet = (ParseObject) ParseUser.getCurrentUser().get(ParseConstants.WALLET);
 		wallet.fetchInBackground(new GetCallback<ParseObject>() {
 
 			@Override
 			public void done(ParseObject wallet, ParseException arg1) {
-				if (wallet.getDouble("total") >= 5)
+				if (wallet.getDouble(ParseConstants.WALLET_TOTAL) >= 5)
 					sendVacancy();
 				else {
 					Toast.makeText(getActivity(), getString(R.string.not_enough_funds), Toast.LENGTH_LONG).show();
@@ -138,23 +140,24 @@ public class SecondStepFragment extends Fragment {
 
 	protected void sendVacancy() {
 		checkDate();
-		ParseObject vacancyObject = new ParseObject("Requests");
-		vacancyObject.put("title", newRequestHolder.getVacancyName());
-		vacancyObject.put("reward", Integer.parseInt(rewardEdit.getText().toString()));
-		vacancyObject.put("user", ParseUser.getCurrentUser());
-		vacancyObject.put("company", newRequestHolder.getCompanyName());
-		vacancyObject.put("salary", newRequestHolder.getCompanySalary());
-		vacancyObject.put("city", newRequestHolder.getCity());
-		vacancyObject.put("demands", newRequestHolder.getDemands());
-		vacancyObject.put("terms", newRequestHolder.getTerms());
-		vacancyObject.put("company_description", newRequestHolder.getCompanyDescription());
-		vacancyObject.put("company_address", newRequestHolder.getCompanyAddress());
-		if (isSendDate)
-			vacancyObject.put("expire", expDateToParse);
-		vacancyObject.put("type", 0);
+		ParseObject vacancyObject = new ParseObject(ParseTable.REQUESTS_TABLE_NAME);
+		vacancyObject.put(ParseConstants.REQUESTS_TITLE, newRequestHolder.getVacancyName());
+		vacancyObject.put(ParseConstants.REQUESTS_REWARD, Integer.parseInt(rewardEdit.getText().toString()));
+		vacancyObject.put(ParseConstants.REQUESTS_USER, ParseUser.getCurrentUser());
+		vacancyObject.put(ParseConstants.REQUESTS_COMPANY, newRequestHolder.getCompanyName());
+		vacancyObject.put(ParseConstants.REQUESTS_SALARY, newRequestHolder.getCompanySalary());
+		vacancyObject.put(ParseConstants.REQUESTS_CITY, newRequestHolder.getCity());
+		vacancyObject.put(ParseConstants.REQUESTS_DEMANDS, newRequestHolder.getDemands());
+		vacancyObject.put(ParseConstants.REQUESTS_TERMS, newRequestHolder.getTerms());
+		vacancyObject.put(ParseConstants.REQUESTS_COMPANY_DESCRIPTION, newRequestHolder.getCompanyDescription());
+		vacancyObject.put(ParseConstants.REQUESTS_COMPANY_ADDRESS, newRequestHolder.getCompanyAddress());
+		if (isSendDate) {
+			vacancyObject.put(ParseConstants.REQUESTS_EXPIRE, expDateToParse);
+		}
+		vacancyObject.put(ParseConstants.REQUESTS_TYPE, 0);
 		if (newRequestHolder.getImage() != null) {
-			ParseFile file = new ParseFile("logo.png", newRequestHolder.getImage());
-			vacancyObject.put("image", file);
+			ParseFile file = new ParseFile(RequestConstants.IMAGE_LOGO_PNG, newRequestHolder.getImage());
+			vacancyObject.put(ParseConstants.REQUESTS_IMAGE, file);
 		}
 
 		vacancyObject.saveInBackground(new SaveCallback() {
@@ -172,8 +175,8 @@ public class SecondStepFragment extends Fragment {
 	}
 
 	protected void updateWallet() {
-		ParseObject wallet = (ParseObject) ParseUser.getCurrentUser().get("wallet");
-		wallet.increment("total", -5);
+		ParseObject wallet = (ParseObject) ParseUser.getCurrentUser().get(ParseConstants.WALLET);
+		wallet.increment(ParseConstants.WALLET_TOTAL, -5);
 		wallet.saveInBackground(new SaveCallback() {
 
 			@Override

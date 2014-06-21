@@ -39,6 +39,8 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.skylion.parse.settings.ParseConstants;
+import com.skylion.parse.settings.ParseTable;
 import com.skylion.request.R;
 import com.skylion.request.entity.RequestConstants;
 import com.skylion.request.utils.DateTimeSelector;
@@ -198,31 +200,30 @@ public class NewRecommendActivity extends ActionBarActivity {
 							myProgressDialog = ProgressDialog.show(getActivity(), getString(R.string.connection),
 									getString(R.string.rc_candidate_creating), true);
 
-							rcCandidate = new ParseObject("Responds");
-
-							ParseQuery<ParseObject> query = ParseQuery.getQuery("Requests");
+							rcCandidate = new ParseObject(ParseTable.RESPONDS_TABLE_NAME);							
+							ParseQuery<ParseObject> query = ParseQuery.getQuery(ParseTable.REQUESTS_TABLE_NAME);
 							query.getInBackground(vacancyId, new GetCallback<ParseObject>() {
 								public void done(ParseObject object, ParseException e) {
 									if (e == null) {
 										vacancyObj = object;
-										rcCandidate.put("birthDate", bDate.toString());
-										rcCandidate.put("name", NameEdit.getText().toString());
-										rcCandidate.put("email", EmailEdit.getText().toString());
-										rcCandidate.put("experience", ExperienceEdit.getText().toString());
-										rcCandidate.put("lastJob", LastJobEdit.getText().toString());
-										rcCandidate.put("lastPosition", PostEdit.getText().toString());
-										rcCandidate.put("user", ParseUser.getCurrentUser());
-										rcCandidate.put("request", vacancyObj);
-										rcCandidate.put("type", status);
+										rcCandidate.put(ParseConstants.RESPONDS_BDATE, bDate.toString());
+										rcCandidate.put(ParseConstants.RESPONDS_NAME, NameEdit.getText().toString());
+										rcCandidate.put(ParseConstants.RESPONDS_EMAIL, EmailEdit.getText().toString());
+										rcCandidate.put(ParseConstants.RESPONDS_EXPERIENCE, ExperienceEdit.getText().toString());
+										rcCandidate.put(ParseConstants.RESPONDS_LAST_JOB, LastJobEdit.getText().toString());
+										rcCandidate.put(ParseConstants.RESPONDS_LAST_POST, PostEdit.getText().toString());
+										rcCandidate.put(ParseConstants.RESPONDS_USER, ParseUser.getCurrentUser());
+										rcCandidate.put(ParseConstants.RESPONDS_REQUEST, vacancyObj);
+										rcCandidate.put(ParseConstants.RESPONDS_TYPE, status);
 										if (getImage() != null) {
 											ParseFile file = new ParseFile("photo" + photoExtension, getImage());
 											rcCandidate.put("photo", file);
 										}
 										if (getSummaryFile() != null) {
 											ParseFile file = new ParseFile("resume" + resumExtension, getSummaryFile());
-											rcCandidate.put("proof", file);
+											rcCandidate.put(ParseConstants.RESPONDS_PROOF, file);
 										}
-										rcCandidate.put("comment", CommentEdit.getText().toString());
+										rcCandidate.put(ParseConstants.RESPONDS_COMMENT, CommentEdit.getText().toString());
 										rcCandidate.saveInBackground(new SaveCallback() {
 
 											@Override

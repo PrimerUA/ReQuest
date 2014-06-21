@@ -1,6 +1,6 @@
 package com.skylion.parse.settings;
 
-public class ParseConstants {
+public final class ParseConstants {
 	
 
 	public static final String RESPONDS_TABLE_PROD = "ProdResponds";
@@ -18,6 +18,9 @@ public class ParseConstants {
 	public static final String QUERY_EQUAL_REQUEST = "request";
 	public static final String QUERY_EQUAL_TYPE = "type";
 	public static final String QUERY_EQUAL_USER = "user";
+	
+	// Wallet object
+	public static final String WALLET_OBJ = "Wallet";
 	
 	// Wallet table
 	public static final String WALLET = "wallet";
@@ -47,7 +50,7 @@ public class ParseConstants {
 	public static final String RESPONDS_LAST_POST = "lastPosition";
 	public static final String RESPONDS_NAME = "name";
 	public static final String RESPONDS_PHOTO = "photo";
-	public static final String RESPONDS_PROOF = "";
+	public static final String RESPONDS_PROOF = "proof";
 	public static final String RESPONDS_REQUEST = "request";
 	public static final String RESPONDS_STATUS = "type";		// << -- remove this col
 	public static final String RESPONDS_TYPE = "type";
@@ -66,6 +69,5 @@ public class ParseConstants {
 	// Transaction table
 	public static final String TRANSACTION_AMOUNT = "amount";
 	public static final String TRANSACTION_DESTINATION = "destination";
-	public static final String TRANSACTION_TAX = "tax";	
-	
+	public static final String TRANSACTION_TAX = "tax";		
 }

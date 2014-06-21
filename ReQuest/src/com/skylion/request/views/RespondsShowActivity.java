@@ -22,6 +22,8 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.skylion.parse.settings.ParseConstants;
+import com.skylion.parse.settings.ParseTable;
 import com.skylion.request.R;
 import com.skylion.request.entity.RequestConstants;
 import com.skylion.request.parse.ParseApi;
@@ -123,9 +125,9 @@ public static class PlaceholderFragment extends Fragment implements SwipeRefresh
 		
 		private void getRequests(ParseObject object, final int select) {
 			
-			ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");
-			query.whereEqualTo("request", object);
-			query.whereEqualTo("user", ParseUser.getCurrentUser());
+			ParseQuery<ParseObject> query = ParseQuery.getQuery(ParseTable.RESPONDS_TABLE_NAME);
+			query.whereEqualTo(ParseConstants.QUERY_EQUAL_REQUEST, object);
+			query.whereEqualTo(ParseConstants.QUERY_EQUAL_USER, ParseUser.getCurrentUser());
 			query.findInBackground(new FindCallback<ParseObject>() {					
 			    public void done(List<ParseObject> responds, ParseException e) {
 			        if (e == null && !responds.isEmpty()) {		        			        				

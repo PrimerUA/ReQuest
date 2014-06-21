@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +21,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.skylion.parse.settings.ParseConstants;
 import com.skylion.request.R;
 import com.skylion.request.billing.IabHelper.OnIabPurchaseFinishedListener;
 import com.skylion.request.billing.IabHelper.QueryInventoryFinishedListener;
@@ -32,7 +31,7 @@ import com.skylion.request.billing.Purchase;
 import com.skylion.request.parse.ParseApi;
 
 public class MyProfileFragment extends Fragment implements View.OnClickListener, QueryInventoryFinishedListener,
-		OnIabPurchaseFinishedListener, SwipeRefreshLayout.OnRefreshListener {
+		OnIabPurchaseFinishedListener {
 	private static final String ARG_SECTION_NUMBER = "section_number";
 	private static final String SKU_1 = "fund_5";
 	private static final String SKU_2 = "fund_10";
@@ -60,8 +59,6 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener,
 	private Button withdrawButton;
 
 	private View view;
-	
-	private SwipeRefreshLayout refreshLayout;
 
 //	private IabHelper mHelper;
 
@@ -79,12 +76,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener,
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_profile, container, false);
-//		refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.fragment_container);
-//		refreshLayout.setOnRefreshListener(this);
-//	    refreshLayout.setColorScheme(android.R.color.holo_red_light,
-//		            android.R.color.black,
-//		            android.R.color.white,
-//		            android.R.color.black);
+
 //		mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
 //			public void onIabSetupFinished(IabResult result) {
 //				if (!result.isSuccess()) {
@@ -240,21 +232,9 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener,
 			double res = current + ammount;
 			walletText.setText("$" + String.valueOf(res));
 		}
-		ParseObject wallet = (ParseObject) ParseUser.getCurrentUser().get("wallet");
+		ParseObject wallet = (ParseObject) ParseUser.getCurrentUser().get(ParseConstants.WALLET);
 		wallet.increment("total", ammount);		
 		wallet.saveInBackground();
-	}
-
-	@Override
-	public void onRefresh() {
-		// TODO Auto-generated method stub
-		
-//		new Handler().postDelayed(new Runnable() {
-//        @Override public void run() {
-//        	refreshLayout.setRefreshing(false);
-//        }
-//    }, 5000);
-		
-	}
+	}	
 
 }
