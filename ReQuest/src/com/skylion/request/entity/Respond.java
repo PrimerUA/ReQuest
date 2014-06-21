@@ -28,8 +28,7 @@ public class Respond {
 	private String objectId;
 	private int fragmentType;
 	private Integer candidateStatus;
-	
-	
+		
 	public Respond toObject(ParseObject obj) {
 		if(obj == null)
 			return new Respond();
