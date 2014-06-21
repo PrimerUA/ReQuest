@@ -2,7 +2,6 @@ package com.skylion.request.utils.adapters;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.text.BreakIterator;
 import java.util.List;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -15,6 +14,8 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.skylion.parse.settings.ParseConstants;
+import com.skylion.parse.settings.ParseTable;
 import com.skylion.request.R;
 import com.skylion.request.entity.RequestConstants;
 import com.skylion.request.entity.Respond;
@@ -22,11 +23,9 @@ import com.skylion.request.entity.Respond;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -103,7 +102,7 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)
 				.showImageForEmptyUri(R.drawable.ic_launcher).imageScaleType(ImageScaleType.EXACTLY_STRETCHED).resetViewBeforeLoading(true)
 				.cacheInMemory(true).cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(Integer.MAX_VALUE)).build();
-		ImageLoader.getInstance().displayImage(respond.getUser().getString("avatar"), holder.avatar, options);
+		ImageLoader.getInstance().displayImage(respond.getUser().getString(ParseConstants.USER_AVATAR), holder.avatar, options);
 
 		Button downloadCVButton = (Button) view.findViewById(R.id.respondsItem_getCV_button);
 		downloadCVButton.setOnClickListener(this);
@@ -306,11 +305,11 @@ public class RespondsListAdapter extends BaseAdapter implements OnClickListener 
 		final ProgressDialog myProgressDialog = ProgressDialog.show(context, context.getString(R.string.connection),
 				context.getString(R.string.respond_set_status), true);
 
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");
+		ParseQuery<ParseObject> query = ParseQuery.getQuery(ParseTable.RESPONDS_TABLE_NAME);
 		query.getInBackground(respondObj.getObjectId(), new GetCallback<ParseObject>() {
 			public void done(ParseObject gameScore, ParseException e) {
 				if (e == null) {
-					gameScore.put("type", status);
+					gameScore.put(ParseConstants.RESPONDS_TYPE, status);
 					gameScore.saveInBackground();
 					myProgressDialog.dismiss();
 					switch (status) {

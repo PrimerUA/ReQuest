@@ -8,12 +8,11 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.skylion.parse.settings.ParseConstants;
 
 public class Respond {
 	
 	private ParseObject respondObj;
-	
-	private Integer type;
 	private ParseUser user;
 	private ParseObject request;
 	private String bdate;
@@ -29,43 +28,33 @@ public class Respond {
 	private String objectId;
 	private int fragmentType;
 	private Integer candidateStatus;
-	
-	
+		
 	public Respond toObject(ParseObject obj) {
 		if(obj == null)
 			return new Respond();
 		ParseUser ust = null;
 		ParseObject requestt = null;
-		type = obj.getInt("type");		
-		ust = obj.getParseUser("user");
-		requestt = obj.getParseObject("request");
-		bdate = obj.getString("birthDate");
-		name = obj.getString("name");
-		email = obj.getString("email");
-		lastJob = obj.getString("lastJob");
-		lastPost = obj.getString("lastPosition");
-		photo = (ParseFile)obj.get("photo");
-		comment = obj.getString("comment");
+		ust = obj.getParseUser(ParseConstants.RESPONDS_USER);
+		requestt = obj.getParseObject(ParseConstants.RESPONDS_REQUEST);
+		bdate = obj.getString(ParseConstants.RESPONDS_BDATE);
+		name = obj.getString(ParseConstants.RESPONDS_NAME);
+		email = obj.getString(ParseConstants.RESPONDS_EMAIL);
+		lastJob = obj.getString(ParseConstants.RESPONDS_LAST_JOB);
+		lastPost = obj.getString(ParseConstants.RESPONDS_LAST_POST);
+		photo = (ParseFile)obj.get(ParseConstants.RESPONDS_PHOTO);
+		comment = obj.getString(ParseConstants.RESPONDS_COMMENT);
 		createdAt = obj.getCreatedAt();
 		updatedAt = obj.getUpdatedAt();
-		experience = obj.getString("experience");		
-		candidateStatus = (Integer) obj.getNumber("type");
+		experience = obj.getString(ParseConstants.RESPONDS_EXPERIENCE);		
+		candidateStatus = (Integer) obj.getNumber(ParseConstants.RESPONDS_TYPE);
 		objectId = obj.getObjectId();
 		respondObj = obj;
 				
-		try {
-			user = ust.fetch();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		try { user = ust.fetch();} 
+		catch (ParseException e) { e.printStackTrace(); }
 		
-		try {
-			request = requestt.fetch();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		try { request = requestt.fetch();} 
+		catch (ParseException e) { e.printStackTrace(); }
 			
 		return this;
 	}	
@@ -89,11 +78,6 @@ public class Respond {
 	public void setFragmentType(int fragmentType) {
 		this.fragmentType = fragmentType;
 	}
-
-	public Integer getType() {
-		return type;
-	}
-
 	
 	public ParseObject getRespondObj() {
 		return respondObj;
@@ -157,12 +141,11 @@ public class Respond {
 		return getDateString(updatedAt);
 	}
 	
-	private String getDateString(Date date) {
-		String res = null;
+	private String getDateString(Date date) {		
 		if (date != null) {
 			SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm", new Locale("UA"));
-			res = df.format(date.getTime()) + " GMT";
+			return df.format(date.getTime()) + " GMT";
 		}
-		return res;
+		return null;
 	}		
 }

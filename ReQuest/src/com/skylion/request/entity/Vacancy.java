@@ -8,6 +8,7 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.skylion.parse.settings.ParseConstants;
 
 public class Vacancy {
 
@@ -38,27 +39,23 @@ public class Vacancy {
 		if (obj == null)
 			return new Vacancy();
 		ParseUser tauthor = null;
-		image = (ParseFile) obj.get("image");
-		title = obj.getString("title");
-		demands = obj.getString("demands");
-		terms = obj.getString("terms");
-		company = obj.getString("company");
+		image = (ParseFile) obj.get(ParseConstants.REQUESTS_IMAGE);
+		title = obj.getString(ParseConstants.REQUESTS_TITLE);
+		demands = obj.getString(ParseConstants.REQUESTS_DEMANDS);
+		terms = obj.getString(ParseConstants.REQUESTS_TERMS);
+		company = obj.getString(ParseConstants.REQUESTS_COMPANY);
 		createdAt = obj.getCreatedAt();
-		expire = (Date) obj.get("expire");
-		reward = obj.getInt("reward");
-		salary = obj.getString("salary");
-		city = obj.getString("city");
-		companyDescription = obj.getString("companyDescription");
-		companyAddress = obj.getString("companyAddress");
-		tauthor = obj.getParseUser("user");
+		expire = (Date) obj.get(ParseConstants.REQUESTS_EXPIRE);
+		reward = obj.getInt(ParseConstants.REQUESTS_REWARD);
+		salary = obj.getString(ParseConstants.REQUESTS_SALARY);
+		city = obj.getString(ParseConstants.REQUESTS_CITY);
+		companyDescription = obj.getString(ParseConstants.REQUESTS_COMPANY_DESCRIPTION);
+		companyAddress = obj.getString(ParseConstants.REQUESTS_COMPANY_ADDRESS);
+		tauthor = obj.getParseUser(ParseConstants.REQUESTS_USER);
 		objectId = obj.getObjectId();
 		
-		try {
-			author = tauthor.fetch();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		try { author = tauthor.fetch(); } 
+		catch (ParseException e) { e.printStackTrace();}
 		
 		this.vacancyObj = obj;
 		return this;
@@ -177,13 +174,12 @@ public class Vacancy {
 		this.companyAddress = companyAddress;
 	}
 
-	public String getExpireToString() {
-		String res = null;
+	public String getExpireToString() {		
 		if (expire != null) {
-			SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm", new Locale("UA"));
-			res = df.format(expire.getTime()) + " GMT";
+			SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm", new Locale("UA"));			
+			return df.format(expire.getTime()) + " GMT";
 		}
-		return res;
+		return null;
 	}
 
 	public void setExpire(Date expire) {
@@ -219,9 +215,6 @@ public class Vacancy {
         if (obj == this) {
             return true;
         }
-//        if (!(obj instanceof Vacancy)) {
-//            return false;
-//        }
         Vacancy other = (Vacancy) obj;
         return this.objectId.equals(other.getObjectId());
     }

@@ -8,7 +8,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +20,8 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.skylion.parse.settings.ParseConstants;
+import com.skylion.parse.settings.ParseTable;
 import com.skylion.request.R;
 import com.skylion.request.entity.RequestConstants;
 import com.skylion.request.entity.Respond;
@@ -35,6 +36,7 @@ public class ParseApi {
 	private static int fragment_type;	
 	private static ProgressDialog myProgressDialog;
 	private static SwipeRefreshLayout refreshLayout = null;
+	private static ParseTable table = new ParseTable();
 	
 	public ParseApi() {
 	}
@@ -80,8 +82,7 @@ public class ParseApi {
 		}
 		else {			
 			listView.invalidate();			
-			dismissProgressDialog();
-//			((BaseAdapter)listView.getAdapter()).notifyDataSetChanged();			
+			dismissProgressDialog();			
 			BaseAdapter adapter = (BaseAdapter)listView.getAdapter();
 			adapter.notifyDataSetChanged();
 		}
@@ -93,14 +94,14 @@ public class ParseApi {
 		if(result.isEmpty())
 			isInited = false;
 		else
-			isInited = true;
+			isInited = true;		
 		final int last_element = vacancyList.size() - 1;
 		for (final ParseObject obj : vacancyList) {
 			if (obj != null) {																									
 				final Vacancy tvacancy = new Vacancy();
 				tvacancy.toObject(obj);												
-				ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");								
-				query.whereEqualTo("request", obj);																
+				ParseQuery<ParseObject> query = ParseQuery.getQuery(table.RESPONDS_TABLE_NAME);								
+				query.whereEqualTo(ParseConstants.QUERY_EQUAL_REQUEST, obj);																
 				query.countInBackground(new CountCallback() {
 				  public void done(int count, ParseException e) {
 				    if (e == null) {								    	
@@ -128,10 +129,11 @@ public class ParseApi {
 			final int count, final List<Vacancy> result, final SwipeRefreshLayout refreshLay) {
 		fragment_type = fragmentType;
 		refreshLayout = refreshLay;
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("Requests");
+		
+		ParseQuery<ParseObject> query = ParseQuery.getQuery(table.REQUESTS_TABLE_NAME);
 		switch (fragmentType) {
 		case RequestConstants.FRAGMENT_GENERAL_VACANCY: {
-			query.whereEqualTo("type", RequestConstants.REQUEST_GENERAL);
+			query.whereEqualTo(ParseConstants.QUERY_EQUAL_TYPE, RequestConstants.REQUEST_GENERAL);
 			query.setLimit(RequestConstants.LIST_ITEMS_LOAD);
 			query.setSkip(count);			
 			break;
@@ -140,13 +142,13 @@ public class ParseApi {
 		// query.whereEqualTo("type", RequestConstants.REQUEST_HOT);
 		// break;
 		case RequestConstants.FRAGMENT_MY_VACANCY:
-			query.whereEqualTo("user", ParseUser.getCurrentUser());
+			query.whereEqualTo(ParseConstants.QUERY_EQUAL_USER, ParseUser.getCurrentUser());
 			query.setLimit(RequestConstants.LIST_ITEMS_LOAD);
 			query.setSkip(count);
 			break;
 		}
 
-		query.include("user");
+		query.include(ParseConstants.QUERY_EQUAL_USER);
 
 		if(refreshLayout == null) {					
 			myProgressDialog = ProgressDialog.show(context, context.getString(R.string.connection),
@@ -193,8 +195,8 @@ public class ParseApi {
 									final SwipeRefreshLayout swipeLay) {
 		refreshLayout = swipeLay;
 		myProgressDialog = progressDialogg;
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");
-		query.whereEqualTo("user", ParseUser.getCurrentUser());
+		ParseQuery<ParseObject> query = ParseQuery.getQuery(table.RESPONDS_TABLE_NAME);
+		query.whereEqualTo(ParseConstants.QUERY_EQUAL_USER, ParseUser.getCurrentUser());
 		query.setLimit(5);
 		query.findInBackground(new FindCallback<ParseObject>() {
 
@@ -212,12 +214,12 @@ public class ParseApi {
 	}
 
 	public static void getWallet(final TextView walletText) {
-		ParseObject wallet = (ParseObject) ParseUser.getCurrentUser().get("wallet");
+		ParseObject wallet = (ParseObject) ParseUser.getCurrentUser().get(ParseConstants.WALLET);
 		wallet.fetchInBackground(new GetCallback<ParseObject>() {
 
 			@Override
 			public void done(ParseObject wallet, ParseException arg1) {
-				walletText.setText("$" + String.valueOf(wallet.getDouble("total")));
+				walletText.setText("$" + String.valueOf(wallet.getDouble(ParseConstants.WALLET_TOTAL)));
 			}
 		});
 	}

@@ -18,6 +18,7 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
+import com.skylion.parse.settings.ParseConstants;
 import com.skylion.request.R;
 
 public class UserLoginActivity extends ActionBarActivity implements GooglePlayServicesClient.ConnectionCallbacks,
@@ -120,13 +121,13 @@ public class UserLoginActivity extends ActionBarActivity implements GooglePlaySe
 	}
 
 	protected void doWallet() {
-		wallet = new ParseObject("Wallet");
-		wallet.put("total", 0);
+		wallet = new ParseObject(ParseConstants.WALLET_OBJ);
+		wallet.put(ParseConstants.WALLET_TOTAL, 0);
 		wallet.saveInBackground(new SaveCallback() {
 
 			@Override
 			public void done(ParseException arg0) {
-				user.put("wallet", wallet);
+				user.put(ParseConstants.WALLET, wallet);
 				user.saveInBackground(new SaveCallback() {
 					
 					@Override

@@ -22,6 +22,8 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.skylion.parse.settings.ParseConstants;
+import com.skylion.parse.settings.ParseTable;
 import com.skylion.request.R;
 import com.skylion.request.entity.RequestConstants;
 import com.skylion.request.parse.ParseApi;
@@ -119,7 +121,6 @@ public class RespondsShowActivity extends ActionBarActivity {
 		}
 
 		private void getRequests(ParseObject object, final int select) {
-
 			ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");
 			query.whereEqualTo("request", object);
 			query.whereEqualTo("user", ParseUser.getCurrentUser());
