@@ -38,7 +38,7 @@ public class VacancyFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		mTabHost = new FragmentTabHost(getActivity());
-		mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.fragment_container);
+		mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.navigation_fragment_container);
 
 		mTabHost.addTab(mTabHost.newTabSpec(getString(R.string.title_tabs_general)).setIndicator(getString(R.string.title_tabs_general)),
 				GeneralVacancyFragment.class, null);

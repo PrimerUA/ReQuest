@@ -4,7 +4,9 @@ import java.util.List;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,6 +23,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.skylion.request.R;
+import com.skylion.request.entity.RequestConstants;
 import com.skylion.request.parse.ParseApi;
 
 public class RespondsShowActivity extends ActionBarActivity {
@@ -58,13 +61,11 @@ public class RespondsShowActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
+	public static class PlaceholderFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
 		private ProgressDialog myProgressDialog;
 		private ListView contentList;
+		private SwipeRefreshLayout refreshLayout;
 
 		public PlaceholderFragment() {
 		}
@@ -74,6 +75,12 @@ public class RespondsShowActivity extends ActionBarActivity {
 
 			View rootView = inflater.inflate(R.layout.fragment_responds_show, container, false);
 			contentList = (ListView) rootView.findViewById(R.id.responds_ListView);
+
+			refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.responds_fragment_container);
+			refreshLayout.setOnRefreshListener(this);
+			refreshLayout.setColorScheme(android.R.color.holo_red_light, android.R.color.black, android.R.color.white,
+					android.R.color.black);
+
 			myProgressDialog = ProgressDialog.show(getActivity(), getActivity().getString(R.string.connection),
 					getActivity().getString(R.string.connection_responds), true);
 
@@ -82,15 +89,19 @@ public class RespondsShowActivity extends ActionBarActivity {
 		}
 
 		private void getVacancyObject() {
+			getVacancyObject(RequestConstants.RESPOND_LOAD);
+		}
+
+		private void getVacancyObject(final int select) {
 			fragmentType = Integer.parseInt(getActivity().getIntent().getStringExtra("fragment_type"));
 			String objectId = getActivity().getIntent().getStringExtra("request");
 			ParseQuery<ParseObject> query = ParseQuery.getQuery("Requests");
 			query.getInBackground(objectId, new GetCallback<ParseObject>() {
 				public void done(ParseObject object, ParseException e) {
 					if (e == null) {
-						getRequests(object);
+						getRequests(object, select);
 					} else {
-						myProgressDialog.dismiss();
+						dismissUpdateDialog(select);
 						Toast.makeText(getActivity(), getActivity().getString(R.string.requests_not_found), Toast.LENGTH_SHORT).show();
 					}
 				}
@@ -107,7 +118,7 @@ public class RespondsShowActivity extends ActionBarActivity {
 			return true;
 		}
 
-		private void getRequests(ParseObject object) {
+		private void getRequests(ParseObject object, final int select) {
 
 			ParseQuery<ParseObject> query = ParseQuery.getQuery("Responds");
 			query.whereEqualTo("request", object);
@@ -115,18 +126,31 @@ public class RespondsShowActivity extends ActionBarActivity {
 			query.findInBackground(new FindCallback<ParseObject>() {
 				public void done(List<ParseObject> responds, ParseException e) {
 					if (e == null && !responds.isEmpty()) {
-						showRequests(responds);
+						showRequests(responds, select);
 					} else {
-						myProgressDialog.dismiss();
+						dismissUpdateDialog(select);
 						Toast.makeText(getActivity(), getActivity().getString(R.string.responses_not_found), Toast.LENGTH_SHORT).show();
 					}
 				}
 			});
 		}
 
-		private void showRequests(List<ParseObject> responds) {
-			myProgressDialog.dismiss();
+		private void showRequests(List<ParseObject> responds, final int select) {
+			dismissUpdateDialog(select);
 			ParseApi.loadRespondsList(contentList, responds, getActivity(), fragmentType);
+		}
+
+		@Override
+		public void onRefresh() {
+			getVacancyObject(RequestConstants.RESPOND_REFRESH);
+		}
+
+		public void dismissUpdateDialog(final int select) {
+			if (select == RequestConstants.RESPOND_LOAD) {
+				myProgressDialog.dismiss();
+			} else {
+				refreshLayout.setRefreshing(false);
+			}
 		}
 
 	}

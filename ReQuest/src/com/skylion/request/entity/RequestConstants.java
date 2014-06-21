@@ -23,6 +23,9 @@ public class RequestConstants {
 	public static final int RESPOND_STATUS_DISMISS = 1;
 	public static final int RESPOND_STATUS_PROCESSING = 2;
 	public static final int RESPOND_STATUS_OFFER = 3;
-	public static final int RESPOND_STATUS_ACCEPTED = 4;		
+	public static final int RESPOND_STATUS_ACCEPTED = 4;
+	
+	public static final int RESPOND_REFRESH = 1;
+	public static final int RESPOND_LOAD = 0;
 	
 }
