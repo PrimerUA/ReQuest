@@ -4,7 +4,6 @@ import java.util.List;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -22,8 +21,6 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.skylion.parse.settings.ParseConstants;
-import com.skylion.parse.settings.ParseTable;
 import com.skylion.request.R;
 import com.skylion.request.entity.RequestConstants;
 import com.skylion.request.parse.ParseApi;
