@@ -1,7 +1,7 @@
 package com.skylion.parse.settings;
 
-import com.skylion.request.entity.RequestConstants;
-import com.skylion.parse.settings.ParseConstants;;
+import com.skylion.parse.settings.ParseConstants;
+import com.skylion.request.RequestConstants;
 
 public class ParseTable {
 	public static String REQUESTS_TABLE_NAME;

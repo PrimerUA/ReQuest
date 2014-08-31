@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.skylion.request.R;
-import com.skylion.request.entity.RequestConstants;
+import com.skylion.request.RequestConstants;
 import com.skylion.request.parse.ParseApi;
 
 public class RespondsFragment extends Fragment implements ListView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {

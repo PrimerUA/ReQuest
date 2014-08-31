@@ -1,4 +1,4 @@
-package com.skylion.request.entity;
+package com.skylion.request;
 
 public class RequestConstants {
 

@@ -1,4 +1,4 @@
-package com.skylion.request.entity;
+package com.skylion.request.parse;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,7 +25,8 @@ public class Vacancy {
 	private String companyDescription;
 	private String companyAddress;
 	private ParseUser author;
-	private String objectId;	
+	private String objectId;
+	private String username;
 	private Integer respondsCount = 0;
 	private int fragmentType;
 	private ParseObject vacancyObj;	
@@ -52,10 +53,16 @@ public class Vacancy {
 		companyDescription = obj.getString(ParseConstants.REQUESTS_COMPANY_DESCRIPTION);
 		companyAddress = obj.getString(ParseConstants.REQUESTS_COMPANY_ADDRESS);
 		tauthor = obj.getParseUser(ParseConstants.REQUESTS_USER);
-		objectId = obj.getObjectId();
+		objectId = obj.getObjectId();		
 		
-		try { author = tauthor.fetch(); } 
-		catch (ParseException e) { e.printStackTrace();}
+		try { 
+			author = tauthor.fetch();
+			username = author.getString(ParseConstants.USER_NAME);
+		} 
+		catch (ParseException e) {
+			username = "";
+			e.printStackTrace();
+		}
 		
 		this.vacancyObj = obj;
 		return this;
@@ -64,6 +71,10 @@ public class Vacancy {
 	public void setRespondsCount(int count) {
 		this.respondsCount = count;
 	}	
+	
+	public String getUserName() {
+		return username;
+	}
 	
 	public Integer getRespondsCount() {
 		return respondsCount;

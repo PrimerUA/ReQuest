@@ -57,7 +57,7 @@ public final class ParseConstants {
 	public static final String RESPONDS_USER = "user";		
 	
 	// User table
-	public static final String USER_NAME = "username";
+	public static final String USER_NAME_AS_EMAIL = "username";
 	public static final String USER_PASSWORD = "password";
 	public static final String USER_AUTH_DATA = "authData";
 	public static final String USER_EMAIL_VERIFIED = "emailVerified";
@@ -65,6 +65,7 @@ public final class ParseConstants {
 	public static final String USER_EMAIL = "email";
 	public static final String USER_PARENT = "parent";
 	public static final String USER_WALLET = "wallet";
+	public static final String USER_NAME = "name";
 	
 	// Transaction table
 	public static final String TRANSACTION_AMOUNT = "amount";

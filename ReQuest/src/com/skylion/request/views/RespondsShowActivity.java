@@ -22,7 +22,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.skylion.request.R;
-import com.skylion.request.entity.RequestConstants;
+import com.skylion.request.RequestConstants;
 import com.skylion.request.parse.ParseApi;
 
 public class RespondsShowActivity extends ActionBarActivity {

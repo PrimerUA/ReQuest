@@ -43,6 +43,9 @@ public class UserLoginActivity extends ActionBarActivity implements GooglePlaySe
 
 		plusClient = new PlusClient.Builder(this, this, this).setVisibleActivities("http://schemas.google.com/AddActivity",
 				"http://schemas.google.com/BuyActivity").build();
+//		plusClient = new PlusClient.Builder(this, this, this).setActions(
+//				"http://schemas.google.com/AddActivity",
+//				"http://schemas.google.com/BuyActivity").build();
 		plusClient.connect();
 
 		screenInit();
@@ -97,10 +100,11 @@ public class UserLoginActivity extends ActionBarActivity implements GooglePlaySe
 	public void onConnected(Bundle arg0) {
 		if (plusClient != null) {
 			user = new ParseUser();
-			user.setUsername(plusClient.getCurrentPerson().getDisplayName());
+			user.setUsername(plusClient.getAccountName());// getCurrentPerson().getDisplayName());			
 			user.setPassword("my-pass");
 			user.setEmail(plusClient.getAccountName());
 			user.put("avatar", plusClient.getCurrentPerson().getImage().getUrl());
+			user.put("name", plusClient.getCurrentPerson().getDisplayName());
 			doAuth(user);
 		} else {
 			progressDialog.dismiss();

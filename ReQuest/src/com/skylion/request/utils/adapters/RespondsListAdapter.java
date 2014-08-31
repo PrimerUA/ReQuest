@@ -17,8 +17,8 @@ import com.parse.ParseQuery;
 import com.skylion.parse.settings.ParseConstants;
 import com.skylion.parse.settings.ParseTable;
 import com.skylion.request.R;
-import com.skylion.request.entity.RequestConstants;
-import com.skylion.request.entity.Respond;
+import com.skylion.request.RequestConstants;
+import com.skylion.request.parse.Respond;
 
 import android.app.ProgressDialog;
 import android.content.Context;

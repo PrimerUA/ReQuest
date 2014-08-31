@@ -17,9 +17,9 @@ import android.widget.ListView;
 import android.widget.AbsListView.OnScrollListener;
 
 import com.skylion.request.R;
-import com.skylion.request.entity.RequestConstants;
-import com.skylion.request.entity.Vacancy;
+import com.skylion.request.RequestConstants;
 import com.skylion.request.parse.ParseApi;
+import com.skylion.request.parse.Vacancy;
 import com.skylion.request.utils.ExpandableViewHelper;
 
 abstract class CoreVacancyFragment extends Fragment implements ListView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {

@@ -1,6 +1,6 @@
 package com.skylion.request.fragments.tabs;
 
-import com.skylion.request.entity.RequestConstants;
+import com.skylion.request.RequestConstants;
 
 public class HotVacancyFragment extends CoreVacancyFragment {
 

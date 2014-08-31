@@ -2,12 +2,10 @@ package com.skylion.request.utils.adapters;
 
 import java.util.List;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,7 +14,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,11 +24,9 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseObject;
 import com.skylion.request.R;
-import com.skylion.request.entity.RequestConstants;
-import com.skylion.request.entity.Vacancy;
-import com.skylion.request.parse.ParseApi;
+import com.skylion.request.RequestConstants;
+import com.skylion.request.parse.Vacancy;
 import com.skylion.request.utils.ExpandableViewHelper;
 import com.skylion.request.views.NewRecommendActivity;
 import com.skylion.request.views.RespondsShowActivity;
@@ -44,7 +39,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 	private Context context = null;
 	private ViewHolder holder;	
 	private LinearLayout responds_layout;
-	private ViewGroup container;
+//	private ViewGroup container;
 	
 	
 	public VacancyListAdapter(Context context, List<Vacancy> result) {
@@ -78,7 +73,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		final Vacancy vacancy = requestList.get(position);
-		container = parent;
+//		container = parent;
 		view = convertView;
 		if (view == null)
 			view = inflater.inflate(R.layout.vacancy_list_item, null);
@@ -118,7 +113,7 @@ public class VacancyListAdapter extends BaseAdapter implements OnClickListener {
 		setDataAndVisibility(holder.city, vacancy.getCity(), view);
 		setDataAndVisibility(holder.companyDescription, vacancy.getCompanyDescription(), view);
 		setDataAndVisibility(holder.companyAddress, vacancy.getCompanyAddress(), view);
-		setDataAndVisibility(holder.author, vacancy.getAuthor().getUsername(), view);
+		setDataAndVisibility(holder.author, vacancy.getUserName(), view);
 		
 		if(holder.city.getVisibility() == View.GONE && holder.salary.getVisibility() == View.GONE)					
 			view.findViewById(R.id.textView_vacancyDescription).setVisibility(View.GONE);

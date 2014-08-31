@@ -42,7 +42,7 @@ import com.parse.SaveCallback;
 import com.skylion.parse.settings.ParseConstants;
 import com.skylion.parse.settings.ParseTable;
 import com.skylion.request.R;
-import com.skylion.request.entity.RequestConstants;
+import com.skylion.request.RequestConstants;
 import com.skylion.request.utils.DateTimeSelector;
 import com.skylion.request.utils.DateTimeSelectorListener;
 

@@ -1,4 +1,4 @@
-package com.skylion.request.entity;
+package com.skylion.request.parse;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
